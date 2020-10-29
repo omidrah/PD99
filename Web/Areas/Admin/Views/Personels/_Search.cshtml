@@ -1,0 +1,40 @@
+﻿@model IEnumerable<ServiceLayer.Models.PersonelVM>
+     @{ 
+         int counter = 1;
+     }
+<section>
+    @(Html.Kendo().Grid(Model).HtmlAttributes(new { @class = "k-rtl", style = "height:600px" })
+                 .Name("UserGrid")
+                 .Columns(columns =>
+                 {
+                 columns.Template( @<text>      @counter   @{ counter++; }   </text>).Width(70).Title("ردیف");
+                     columns.Bound(model => model.Name);
+                     //   columns.Bound(model => model.PersonliNo);
+                     // columns.Bound(model => model.MadrakTashili);
+                     columns.Bound(model => model.Username);
+                     //     columns.Bound(model => model.IsRasmi);
+
+                     columns.Bound(item => @item.UserId).Title("دستورات").Filterable(false).Groupable(false).
+                Template(@<text>
+                            @Html.ActionLink("ویرایش", "Edit", new { id = @item.UserId }, new { @class = "btn btn-primary" })
+                            @Html.ActionLink("تغییر پسورد", "ChangePassword", new { id = @item.UserId }, new { @class = "btn btn-primary" })
+                            <a href="#" id="@item.UserId" class="btn btn-primary checkDelete">حذف</a>
+                </text>).Width(300);
+                 })
+        .ToolBar(toolbar =>
+        {
+            toolbar.Custom().Action("Create", "Personels").Text("افزودن");
+        }
+        )
+        //.Groupable()
+        .Pageable()
+        .Sortable()
+        .Scrollable()
+        .Filterable()
+        .DataSource(dataSource => dataSource
+                                    .Server()
+                                    .PageSize(10)
+                                    .Model(model => model.Id(item => item.UserId))
+                    )
+    )
+</section>

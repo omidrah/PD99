@@ -1,0 +1,76 @@
+﻿@model IEnumerable<ServiceLayer.Models.PersonelVM>
+
+@{
+    //ViewBag.Title = "فهرست " + Server.HtmlDecode(Html.DisplyModelPluralName(model => model).ToString());
+    //Layout = "~/Areas/AdminRoot/Views/Shared/_NLayout.cshtml";
+    int counter = 1;
+}
+
+<section id="Users" class="top-buffer" style="width:100%" >
+    <div class="row text-center"> <h3>مشخصات کارمندان</h3></div>
+    <hr />
+    <div id="searchDiv">
+        @Html.Action("_Search", new { keyword = "" })
+    </div>
+</section>
+@using(Ajax.BeginForm("_Search",new AjaxOptions { UpdateTargetId="searchDiv", LoadingElementDuration=2000,LoadingElementId="divLoading" , InsertionMode= InsertionMode.Replace }))
+{
+    <div id="divLoading"></div>
+    <div>
+        @Html.TextBox("keyword")
+        <button type="submit">جستجو</button>
+    </div>
+}
+@section scripts{
+    <script type="text/javascript">
+        $(function () {
+
+            $(".checkDelete").click(function () {
+                var curRec = this.id;//get id of record;
+                showConfirm("از حذف این رکورد مطمئن هستید؟").then(function (stat) {
+                    if (stat) {
+                        $.ajax({
+                            type: 'POST',
+                            url: '@Url.Action("Delete", "Personels")', // we are calling json method
+                            dataType: 'json',
+                            data: { id: curRec },
+                            success: function (states) {
+                                if (states) {
+                                    if (states.codeid == 1) {
+                                        $.ajax({
+                                            type: 'get',
+                                            url: '/Admin/Personels/Index',
+                                            data: {},
+                                            success: function (data) {//rebind grid
+                                                window.location.href = "/Admin/Personels/Index";
+                                                showNotification("عملیات حذف با موفقیت انجام گردید", "success", "center");
+                                            }
+                                        });
+                                    }
+                                    else if (states.codeid == 2) {
+                                        showNotification("خطا در عملیات حذف رکورد", "information");
+                                        return;
+                                    }
+                                    else {
+                                        showNotification("رکورد مورد نظر سابقه داشته و قابل حذف نمی باشد", "information", "center");
+                                        return;
+                                    }
+
+                                }
+                                else {
+                                    //res = "خطا در حذف";
+                                }
+                            },
+                            error: function (ex) {
+                                alert('Failed to retrieve states.' + ex);
+                            }
+                        })
+                    }
+                });
+
+            });
+
+        });
+    </script>
+    @Html.Raw(TempData["res"])
+}

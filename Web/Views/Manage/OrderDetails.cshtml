@@ -1,0 +1,88 @@
+﻿@model IEnumerable<ServiceLayer.Models.OrderDetailViewModel>
+
+@{
+    ViewBag.Title = "OrderDetails";
+    int counter = 1;
+}
+
+<div class="text-center"><h1><b>جزئیات فاکتور</b></h1></div>
+<br />
+
+<div>
+    <div class="col-md-4">
+        شماره سفارش:@ViewBag.OrderId
+    </div>
+    <div class="col-md-8">
+        تاریخ ثبت سفارش:@ViewBag.OrderDate
+    </div>
+</div>
+<hr />
+<table class="table table-responsive table-bordered">
+    <tr>
+        <td> #</td>
+        <th>
+            @Html.DisplayNameFor(model => model.ItemName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OrderedCount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsTransfered)
+        </th>
+
+        <th>
+           قیمت واحد
+        </th>
+        <th>
+             مبلغ
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td> @(counter++)</td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ItemName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderedCount)
+            </td>
+                @{
+                    if (item.IsTransfered == true)
+                    {
+                        <td> ارسال شده</td>
+                    }
+                    else
+                    {
+                        <td> ارسال نشده</td>
+                    }
+                }
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            
+            <td>
+                @(item.Price * item.OrderedCount)
+            </td>
+        </tr>
+        
+    }
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>هزینه ارسال</td>
+        <td>@ViewBag.TransferCost</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>مبلغ کل</td>
+        <td>@ViewBag.Sum</td>
+    </tr>
+
+</table>

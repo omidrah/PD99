@@ -1,0 +1,139 @@
+﻿@model Web.Models.IndexViewModel
+
+@{
+    ViewBag.Title = "داشبورد";
+}
+@*<div class="banner-bootom-w3-agileits">*@
+<section>
+    <div class="container">
+        <p class="text-success">@ViewBag.StatusMessage</p>
+        <div style="margin: 0 auto;">
+            @*<div class="col-md-6 col-sm-6 col-xs-12">
+                <div class="info-box">
+                    <span class="info-box-icon fa fa-Home"><i class="fa fa-calendar-check-o"></i></span>
+                    <div class="info-box-content">
+                        @Html.ActionLink("خانه", MVC.Manage.ActionNames.Index, MVC.Manage.Name)
+                    </div>
+                </div>
+            </div>*@
+            
+            @*@if (Model.HasPassword)
+        {
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <div class="info-box">
+                    <span class="info-box-icon fa fa-cog"><i class="fa fa-desktop"></i></span>
+                    <div class="info-box-content">
+                        @Html.ActionLink("تغییر رمز عبور", MVC.Manage.ActionNames.ChangePassword, MVC.Manage.Name)
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <div class="info-box">
+                    <span class="info-box-icon fa fa-cog"><i class="fa fa-check-circle"></i></span>
+                    <div class="info-box-content">
+                        @Html.ActionLink("ایجاد رمز عبور", MVC.Manage.ActionNames.SetPassword, MVC.Manage.Name)
+                    </div>
+                </div>
+            </div>
+        }*@
+
+            @*@if (Model.PhoneNumber != null)
+            {
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="info-box">
+                        <span class="info-box-icon fa fa-cog"><i class="fa fa-comment-o"></i></span>
+                        <div class="info-box-content">
+                            @Html.ActionLink("تغییر تلفن", MVC.Manage.ActionNames.AddPhoneNumber, MVC.Manage.Name)/
+                            @Html.ActionLink("حذف تلفن", MVC.Manage.ActionNames.RemovePhoneNumber, MVC.Manage.Name)
+                        </div>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="info-box">
+                        <span class="info-box-icon fa fa-cog"><i class="fa fa-paste"></i></span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">تغییر رمز عبور</span>
+                            @Html.ActionLink("افزودن تلفن", MVC.Manage.ActionNames.AddPhoneNumber, MVC.Manage.Name)
+                        </div>
+                    </div>
+                </div>
+            }*@
+
+            <div class="col-md-6 col-sm-6 col-xs-12" style="margin-top: 20px">
+                <div class="info-box">
+                    <span class="info-box-icon fa fa-cog"><i class="fa fa-gitlab"></i></span>
+                    <div class="info-box-content">
+                        @Html.ActionLink("اطلاعات کاربری", MVC.Manage.ActionNames.Profiles)
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-12" style="margin-top: 20px">
+                <div class="info-box">
+                    <span class="info-box-icon fa fa-cog"><i class="fa fa-desktop"></i></span>
+                   @* <span class="info-box-icon bg-olive"><i class="fa fa-desktop"></i></span>*@
+                    
+                    <div class="info-box-content">
+                        @Html.ActionLink("تغییر رمز عبور", MVC.Manage.ActionNames.ChangePassword, MVC.Manage.Name)
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-12" style="margin-top: 20px">
+                <div class="info-box">
+                    <span class="info-box-icon fa fa-cog"><i class="fa fa-first-order"></i></span>
+                    <div class="info-box-content">
+                        @*@Html.ActionLink("سفارشات", MVC.Manage.ActionNames.AddPhoneNumber)*@
+                        <a href="/Manage/Orders">سفارشات</a>
+                    </div>
+                </div>
+            </div>
+
+           
+            @*<div class="col-md-6 col-sm-6 col-xs-12">
+                <div class="info-box">
+                    <span class="info-box-icon fa fa-cog"><i class="fa fa-mobile"></i></span>
+                    <div class="info-box-content">
+                        @Html.ActionLink("تایید ایمیل و تلفن همراه", MVC.Manage.ActionNames.AddPhoneNumber)
+                    </div>
+                </div>
+            </div>*@
+
+            <div class="col-md-6 col-sm-6 col-xs-12" style="margin-top: 20px">
+                <div class="info-box">
+                    <span class="info-box-icon fa fa-cog"><i class="fa fa-bitbucket"></i></span>
+                    <div class="info-box-content">
+                        @*@Html.ActionLink("انتقادات و پیشنهادات", MVC.Manage.ActionNames.AddPhoneNumber)*@
+                        <a href="#">انتقادات و پیشنهادات</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-sm-6 col-xs-12" style="margin-top: 20px">
+                <div class="info-box">
+                    <span class="info-box-icon fa fa-cog"><i class="fa fa-github-square"></i></span>
+                    <div class="info-box-content">
+                        @*@Html.ActionLink("دوره های حضوری من", MVC.Manage.ActionNames.AddPhoneNumber)*@
+                        <a href="#">دوره های حضوری من</a>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-md-6 col-sm-6 col-xs-12" style="margin-top: 20px">
+                <div class="info-box">
+                    <span class="info-box-icon fa fa-cog"><i class="fa fa-github-alt"></i></span>
+                    <div class="info-box-content">
+                        @*@Html.ActionLink("پکیج های من", MVC.Manage.ActionNames.AddPhoneNumber)*@
+                        <a href="#">پکیج های من</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @*</div>*@
+</section>

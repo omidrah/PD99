@@ -1,0 +1,958 @@
+﻿@model ServiceLayer.Models.NewsDetailViewModel
+@{
+    ViewBag.Title = "NewsDetail";
+    Layout = "~/Views/Shared/_BornaLayout.cshtml";
+}
+<style>
+    .single_content__article {
+        background-color: #f0f0f0;
+        border: 1px #d6d4d4 solid;
+        border-radius: 10px;
+        padding: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .post--content {
+        margin-top: 10px;
+    }
+
+    .ClassA {
+        margin: 10px;
+        padding: 5px;
+        /*font-family: Tahoma;
+            font-size: 12px;*/
+        border: 1px solid white;
+        /*// border-radius: 5px;
+           // float: right;
+           // width: 540px;*/
+    }
+
+    .ClassB {
+        margin: 5px;
+        margin-right: 20px;
+        border: 1px dotted #4cff00;
+        //border-radius: 5px;
+        padding: 5px;
+        float: right;
+        width: 510px;
+    }
+</style>
+
+<section class="single_page" style="padding-top:20px">
+    <div class="container">
+        <div class="row">
+            <nav class="sidebar col-md-3 col-sm-12 col-xs-12 pull-right">
+                <div class="box--default margin-bottom">
+                    <h3 class="box_title">خدمات آموزشی</h3>
+                    <div class="box--content">
+                        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                            <div class="panel">
+                                <div class="panel-heading active" role="tab" id="heading1">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#faq1" aria-expanded="true" aria-controls="faq1">
+                                            دوره های آموزشی
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="faq1" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading1">
+                                    <div class="panel-body">
+                                        <ul>
+                                            <li>
+                                                <a href="#">دوره های تخصصی</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">دوره های عمومی</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">دوره های مدیریتی</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">دوره های آزاد</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel">
+                                <div class="panel-heading" role="tab" id="heading2">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#faq2" aria-expanded="true" aria-controls="faq2">
+                                            آموزش الکترونیک
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="faq2" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading2">
+                                    <div class="panel-body">
+                                        <ul>
+                                            <li>
+                                                <a href="#">دوره های تخصصی</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">دوره های عمومی</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">دوره های مدیریتی</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">دوره های آزاد</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel accordion-list">
+                                <div class="panel-heading" role="tab" id="heading3">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#faq3" aria-expanded="true" aria-controls="faq3">
+                                            کمیته آموزش
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="faq3" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading3">
+                                    <div class="panel-body">
+                                        <ul>
+                                            <li>
+                                                <a href="#">دوره های تخصصی</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">دوره های عمومی</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">دوره های مدیریتی</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">دوره های آزاد</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">دوره های تخصصی</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">دوره های عمومی</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">دوره های مدیریتی</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">دوره های آزاد</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel">
+                                <div class="panel-heading" role="tab" id="heading4">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#faq4" aria-expanded="true" aria-controls="faq4">
+                                            جزوات و منابع آموزشی
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="faq4" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading4Three">
+                                    <div class="panel-body">
+                                        <ul>
+                                            <ul>
+                                                <li>
+                                                    <a href="#">دوره های تخصصی</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">دوره های عمومی</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">دوره های مدیریتی</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">دوره های آزاد</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">دوره های تخصصی</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">دوره های عمومی</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">دوره های مدیریتی</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">دوره های آزاد</a>
+                                                </li>
+                                            </ul>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel">
+                                <div class="panel-heading" role="tab" id="heading5">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#faq5" aria-expanded="true" aria-controls="faq5">
+                                            همایش و سمینار
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="faq5" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading4Three">
+                                    <div class="panel-body">
+                                        <ul>
+                                            <ul>
+                                                <li>
+                                                    <a href="#">دوره های تخصصی</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">دوره های عمومی</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">دوره های مدیریتی</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">دوره های آزاد</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">دوره های تخصصی</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">دوره های عمومی</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">دوره های مدیریتی</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">دوره های آزاد</a>
+                                                </li>
+                                            </ul>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- box--default -->
+                <div class="box--default margin-bottom">
+                    <h3 class="box_title">دوره های تخصصی</h3>
+                    <div class="box_content">
+                        <div id="courses1" class="courses-slider owl-carousel">
+                            <div class="item">
+                                <div class="page_courses__item">
+                                    <aside class="page_courses__item___content">
+                                        <div class="content">
+                                            <div class="photo">
+                                                <a href="#"><img src="assets/images/gallery/g4.jpg" alt=""></a>
+                                            </div>
+                                            <div class="text">
+                                                <a href="#">
+                                                    <h5>آموزش تخصصی شبکه</h5>
+                                                    <div class="info">
+                                                        <span>مدت آموزش</span>
+                                                        <span>19 ساعت</span>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="footer">
+                                            <div class="stars" data-score="4"></div>
+                                            <div>
+                                                11
+                                                <i class="fa fa-user"></i>
+                                            </div>
+                                        </div>
+                                    </aside>
+                                </div>
+                            </div>
+                            <!-- item -->
+                            <div class="item">
+                                <div class="page_courses__item">
+                                    <aside class="page_courses__item___content">
+                                        <div class="content">
+                                            <div class="photo">
+                                                <a href="#"><img src="assets/images/gallery/g1.jpg" alt=""></a>
+                                            </div>
+                                            <div class="text">
+                                                <a href="#">
+                                                    <h5>سلسله مباحث شناخت زلزله</h5>
+                                                    <div class="info">
+                                                        <span>مدت آموزش</span>
+                                                        <span>۲۰ ساعت</span>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="footer">
+                                            <div class="stars" data-score="2.5"></div>
+                                            <div>
+                                                11
+                                                <i class="fa fa-user"></i>
+                                            </div>
+                                        </div>
+                                    </aside>
+                                </div>
+                            </div>
+                            <!-- item -->
+                            <div class="item">
+                                <div class="page_courses__item">
+                                    <aside class="page_courses__item___content">
+                                        <div class="content">
+                                            <div class="photo">
+                                                <a href="#"><img src="assets/images/gallery/g2.jpg" alt=""></a>
+                                            </div>
+                                            <div class="text">
+                                                <a href="#">
+                                                    <h5>عفاف و حجاب(ویژه بانوان)</h5>
+                                                    <div class="info">
+                                                        <span>مدت آموزش</span>
+                                                        <span>۸ ساعت</span>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="footer">
+                                            <div class="stars" data-score="1.5"></div>
+                                            <div>
+                                                11
+                                                <i class="fa fa-user"></i>
+                                            </div>
+                                        </div>
+                                    </aside>
+                                </div>
+                            </div>
+                            <!-- item -->
+                            <div class="item">
+                                <div class="page_courses__item">
+                                    <aside class="page_courses__item___content">
+                                        <div class="content">
+                                            <div class="photo">
+                                                <a href="#"><img src="assets/images/gallery/g3.jpg" alt=""></a>
+                                            </div>
+                                            <div class="text">
+                                                <a href="#">
+                                                    <h5>اقتصاد مقاومتی</h5>
+                                                    <div class="info">
+                                                        <span>مدت آموزش</span>
+                                                        <span>۸ ساعت</span>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="footer">
+                                            <div class="stars" data-score="3.5"></div>
+                                            <div>
+                                                11
+                                                <i class="fa fa-user"></i>
+                                            </div>
+                                        </div>
+                                    </aside>
+                                </div>
+                            </div>
+                            <!-- item -->
+                            <div class="item">
+                                <div class="page_courses__item">
+                                    <aside class="page_courses__item___content">
+                                        <div class="content">
+                                            <div class="photo">
+                                                <a href="#"><img src="assets/images/gallery/g2.jpg" alt=""></a>
+                                            </div>
+                                            <div class="text">
+                                                <a href="#">
+                                                    <h5>عفاف و حجاب(ویژه بانوان)</h5>
+                                                    <div class="info">
+                                                        <span>مدت آموزش</span>
+                                                        <span>۸ ساعت</span>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="footer">
+                                            <div class="stars" data-score="1.5"></div>
+                                            <div>
+                                                11
+                                                <i class="fa fa-user"></i>
+                                            </div>
+                                        </div>
+                                    </aside>
+                                </div>
+                            </div>
+                            <!-- item -->
+                        </div>
+                    </div>
+                </div>
+                <div class="box--default margin-bottom">
+                    <h3 class="box_title">دوره های عمومی</h3>
+                    <div class="box_content">
+                        <div id="courses2" class="courses-slider owl-carousel">
+                            <div class="item">
+                                <div class="page_courses__item">
+                                    <aside class="page_courses__item___content">
+                                        <div class="content">
+                                            <div class="photo">
+                                                <a href="#"><img src="assets/images/gallery/g1.jpg" alt=""></a>
+                                            </div>
+                                            <div class="text">
+                                                <a href="#">
+                                                    <h5>سلسله مباحث شناخت زلزله</h5>
+                                                    <div class="info">
+                                                        <span>مدت آموزش</span>
+                                                        <span>۲۰ ساعت</span>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="footer">
+                                            <div class="stars" data-score="2.5"></div>
+                                            <div>
+                                                11
+                                                <i class="fa fa-user"></i>
+                                            </div>
+                                        </div>
+                                    </aside>
+                                </div>
+                            </div>
+                            <!-- item -->
+                            <div class="item">
+                                <div class="page_courses__item">
+                                    <aside class="page_courses__item___content">
+                                        <div class="content">
+                                            <div class="photo">
+                                                <a href="#"><img src="assets/images/gallery/g2.jpg" alt=""></a>
+                                            </div>
+                                            <div class="text">
+                                                <a href="#">
+                                                    <h5>عفاف و حجاب(ویژه بانوان)</h5>
+                                                    <div class="info">
+                                                        <span>مدت آموزش</span>
+                                                        <span>۸ ساعت</span>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="footer">
+                                            <div class="stars" data-score="1.5"></div>
+                                            <div>
+                                                11
+                                                <i class="fa fa-user"></i>
+                                            </div>
+                                        </div>
+                                    </aside>
+                                </div>
+                            </div>
+                            <!-- item -->
+                            <div class="item">
+                                <div class="page_courses__item">
+                                    <aside class="page_courses__item___content">
+                                        <div class="content">
+                                            <div class="photo">
+                                                <a href="#"><img src="assets/images/gallery/g3.jpg" alt=""></a>
+                                            </div>
+                                            <div class="text">
+                                                <a href="#">
+                                                    <h5>اقتصاد مقاومتی</h5>
+                                                    <div class="info">
+                                                        <span>مدت آموزش</span>
+                                                        <span>۸ ساعت</span>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="footer">
+                                            <div class="stars" data-score="3.5"></div>
+                                            <div>
+                                                11
+                                                <i class="fa fa-user"></i>
+                                            </div>
+                                        </div>
+                                    </aside>
+                                </div>
+                            </div>
+                            <!-- item -->
+                            <div class="item">
+                                <div class="page_courses__item">
+                                    <aside class="page_courses__item___content">
+                                        <div class="content">
+                                            <div class="photo">
+                                                <a href="#"><img src="assets/images/gallery/g4.jpg" alt=""></a>
+                                            </div>
+                                            <div class="text">
+                                                <a href="#">
+                                                    <h5>آموزش تخصصی شبکه</h5>
+                                                    <div class="info">
+                                                        <span>مدت آموزش</span>
+                                                        <span>19 ساعت</span>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="footer">
+                                            <div class="stars" data-score="4"></div>
+                                            <div>
+                                                11
+                                                <i class="fa fa-user"></i>
+                                            </div>
+                                        </div>
+                                    </aside>
+                                </div>
+                            </div>
+                            <!-- item -->
+                            <div class="item">
+                                <div class="page_courses__item">
+                                    <aside class="page_courses__item___content">
+                                        <div class="content">
+                                            <div class="photo">
+                                                <a href="#"><img src="assets/images/gallery/g2.jpg" alt=""></a>
+                                            </div>
+                                            <div class="text">
+                                                <a href="#">
+                                                    <h5>عفاف و حجاب(ویژه بانوان)</h5>
+                                                    <div class="info">
+                                                        <span>مدت آموزش</span>
+                                                        <span>۸ ساعت</span>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="footer">
+                                            <div class="stars" data-score="1.5"></div>
+                                            <div>
+                                                11
+                                                <i class="fa fa-user"></i>
+                                            </div>
+                                        </div>
+                                    </aside>
+                                </div>
+                            </div>
+                            <!-- item -->
+                        </div>
+                    </div>
+                </div>
+                <div class="box--default margin-bottom">
+                    <h3 class="box_title">دوره های مدیریتی</h3>
+                    <div class="box_content">
+                        <div id="courses3" class="courses-slider owl-carousel">
+                            <div class="item">
+                                <div class="page_courses__item">
+                                    <aside class="page_courses__item___content">
+                                        <div class="content">
+                                            <div class="photo">
+                                                <a href="#"><img src="assets/images/gallery/g1.jpg" alt=""></a>
+                                            </div>
+                                            <div class="text">
+                                                <a href="#">
+                                                    <h5>سلسله مباحث شناخت زلزله</h5>
+                                                    <div class="info">
+                                                        <span>مدت آموزش</span>
+                                                        <span>۲۰ ساعت</span>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="footer">
+                                            <div class="stars" data-score="2.5"></div>
+                                            <div>
+                                                11
+                                                <i class="fa fa-user"></i>
+                                            </div>
+                                        </div>
+                                    </aside>
+                                </div>
+                            </div>
+                            <!-- item -->
+                            <div class="item">
+                                <div class="page_courses__item">
+                                    <aside class="page_courses__item___content">
+                                        <div class="content">
+                                            <div class="photo">
+                                                <a href="#"><img src="assets/images/gallery/g2.jpg" alt=""></a>
+                                            </div>
+                                            <div class="text">
+                                                <a href="#">
+                                                    <h5>عفاف و حجاب(ویژه بانوان)</h5>
+                                                    <div class="info">
+                                                        <span>مدت آموزش</span>
+                                                        <span>۸ ساعت</span>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="footer">
+                                            <div class="stars" data-score="1.5"></div>
+                                            <div>
+                                                11
+                                                <i class="fa fa-user"></i>
+                                            </div>
+                                        </div>
+                                    </aside>
+                                </div>
+                            </div>
+                            <!-- item -->
+                            <div class="item">
+                                <div class="page_courses__item">
+                                    <aside class="page_courses__item___content">
+                                        <div class="content">
+                                            <div class="photo">
+                                                <a href="#"><img src="assets/images/gallery/g3.jpg" alt=""></a>
+                                            </div>
+                                            <div class="text">
+                                                <a href="#">
+                                                    <h5>اقتصاد مقاومتی</h5>
+                                                    <div class="info">
+                                                        <span>مدت آموزش</span>
+                                                        <span>۸ ساعت</span>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="footer">
+                                            <div class="stars" data-score="3.5"></div>
+                                            <div>
+                                                11
+                                                <i class="fa fa-user"></i>
+                                            </div>
+                                        </div>
+                                    </aside>
+                                </div>
+                            </div>
+                            <!-- item -->
+                            <div class="item">
+                                <div class="page_courses__item">
+                                    <aside class="page_courses__item___content">
+                                        <div class="content">
+                                            <div class="photo">
+                                                <a href="#"><img src="assets/images/gallery/g4.jpg" alt=""></a>
+                                            </div>
+                                            <div class="text">
+                                                <a href="#">
+                                                    <h5>آموزش تخصصی شبکه</h5>
+                                                    <div class="info">
+                                                        <span>مدت آموزش</span>
+                                                        <span>19 ساعت</span>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="footer">
+                                            <div class="stars" data-score="4"></div>
+                                            <div>
+                                                11
+                                                <i class="fa fa-user"></i>
+                                            </div>
+                                        </div>
+                                    </aside>
+                                </div>
+                            </div>
+                            <!-- item -->
+                            <div class="item">
+                                <div class="page_courses__item">
+                                    <aside class="page_courses__item___content">
+                                        <div class="content">
+                                            <div class="photo">
+                                                <a href="#"><img src="assets/images/gallery/g2.jpg" alt=""></a>
+                                            </div>
+                                            <div class="text">
+                                                <a href="#">
+                                                    <h5>عفاف و حجاب(ویژه بانوان)</h5>
+                                                    <div class="info">
+                                                        <span>مدت آموزش</span>
+                                                        <span>۸ ساعت</span>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="footer">
+                                            <div class="stars" data-score="1.5"></div>
+                                            <div>
+                                                11
+                                                <i class="fa fa-user"></i>
+                                            </div>
+                                        </div>
+                                    </aside>
+                                </div>
+                            </div>
+                            <!-- item -->
+                        </div>
+                    </div>
+                </div>
+                <div class="box--default margin-bottom">
+                    <h3 class="box_title">دوره های تست</h3>
+                    <div class="box_content">
+                        <div id="courses4" class="courses-slider owl-carousel">
+                            <div class="item">
+                                <div class="page_courses__item">
+                                    <aside class="page_courses__item___content">
+                                        <div class="content">
+                                            <div class="photo">
+                                                <a href="#"><img src="assets/images/gallery/g2.jpg" alt=""></a>
+                                            </div>
+                                            <div class="text">
+                                                <a href="#">
+                                                    <h5>عفاف و حجاب(ویژه بانوان)</h5>
+                                                    <div class="info">
+                                                        <span>مدت آموزش</span>
+                                                        <span>۸ ساعت</span>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="footer">
+                                            <div class="stars" data-score="1.5"></div>
+                                            <div>
+                                                11
+                                                <i class="fa fa-user"></i>
+                                            </div>
+                                        </div>
+                                    </aside>
+                                </div>
+                            </div>
+                            <!-- item -->
+                            <div class="item">
+                                <div class="page_courses__item">
+                                    <aside class="page_courses__item___content">
+                                        <div class="content">
+                                            <div class="photo">
+                                                <a href="#"><img src="assets/images/gallery/g3.jpg" alt=""></a>
+                                            </div>
+                                            <div class="text">
+                                                <a href="#">
+                                                    <h5>اقتصاد مقاومتی</h5>
+                                                    <div class="info">
+                                                        <span>مدت آموزش</span>
+                                                        <span>۸ ساعت</span>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="footer">
+                                            <div class="stars" data-score="3.5"></div>
+                                            <div>
+                                                11
+                                                <i class="fa fa-user"></i>
+                                            </div>
+                                        </div>
+                                    </aside>
+                                </div>
+                            </div>
+                            <!-- item -->
+                            <div class="item">
+                                <div class="page_courses__item">
+                                    <aside class="page_courses__item___content">
+                                        <div class="content">
+                                            <div class="photo">
+                                                <a href="#"><img src="assets/images/gallery/g4.jpg" alt=""></a>
+                                            </div>
+                                            <div class="text">
+                                                <a href="#">
+                                                    <h5>آموزش تخصصی شبکه</h5>
+                                                    <div class="info">
+                                                        <span>مدت آموزش</span>
+                                                        <span>19 ساعت</span>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="footer">
+                                            <div class="stars" data-score="4"></div>
+                                            <div>
+                                                11
+                                                <i class="fa fa-user"></i>
+                                            </div>
+                                        </div>
+                                    </aside>
+                                </div>
+                            </div>
+                            <!-- item -->
+                            <div class="item">
+                                <div class="page_courses__item">
+                                    <aside class="page_courses__item___content">
+                                        <div class="content">
+                                            <div class="photo">
+                                                <a href="#"><img src="assets/images/gallery/g2.jpg" alt=""></a>
+                                            </div>
+                                            <div class="text">
+                                                <a href="#">
+                                                    <h5>عفاف و حجاب(ویژه بانوان)</h5>
+                                                    <div class="info">
+                                                        <span>مدت آموزش</span>
+                                                        <span>۸ ساعت</span>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="footer">
+                                            <div class="stars" data-score="1.5"></div>
+                                            <div>
+                                                11
+                                                <i class="fa fa-user"></i>
+                                            </div>
+                                        </div>
+                                    </aside>
+                                </div>
+                            </div>
+                            <!-- item -->
+                        </div>
+                    </div>
+                </div>
+                <div class="box--default margin-bottom">
+                    <h3 class="box_title">تبلیغات</h3>
+                    <div class="box_content">
+                        <ul class="list ads">
+                            <li>
+                                <a href="#">
+                                    <img src="assets/images/ads.png" alt="">
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+
+            <article class="single_content col-md-9 col-sm-12 col-xs-12">
+                <div class="single_content__article clearfix">
+                    <div class="post clearfix">
+                        <div class="post--header clearfix">
+                            <div class="photo col-md-3 col-sm-12 col-xs-12 pull-right">
+                                <img class="img-responsive" src="@Url.Content(Model.NewsViewModel.MasterPicPathThumb)" alt="">
+                            </div>
+                            <div class="text col-md-9 col-sm-12 col-xs-12">
+                                <div class="text_content">
+                                    <h2>@Model.NewsViewModel.NewsTitle</h2>
+                                    <div class="meta">
+                                        <span>
+                                            @Model.NewsViewModel.CommentsCounts
+                                            <i class="fa fa-comment fa-lg"></i>
+                                        </span>
+                                        <span id="Like">
+                                            @Model.NewsViewModel.Like
+                                        </span>
+                                        <i id="LikeIcon" class="fa fa-heart fa-lg"></i>
+
+                                        <span>@Model.NewsViewModel.PublishDate <i class="fa fa-calendar fa-lg"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- post--header -->
+                        <div class="post--content">
+                            @Html.Raw(Model.NewsViewModel.NewsBody)
+                        </div>
+                        <!-- post--content -->
+                    </div>
+                </div>
+                <!-- single_content__article -->
+                @*@using (Html.BeginForm("InsertComment", "News", FormMethod.Post))
+                    {*@
+                <div class="single_content__article clearfix">
+                    <div class="article--title">
+                        <h4>ارسال نظر</h4>
+                        <div style="text-align:center; @ViewBag.Style">
+                            @ViewBag.Message
+                        </div>
+                    </div>
+                    <form action="">
+                        <div class="row">
+                            <input type="hidden" name="NewsID" id="NewsID" value="@Model.NewsViewModel.NewsId" />
+                            <div class="col-md-6">
+                                <input id="txtName" name="txtName" type="text" placeholder="نام و نام خانوادگی" class="col-md-12" required>
+                            </div>
+                            <div class="col-md-6">
+                                <input id="txtEmail" name="txtEmail" type="text" placeholder="پست الکترونیکی" class="col-md-12" required>
+                            </div>
+                            <div class="col-md-12" style="margin-top:20px">
+                                <textarea id="txtText" name="txtText" rows="4" cols="10" placeholder="متن ارسالی" class="col-md-12" required></textarea>
+                            </div>
+                            <div class="col-md-12" style="margin-top:20px">
+                               
+                                <a href="#" class="btn btn-default" id="btnSendComment">ارسال</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                @*       }*@
+                <!-- single_content__article -->
+                <div class="single_content__article">
+                    <div class="article--title">
+                        <h4>لیست نظرات</h4>
+                    </div>
+                    @foreach (var item in Model.CommentViewModel.Where(ll => ll.ParentID.Equals(0) && ll.Confirm == true))
+                    {
+                        <div class="comments">
+                            <div class="cm-user ClassA">
+                                <div class="user--photo">
+                                    <img src="assets/images/user.jpg" alt="">
+                                </div>
+                                <div class="user--info">
+                                    <div class="username">@item.Name</div>
+                                    <div class="text">
+                                        <p>@item.Text</p>
+                                    </div>
+                                </div>
+                                <!-- cm-user -->
+                                @foreach (var itemAns in Model.CommentViewModel.Where(ll => ll.ParentID.Equals(item.ID)))
+                                {
+                                    <div class="cm-user ClassA">
+                                        <div class="user--photo">
+                                            <img src="assets/images/user.jpg" alt="">
+                                        </div>
+                                        <div class="user--info">
+                                            <div class="username">@itemAns.Name</div>
+                                            <div class="text">
+                                                <p>@itemAns.Text</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+
+                                <div style="direction:ltr">
+                                    @*<button type="submit">پاسخ</button>*@
+                                    <a href="#" class="btn btn-default" id="btnAnswer" onclick="Answer()">پاسخ</a>
+                                </div>
+                            </div>
+                        </div>
+                    <!-- comments -->
+                    }
+
+                </div>
+                <!-- single_content__article -->
+            </article>
+        </div>
+    </div>
+
+   
+</section>
+@section Scripts{
+
+
+    <script>
+        $("#btnSendComment").click(function () {
+
+            var newComment = {
+                "NewsID": $(":hidden#NewsID").val(),
+                "Email": $("#txtEmail").val(),
+                "Name": $("#txtName").val(),
+                "Text": $("#txtText").val(),
+
+            };
+            // alert(newComment.Email);
+            $.ajax({
+                type: 'POST',
+                //   contentType: "application/json;charset=utf-8",
+                url: '@Url.Action("InsertComment", "News")',
+                data: newComment,
+                success: function (res) {
+                    if (res.ret) {
+                        if (res.codeid == 1) {
+                            var msg = res.message;
+                            $("#txtEmail").val("");
+                            $("#txtName").val("");
+                            $("#txtText").val("");
+                            alert(msg);
+                            //add new user
+                            //   showNotification(res.message, "success");
+                        }
+                        if (res.codeid == 0) {
+                            alert("errror");
+                            //update current user
+                            // showNotification(res.message, "error");
+                        }
+                    }
+                },
+                error: function (ex) {
+                    alert('Failed to retrieve states.' + ex);
+                }
+            });
+        });
+    </script>
+}

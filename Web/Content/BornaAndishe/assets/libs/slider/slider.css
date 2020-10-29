@@ -1,0 +1,165 @@
+.sliderSection h1 {
+    margin-top: 25%;
+    direction: rtl;
+    text-align: right;
+    margin-bottom: 30px;
+}
+.sliderSection p {
+    text-align: justify;
+    direction: rtl;
+    font-size: 18px;
+}
+.fullwidth {
+    display: block;
+    padding: 0!important;
+    width: 100%!important;
+    height: auto;
+}
+.substrate {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 0;
+    overflow: hidden;
+    width: 100%;
+}
+.substrate img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+.row2 .onecol {
+    width: 4.85%;
+}
+.row2 .twocol {
+    width: 13.45%;
+}
+.row2 .threecol {
+    width: 22.05%;
+}
+.row2 .fourcol {
+    width: 30.75%;
+}
+.row2 .fivecol {
+    width: 39.45%;
+}
+.row2 .sixcol {
+    width: 48%;
+}
+.row2 .sevencol {
+    width: 56.75%;
+}
+.row2 .eightcol {
+    width: 65.4%;
+}
+.row2 .ninecol {
+    width: 74.05%;
+}
+.row2 .tencol {
+    width: 82.7%;
+}
+.row2 .elevencol {
+    width: 91.35%;
+}
+.row2 .twelvecol {
+    width: 100%;
+}
+.row2 {
+    margin: 0 auto;
+    padding: 0 30px;
+    width: 1140px;
+}
+.row2:before, .row2:after {
+    display: table;
+    content: " ";
+}
+.row2:after {
+    clear: both;
+}
+.row2 .row2 {
+    min-width: 0;
+    max-width: none;
+    width: auto;
+}
+.column {
+    position: relative;
+    float: left;
+    margin-right: 3.8%;
+    min-height: 1px;
+}
+.last {
+    margin-right: 0px!important;
+}
+
+/* =========================== SLIDERS =========================== */
+
+.themex-slider {
+    position: relative;
+    overflow: hidden;
+}
+.themex-slider > ul {
+    position: relative;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.themex-slider > ul > li {
+    position: relative;
+    display: block;
+    overflow: hidden;
+}
+
+.themex-slider > ul > li.current, .themex-slider > ul > li:first-child {
+    z-index: 1;
+}
+.themex-slider > ul > li > img, .themex-slider > ul > li > a > img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+.themex-slider .arrow {
+    position: absolute;
+    top: 50%;
+    z-index: 100;
+    margin-top: -12px;
+    width: 13px;
+    height: 23px;
+    background: url(main_slider_arrows.png) -13px 0 no-repeat;
+    cursor: pointer;
+}
+.themex-slider .arrow-left {
+    left: 24px;
+}
+.themex-slider .arrow-right {
+    right: 24px;
+    background-position: 0 0;
+}
+
+/*------------------------------- Parallax Slider ----------------------------*/
+
+.parallax-slider {
+    overflow: hidden;
+    color: #fff;
+    background-image: url(bg-tile.png);
+}
+.parallax-slider .substrate {
+    width: 130%;
+}
+.parallax-slider > ul {
+    overflow: hidden;
+    width: 10000%;
+    /*opacity:0;*/
+    background-image: url(bg-tile.png);
+}
+.parallax-slider > ul > li {
+    display: block;
+    float: left;
+}
+.parallax-slider img.aligncenter, .parallax-slider img.alignnone {
+    display: block;
+}
+.parallax-slider p+.button {
+    margin-top: 0.6em;
+}

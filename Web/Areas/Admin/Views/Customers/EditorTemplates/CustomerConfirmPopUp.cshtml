@@ -1,0 +1,147 @@
+﻿@model ServiceLayer.Models.CustomerVm
+<style>
+    .k-edit-form-container {
+        position: relative;
+        width: 100%;
+    }
+</style>
+<div class="banner-bootom-w3-agileits">
+    <ul class="errors"></ul>
+    <div class="container">
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary("", new { @class = "text-danger" })
+        <div class="form-group nameE ">
+            @Html.LabelFor(m => m.Name, new { @class = "col-md-2 control-label" })
+            <div class="col-md-3">
+                @Html.TextBoxFor(m => m.Name, new { @class = "form-control" @* , @readonly = "true"*@})
+            </div>
+            @Html.LabelFor(m => m.Family, new { @class = "col-md-2 control-label" })
+            <div class="col-md-3">
+                @Html.TextBoxFor(m => m.Family, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.customerTypeTitle, new { @class = "control-label col-md-2" })
+            <div class="col-md-3">
+                @Html.DropDownList("customerTypeId",
+                   new SelectList((System.Collections.IEnumerable)ViewData["CustomerTypes"], "Id", "Title", new { @class = "form-control", style = "height:45px" }))
+            </div>
+
+            @*@Html.LabelFor(m => m.PicDoc, new { @class = "col-md-2 control-label" })
+            <div class="col-md-3">
+                @(Html.Kendo().Upload()
+                .Name("PicDoc")
+                .Events(events =>
+                {
+                    events.Select("onSelectResumeFile");
+                    events.Success("onUploadSuccessResumeFile");
+                })
+                .Messages(messages =>
+                {
+                    messages.Select("عکس مدرک");
+                })
+                .Async(async =>
+                {
+                    async.Save("SavePicDocFile", "Customers");
+                    async.Remove("DeletePicDocFile", "Customers");
+                    async.AutoUpload(true);
+                })
+                .Multiple(false))
+
+            </div>*@
+
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Mobile, new { @class = "col-md-2 control-label" })
+            <div class="col-md-3">
+                @Html.TextBoxFor(m => m.Mobile, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Mobile)
+            </div>
+            @Html.LabelFor(m => m.Tel, new { @class = "col-md-2 control-label" })
+            <div class="col-md-3">
+                @Html.TextBoxFor(m => m.Tel, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Tel)
+            </div>
+        </div>
+        <div class="form-group">
+
+            @Html.LabelFor(m => m.nationCode, new { @class = "col-md-2 control-label" })
+            <div class="col-md-3">
+                @Html.TextBoxFor(m => m.nationCode, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m=>m.nationCode)
+            </div>
+
+            @*@Html.LabelFor(m => m.PicPath, new { @class = "col-md-2 control-label" })
+            <div class="col-md-3">
+                @(Html.Kendo().Upload()
+                .Name("PicPath")
+                .Events(events =>
+                {
+                    events.Select("onSelectResumeFile");
+                    events.Success("onUploadSuccessResumeFile");
+                })
+                .Messages(messages =>
+                {
+                    messages.Select("عکس");
+                })
+                .Async(async =>
+                {
+                    async.Save("SavePicPathFile", "Customers");
+                    async.Remove("DeletePicPathFile", "Customers");
+                    async.AutoUpload(true);
+
+                })
+                .Multiple(false))
+            </div>*@
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.PostalCode, new { @class = "control-label col-md-2" })
+            <div class="col-md-3">
+                @Html.TextBoxFor(m => m.PostalCode, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.PostalCode)
+            </div>
+            @*@Html.LabelFor(model => model.PostalCode, new { @class = "control-label col-md-2" })
+            <div class="col-md-3">
+                @Html.EditorFor(m => m.PostalCode, new { @class = "form-control" })
+            </div>*@
+        </div>
+        <div class="form-group">
+            @Html.Label("نام کاربری(ایمیل)", new { @class = "col-md-2 control-label" })
+            <div class="col-md-3">
+                @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+            </div>
+
+        </div>
+        <div class="form-group">
+
+
+            @Html.LabelFor(model => model.IsMadrakTaeed, new { @class = "control-label col-md-2" })
+            <div class="col-md-3">
+                @Html.EditorFor(m => m.IsMadrakTaeed, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-10">
+                @Html.LabelFor(m => m.Address, new { @class = "control-label col-md-2" })
+                @Html.TextAreaFor(m => m.Address, new { @class = "form-control k-textbox", style = "width:70%;height:70px" })
+            </div>
+
+
+        </div>
+        <div class="form-group">
+            <div class="col-md-10">
+                @Html.LabelFor(m => m.PicDoc, new { @class = "control-label col-md-2" })
+                @Html.DisplayFor(m => m.PicDoc)
+                <a id="PPP" href="#" download>دانلود مدرک</a>
+                @*<img src="~/Uploads/MadarekCustomer/40229d024be34c6e92adb74a964dd147.jpg" alt="Girl in a jacket" width="500" height="600">*@
+            </div>
+
+
+        </div>
+    </div>
+
+</div>
+
+
+

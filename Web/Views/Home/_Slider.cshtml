@@ -1,0 +1,12 @@
+﻿@model IEnumerable<ServiceLayer.Models.SliderVm>
+<div class="slider-layer">
+    <div id="slider-one" class="owl-carousel">
+       @foreach (var item in Model)
+       {
+        <div class="item">
+            <a href="@item.Url"><img src="@item.ImgPath" title="@item.ImgName"></a>
+        </div>
+       }
+
+    </div>
+</div> 

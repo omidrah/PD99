@@ -1,0 +1,110 @@
+﻿@model IEnumerable<ServiceLayer.Models.ProductGroupVM>
+
+@{
+    ViewBag.Title = "Index";
+    int counter = 1;
+}
+<section id="productGroups" class="top-buffer ">
+    <div class="row text-center"><h2>گروه محصولات</h2></div>
+
+    <p>
+        @Html.ActionLink("افزودن گروه محصولات", "Create", null, new { @class = "btn btn-danger" })
+        @*@Html.ActionLink("اعمال تخفیف به یک گروه", "AddOFF", null, new { @class = "btn btn-danger" })*@
+    </p>
+    <table class="table table-bordered">
+        <tr>
+            <th class="text-right" width="50px">
+                ردیف
+            </th>
+            <th class="text-right">
+                @Html.DisplayNameFor(model => model.ProductGroupTitle)
+            </th>
+            <th class="text-right">
+                @Html.DisplayNameFor(model => model.IsActive)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @counter   @{ counter++; }
+
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductGroupTitle)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsActive)
+            </td>
+            <td width="380px">
+                @*@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
+                <a class="btn btn-sm btn-success" data-toggle="tooltip" data-placement="Bottom" title="ویرایش" href="/Admin/ProductGroups/Edit/@item.ProductGroupId">
+                    <i class="glyphicon glyphicon-edit"></i> ویرایش
+                </a>
+
+                <a class="btn btn-sm btn-primary" data-toggle="tooltip" data-placement="Bottom" title="افزودن ویژگی به گروه" href="/Admin/ProductGroups/AddFeatures/@item.ProductGroupId">
+                    <i class="glyphicon glyphicon-plus"></i> افزودن ویژگی به گروه
+                </a>
+                <a href="#" id="@item.ProductGroupId" class="btn btn-sm btn-danger btnDelete"><i class="glyphicon glyphicon-trash"></i>حذف</a>
+                @*<a  class="btn btn-sm btn-info"><i class="glyphicon glyphicon-ok-sign" href="/Admin/ProductGroups/AddOff/@item.ProductGroupId"></i>اعمال تخفیف</a>*@
+                <a class="btn btn-sm btn-info" data-toggle="tooltip" data-placement="Bottom" title="ویرایش" href="/Admin/ProductGroups/AddOff/@item.ProductGroupId">
+                    <i class="glyphicon glyphicon-edit"></i> اعمال تخفیف
+                </a>
+
+            </td>
+        </tr>
+        }
+
+    </table>
+</section>
+<script type="text/javascript">
+        $(".btnDelete").click(function () {
+            var curRec = this.id;//get id of record;
+            showConfirm("از حذف این رکورد مطمئن هستید؟").then(function (stat) {
+                if (stat) {
+                    $.ajax({
+                        type: 'POST',
+                        url: '@Url.Action("Delete", "ProductGroups")', // we are calling json method
+                        dataType: 'json',
+                        data: { id: curRec },
+                        success: function (states) {
+                            if (states) {
+                                if (states.codeid == 1) {
+                                    $.ajax({
+                                        type: 'get',
+                                        url: '/Admin/productGroups/Index',
+                                        data: {},
+                                        success: function (data) {//rebind grid
+                                            window.location.href = '/Admin/productGroups/Index';
+                                            showNotification('عملیات حذف با موفقیت انجام گردید', 'success', 'center');
+                                        }
+                                    });
+                                }
+                                else if (states.codeid == 2) {
+                                    showNotification("خطا در عملیات حذف رکورد", "information", 'center');
+                                    return;
+                                }
+                                else {
+                                    showNotification("رکورد مورد نظر سابقه داشته و قابل حذف نمی باشد", "information", 'center');
+                                    return;
+                                }
+
+                            }
+                            else {
+                                //res = "خطا در حذف";
+                            }
+                        },
+                        error: function (ex) {
+                            alert('Failed to retrieve states.' + ex);
+                        }
+                    })
+                }
+            });
+
+        });
+</script>
+@Html.Raw(TempData["res"])

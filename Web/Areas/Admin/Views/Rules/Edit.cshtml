@@ -1,0 +1,64 @@
+﻿@model ServiceLayer.Models.backendVm.ruleParent
+
+@{
+    ViewBag.Title = "ویرایش دسترسی ها ";    
+}
+<section id="RuleEdit" class="top-buffer">
+    
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-horizontal">
+            @Html.ValidationSummary(true)
+            @Html.HiddenFor(model => model.ruleParentId)
+
+            <div class="form-group top-buffer">
+                @Html.Label("عنوان گروه ", new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.ruleParentTitle)
+                    @Html.ValidationMessageFor(model => model.ruleParentTitle, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="row">
+                @for (int i = 0; i < Model.childRule.Count; i++)
+                {
+
+                    @Html.HiddenFor(model => model.childRule[i].rulechildId)
+                    <div class="col-sm-12">
+                        <div class="panel panel-primary ">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">@Html.DisplayFor(model => model.childRule[i].rulechildTitle)</h3>
+                            </div>
+                            <div class="panel-body">
+                                @Html.Label("عنوان")
+                                @Html.EditorFor(model => model.childRule[i].rulechildTitle)
+                                @Html.ValidationMessageFor(model => model.childRule[i].rulechildTitle)
+
+                                @Html.Label("نام کنترلر")
+                                @Html.EditorFor(model => model.childRule[i].ruleChildContorller)
+                                @Html.ValidationMessageFor(model => model.childRule[i].ruleChildContorller)
+
+                                @Html.Label("نام اکشن")
+                                @Html.EditorFor(model => model.childRule[i].ruleChildAction)
+                                @Html.ValidationMessageFor(model => model.childRule[i].ruleChildAction)
+
+                                @Html.Label("ترتیب نمایش")
+                                @Html.EditorFor(model => model.childRule[i].ruleChildSequence)
+                                @Html.ValidationMessageFor(model => model.childRule[i].ruleChildSequence)
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="ذخیره" class="btn btn-success" />
+                    @Html.ActionLink("فهرست", "Index", null, new { @class = "btn btn-primary" })
+                </div>
+            </div>
+        </div>
+    }
+</section>
+@section scripts{
+    @Html.Raw(TempData["msg"])
+}

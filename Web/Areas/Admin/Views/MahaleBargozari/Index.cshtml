@@ -1,0 +1,54 @@
+﻿@model IEnumerable<ServiceLayer.Models.MahaleBargozariVM>
+
+@{
+    // ViewBag.Title = "Index";
+    int counter = 1;
+}
+<section id="productGroups" class="bg-primary top-buffer ">
+    @(Html.Kendo().Grid(Model)
+              .Name("mahaleBargozariGrid").HtmlAttributes(new { style = "height:600px;" })
+              .Columns(columns =>
+              {
+                  //columns.Template( @<text>      @counter   @{ counter++; }      </text>).Width(80).Title("ردیف");
+                  columns.Bound(model => model.MahalTitle);
+                  columns.Bound(model => model.IsActive).
+                  ClientTemplate("<input type='checkbox'   #= IsActive ? checked='checked':'' # class='chkbx' disabled = 'disabled' />"); ;
+                  columns.Command(command => { command.Edit().Text("ویرایش").CancelText("انصراف").UpdateText("ثبت"); command.Destroy().Text("حذف"); }).Title("دستورات");
+              })
+         .ToolBar(toolbar => toolbar.Create().Text("افزودن"))
+    .Editable(editable => editable.Mode(GridEditMode.PopUp))
+    .Pageable()
+    .Sortable()
+    .Scrollable()
+    .HtmlAttributes(new { style = "height:430px;" })
+    .DataSource(dataSource => dataSource
+        .Ajax()
+        .Batch(false)
+        .ServerOperation(false)
+        .PageSize(20)
+        .Events(events => events.Error("error_handler"))
+        .Model(model => model.Id(p => p.Id))
+        .Create(update => update.Action("Create", "MahaleBargozari"))
+        .Read(read => read.Action("Index", "MahaleBargozari"))
+        .Update(update => update.Action("Edit", "MahaleBargozari"))
+        .Destroy(update => update.Action("Delete", "MahaleBargozari"))
+    )
+    )
+</section>
+@section scripts{
+    <script type="text/javascript">
+        function error_handler(e) {
+            if (e.errors) {
+                var message = "Errors:\n";
+                $.each(e.errors, function (key, value) {
+                    if ('errors' in value) {
+                        $.each(value.errors, function () {
+                            message += this + "\n";
+                        });
+                    }
+                });
+                alert(message);
+            }
+        }
+    </script>
+}

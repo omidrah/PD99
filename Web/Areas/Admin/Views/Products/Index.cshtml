@@ -1,0 +1,95 @@
+﻿@model IEnumerable<ServiceLayer.Models.ProductVM>
+@{
+// ViewBag.Title = "فهرست " + Server.HtmlDecode(Html.DisplyModelPluralName(model => model).ToString());
+}
+<section>
+    <div class="row text-center"> <h3>مدیریت منابع</h3></div>
+    @(Html.Kendo().Grid(Model)
+            .Name("Grid").HtmlAttributes(new { style = "height:600px;" })
+            .Columns(columns =>
+            {
+            columns.Bound(model => model.ProductName);
+            columns.Bound(model => model.ProductGroupTitle);
+            columns.Bound(model => model.Price);
+            //columns.Bound(model => model.NoghteSefaresh);
+            columns.Bound(model => model.ProductMojodi);
+            columns.Bound(model => model.OffPercent);
+            // columns.Bound(model => model.PicPath);
+
+            columns.Bound(item => @item.ProductId).Title("دستورات").Filterable(false).Groupable(false).
+                          Template(@<text>
+                    @Html.ActionLink("ویرایش", "Edit", new { id = @item.ProductId }, new { @class = "btn btn-primary" })
+                    @Html.ActionLink("ویژگی های محصول", "ProductFeatures", new { id = @item.ProductId }, new { @class = "btn btn-primary" })
+                    @Html.ActionLink("عکس ها", "Gallery", new { id = @item.ProductId }, new { @class = "btn btn-primary" })
+                    <a href="#" id="@item.ProductId" class="btn btn-primary btnDelete">حذف</a>
+                        </text>).Width(350);
+            })
+        .ToolBar(toolbar =>
+        {
+            toolbar.Custom().Action("Create", "Products").Text(" افزودن کالا");
+           // toolbar.Custom().Action("Index", "orders").Text("مدیریت فاکتور");
+        }
+        )
+        //.Groupable()
+        .Pageable()
+        .Sortable()
+        .Scrollable()
+        .Filterable()
+        .DataSource(dataSource => dataSource
+                                    .Server()
+
+                                    .Model(model => model.Id(item => item.ProductId))
+                    )
+    )
+
+</section>
+@section scripts{
+    <script type="text/javascript">
+        $(".btnDelete").click(function () {
+            var curRec = this.id;//get id of record;
+            showConfirm("از حذف این رکورد مطمئن هستید؟").then(function (stat) {
+                if (stat) {
+                    $.ajax({
+                        type: 'POST',
+                        url: '@Url.Action("Delete", "Products")', // we are calling json method
+                        dataType: 'json',
+                        data: { id: curRec },
+                        success: function (states) {
+                            if (states) {
+                                if (states.codeid == 1) {
+                                    $.ajax({
+                                        type: 'get',
+                                        url: '/Admin/Products/Index',
+                                        data: {},
+                                        success: function (data) {//rebind grid
+                                            window.location.href = '/Admin/Products/Index';
+                                            showNotification('عملیات حذف با موفقیت انجام گردید', 'success', 'center');
+                                        }
+                                    });
+                                }
+                                else if (states.codeid == 2) {
+                                    showNotification("خطا در عملیات حذف رکورد", "information", 'center');
+                                    return;
+                                }
+                                else {
+                                    showNotification("انجام عملیات با مشکل مواجه شده است", "information", 'center');
+                                    return;
+                                }
+
+                            }
+                            else {
+                                //res = "خطا در حذف";
+                            }
+                        },
+                        error: function (ex) {
+                            alert('Failed to retrieve states.' + ex);
+                        }
+                    })
+                }
+            });
+
+        });
+    </script>
+    @Html.Raw(TempData["res"])
+
+}

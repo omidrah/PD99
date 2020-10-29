@@ -1,0 +1,25 @@
+﻿@model IEnumerable<ServiceLayer.Models.FrontEnd.HomeRuleVm>
+
+<section id="home" class="">
+    <div class="row">
+        @{
+            foreach (var item in Model)
+            {
+                if (item.url.Split('/')[2] == "Index" || item.url.Split('/')[2] == "index")
+                {
+                    <div class="col-md-4 col-sm-6 col-xs-12">
+                        <div class="info-box">
+                            <span class="info-box-icon @item.icon.Split(',')[1]"><i class="fa @item.icon.Split(',')[0]"></i></span>
+                            <div class="info-box-content">
+                                @Html.ActionLink(item.title, item.url.Split('/')[2], item.url.Split('/')[1], new { area = item.url.Split('/')[0] }, new { @class = "small-box-footer" })
+                                @*<a href="@Url.Content(item.url)" class="small-box-footer">
+                                        <span class="info-box-text">@item.title</span>
+                                    </a>*@
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        }
+    </div>
+</section>

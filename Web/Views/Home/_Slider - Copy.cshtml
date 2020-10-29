@@ -1,0 +1,72 @@
+﻿@model IEnumerable<ServiceLayer.Models.SliderVm>
+<div id="myCarousel" class="carousel slide" data-ride="carousel">
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+        @{
+            int cnt;
+            for(cnt=0;cnt< Model.Count();cnt++)
+            {
+                if (cnt == 0)
+                {
+                    <li data-target="#myCarousel" data-slide-to="@cnt" class="active"></li>
+                }
+                else
+                {
+                    <li data-target="#myCarousel" data-slide-to="@cnt"></li>
+                }
+            }
+        }
+    </ol>
+    <div class="carousel-inner" role="listbox">
+        @{
+            cnt = 0;
+            foreach (var item in Model)
+            {
+                if (cnt == 0)
+                {
+                    <div class="item active" style="
+    background:-webkit-linear-gradient(rgba(23, 22, 23, 0.2), rgba(23, 22, 23, 0.5)), url(@item.ImgPath) no-repeat;
+	background:-moz-linear-gradient(rgba(23, 22, 23, 0.2), rgba(23, 22, 23, 0.5)), url(@item.ImgPath) no-repeat;
+	background:-ms-linear-gradient(rgba(23, 22, 23, 0.2), rgba(23, 22, 23, 0.5)), url(@item.ImgPath) no-repeat; 
+	background:linear-gradient(rgba(23, 22, 23, 0.2), rgba(23, 22, 23, 0.5)), url(@item.ImgPath) no-repeat;
+	background-size:cover;">
+                        <div class="container">
+                            <div class="carousel-caption">
+                                <h3>@item.ImgName</h3>
+                                <p>@item.ImgDesc</p>
+                                <a class="hvr-outline-out button2" href="mens.html">ثبت نام کنید</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="item item@cnt" style="
+      background:-webkit-linear-gradient(rgba(23, 22, 23, 0.2), rgba(23, 22, 23, 0.5)), url(@item.ImgPath) no-repeat;
+	background:-moz-linear-gradient(rgba(23, 22, 23, 0.2), rgba(23, 22, 23, 0.5)), url(@item.ImgPath) no-repeat;
+	background:-ms-linear-gradient(rgba(23, 22, 23, 0.2), rgba(23, 22, 23, 0.5)), url(@item.ImgPath) no-repeat; 
+	background:linear-gradient(rgba(23, 22, 23, 0.2), rgba(23, 22, 23, 0.5)), url(@item.ImgPath) no-repeat;
+	background-size:cover;">
+                        <div class="container">
+                            <div class="carousel-caption">
+                                <h3>@item.ImgName</h3>
+                                <p>@item.ImgDesc</p>
+                                <a class="hvr-outline-out button2" href="mens.html">ثبت نام کنید</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+                cnt++;
+            }
+        }
+    </div>
+    <a class="left carousel-control leftCarouselOmid" href="#myCarousel" role="button" data-slide="prev" style="position:absolute;left:0;">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+        <span class="sr-only">قبلی</span>
+    </a>
+    <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        <span class="sr-only">بعدی</span>
+    </a>
+    <!-- The Modal -->
+</div>

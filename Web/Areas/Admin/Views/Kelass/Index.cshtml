@@ -1,0 +1,95 @@
+﻿@model IEnumerable<ServiceLayer.Models.KelassVM>
+@{
+// ViewBag.Title = "فهرست " + Server.HtmlDecode(Html.DisplyModelPluralName(model => model).ToString());
+}
+<section>
+    <div class="row text-center"> <h3>کلاسها</h3></div>
+    @(Html.Kendo().Grid(Model)
+.Name("Grid").HtmlAttributes(new { style = "height:600px;" })
+.Columns(columns =>
+{
+columns.Bound(model => model.dorusTitle).Title("عنوان");
+columns.Bound(model => model.MasterName).Title("استاد");
+columns.Bound(model => model.StartDate).Title("شروع");
+columns.Bound(model => model.EndDate).Title("پایان");
+columns.Bound(model => model.IsOnline);
+columns.Bound(model => model.IsHozori);
+columns.Bound(model => model.Cost);
+
+
+columns.Bound(item => @item.KelassId).Title("دستورات").Filterable(false).Groupable(false).
+              Template(@<text>
+        @Html.ActionLink("ویرایش", "Edit", new { id = @item.KelassId }, new { @class = "btn btn-primary" })
+       
+        <a href="#" id="@item.KelassId" class="btn btn-primary btnDelete">حذف</a>
+            </text>).Width(150);
+})
+        .ToolBar(toolbar =>
+        {
+            toolbar.Custom().Action("Create", "Kelass").Text(" افزودن کلاس");
+            
+        }
+        )
+        //.Groupable()
+        .Pageable()
+        .Sortable()
+        .Scrollable()
+        .Filterable()
+        .DataSource(dataSource => dataSource
+                                    .Server()
+
+                                    .Model(model => model.Id(item => item.KelassId))
+                    )
+    )
+
+</section>
+@section scripts{
+    <script type="text/javascript">
+        $(".btnDelete").click(function () {
+            var curRec = this.id;//get id of record;
+            showConfirm("از حذف این رکورد مطمئن هستید؟").then(function (stat) {
+                if (stat) {
+                    $.ajax({
+                        type: 'POST',
+                        url: '@Url.Action("Delete", "Kelass")', // we are calling json method
+                        dataType: 'json',
+                        data: { id: curRec },
+                        success: function (states) {
+                            if (states) {
+                                if (states.codeid == 1) {
+                                    $.ajax({
+                                        type: 'get',
+                                        url: '/Admin/Kelass/Index',
+                                        data: {},
+                                        success: function (data) {//rebind grid
+                                            window.location.href = '/Admin/Kelass/Index';
+                                            showNotification('عملیات حذف با موفقیت انجام گردید', 'success', 'center');
+                                        }
+                                    });
+                                }
+                                else if (states.codeid == 2) {
+                                    showNotification("خطا در عملیات حذف رکورد", "information", 'center');
+                                    return;
+                                }
+                                else {
+                                    showNotification("رکورد مورد نظر سابقه داشته و قابل حذف نمی باشد", "information", 'center');
+                                    return;
+                                }
+
+                            }
+                            else {
+                                //res = "خطا در حذف";
+                            }
+                        },
+                        error: function (ex) {
+                            alert('Failed to retrieve states.' + ex);
+                        }
+                    })
+                }
+            });
+
+        });
+    </script>
+    @Html.Raw(TempData["res"])
+
+}

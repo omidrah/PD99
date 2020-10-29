@@ -1,0 +1,84 @@
+﻿@model ServiceLayer.Models.NewsViewModel
+
+@{
+   // ViewBag.Title = "ویرایش " + Html.DisplayNameFor(m => m);
+   // Layout = "~/Areas/AdminRoot/Views/Shared/_NLayout.cshtml";
+}
+<section id="productcreate" class="bg-primary top-buffer" style="color:black">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.NewsId)
+        <div class="form-horizontal">
+            @Html.ValidationSummary(true)
+            <div class="form-group">
+                @Html.LabelFor(model => model.ParentId, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("ParentId", null, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.ParentId)
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.NewsTitle, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(model => model.NewsTitle, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.NewsTitle)
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.HeadTitle, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(model => model.HeadTitle, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.HeadTitle)
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.NewsBody, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.NewsBody)
+                    @Html.ValidationMessageFor(model => model.NewsBody)
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.IsAuthenticated, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.IsAuthenticated)
+                    @Html.ValidationMessageFor(model => model.IsAuthenticated)
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("عکس فعلی", new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <img src="@Url.Content("~"+Model.MasterPicPathThumb)" alt="عکس خبر" />
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.Label("انتخاب عکس", new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.Kendo().Upload().Name("PicPath").HtmlAttributes(new { htmlAttributes = new { @class = "form-control" } })                    
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="ذخیره" class="btn btn-success" />
+                    @Html.ActionLink("فهرست", "Index", null, new { @class = "btn btn-primary" })
+                </div>
+            </div>
+        </div>
+    }
+</section>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+        });
+    </script>
+}

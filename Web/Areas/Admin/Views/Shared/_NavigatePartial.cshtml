@@ -1,0 +1,11 @@
+﻿@model IEnumerable<ServiceLayer.Models.backendVm.RoleMenuVm>
+<ul class="nav navbar-nav navbar-right">
+    @{         
+        foreach (var item in Model)
+        {           
+             
+            <li>@Html.ActionLink(item.Title, item.Action, item.Controller, routeValues: new { Area=item.Area }, htmlAttributes: new { @class = "page-scroll" })</li>
+           
+        }
+    }
+</ul>

@@ -1,0 +1,89 @@
+﻿@model ServiceLayer.Models.ProductFeaturesVM
+
+@{
+    ViewBag.Title = "ProductFeatures";
+}
+
+
+<section>
+    <div class="row text-center"> <h3>ثبت ویژگی محصول</h3></div>
+    <div class="row">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(model => model.ProductId)
+
+                <hr />
+                <div class="row">
+                    <div class="form-horizontal col-md-4">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.FeatureId, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.DropDownList("FeatureId", null, htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.FeatureId, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.FeatureValue, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(model => model.FeatureValue, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.FeatureValue, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="ثبت" class="btn btn-success" />
+                            @Html.ActionLink("فهرست", "Index", null, new { @class = "btn btn-primary" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        @{
+                            List<DomainClass.Models.ProductFeatures> list = ViewBag.Features;
+
+                            <table class="table table-bordered">
+                                <tr>
+                                    <th>ویژگی</th>
+                                    <th>مقدار</th>
+                                    <th></th>
+                                </tr>
+                                @foreach (var item in list)
+                                {
+                                    <tr id="feature_@(item.ProductFeatureValueID)">
+                                        <td>
+                                            @item.Features.featuresDispaly
+                                        </td>
+                                        <td>
+                                            @item.FeatureValue
+                                        </td>
+                                        <td>
+                                            <a class="btn btn-sm btn-danger" onclick="DeleteFeature(@item.ProductFeatureValueID)">
+                                                <i class="glyphicon glyphicon-trash"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
+                            </table>
+                        }
+                    </div>
+                </div>
+        }
+
+        </div>
+        </section>
+@section Scripts
+{
+    <script>
+        function DeleteFeature(id) {
+            if (confirm('آیا از حذف مطمئن هستید ؟')) {
+                $.get("/Admin/Products/DeleteFeature/" + id,
+                    function() {
+                        $("#feature_" + id).hide('slow');
+                    });
+            }
+        }
+</script>
+    }

@@ -1,0 +1,68 @@
+﻿@model IEnumerable<ServiceLayer.Models.OrderViewModel>
+
+@{
+    ViewBag.Title = "Index";
+    int counter = 1;
+}
+
+<section id="Warehouses">
+    <div class="row text-center"><h3>لیست سفارشات باز</h3></div>
+    <hr />
+    @(Html.Kendo().Grid(Model)
+     .Name("OrdersGrid").HtmlAttributes(new { style = "height:600px;" })
+     .Columns(columns =>
+     {
+         columns.Template( @<text>      @counter   @{ counter++; }      </text>).Width(70).Title("ردیف");
+         columns.Bound(model => model.OrderID).Width(100);
+         columns.Bound(model => model.OrderDate);//.HtmlAttributes(new { @class = "Pdate" });
+         columns.Bound(model => model.CustomersName).Title("مشتری");
+         columns.Bound(model => model.OrderSum);
+             //columns.Bound(model => model.Authenticated).Template(@<text><input type="checkbox" id="SelectedCB" value="@(item.OrderID)"  checked="checked" : ""  /></text>);
+             columns.Bound(item => @item.OrderID).Title("دستورات").Filterable(false).Groupable(false).
+                      Template(@<text>
+                    @*<a href="#" id="@item.OrderID" class="btn btn-primary print">چاپ</a>
+                        @{
+                            if (item.Authenticated == false)
+                            {
+                                <a href="#" id="@item.OrderID" class="btn btn-primary decrease">کسر از موجودی</a>
+                            }
+                            else
+                            {
+                                <a href="#" id="@item.OrderID" class="btn btn-primary decrease" disabled="disabled" style="background-color:gray;">کسر از موجودی</a>
+                            }
+                        }*@
+                    @Html.ActionLink("جزییات", "index", "orderDetail", new { id = @item.OrderID }, new { @class = "btn btn-primary" })
+                    @Html.ActionLink("چاپ آدرس", "OrderAdrdressPrint", "Orders", new { orderID = @item.OrderID }, new { @class = "btn btn-primary" })
+                    @*<a href="#" id="@item.OrderID" class="btn btn-primary btnDelete">حذف</a>*@
+                    </text>).Width(300);
+     })
+    .ToolBar(toolbar =>
+        {
+            toolbar.Custom().Action("Index", "Orders").Text("بازگشت به مدیریت سفارشات");
+          
+        //    toolbar.Custom().Action("NotFinalizedOrders", "Orders").Text("سفارشات پرداخت نشده");
+        //    toolbar.Custom().Action("SearchProduct", "OrderDetail").Text("چاپ آدرس بر اساس محصول");
+        }
+        )
+    .Pageable()
+    .Sortable()
+    .Scrollable()
+    .Filterable()
+    .DataSource(dataSource => dataSource
+        .Server()
+        .PageSize(20)
+        .Model(model => model.Id(p => p.OrderID))
+    ))
+    )
+</section>
+@*@section Scripts
+{
+    <script>
+        var url = window.location.href;
+        var a = url.indexOf("?");
+        var b = url.substring(a);
+        var c = url.replace(b, "");
+        alert(c);
+        url = c;
+    </script>
+}*@

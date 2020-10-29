@@ -1,0 +1,89 @@
+﻿@model Web.Models.OrderShipingViewModel
+
+<div class="row text-center"> <h1 style="font-size: 20px"><b>انتخاب شیوه ارسال</b></h1></div>
+<br />
+<div class="row">
+    <section class="">
+        @{
+            <div class="panel panel-warning">
+                <div class="panel-heading">
+                    <div> <b> @Model.DisplayName</b> &nbsp;عزیز</div>
+                </div>
+            </div>
+            <div class="panel panel-info">
+                <div class="panel-heading">آدرس شما</div>
+                <div class="panel-body">
+                    <div class="">
+                        &nbsp;&nbsp;&nbsp;&nbsp; @Model.Address
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-info">
+                <div class="panel-heading">جزئیات سفارش</div>
+                <div class="panel-body">
+                    <div class="">
+                        <p> هزینه ارسال  : <span style="color:red"><b><span class="hazinSend">0</span> تومان </b></span></p>
+                        <p> مبلغ سفارش : <span style="color:red"><b> @Model.SumTotal.ToString("#,0")  تومان </b></span></p>
+                        <p class="total-price"> مبلغ قابل پرداخت : <span class="totalSum1" style="color:red"><b><span class="totalSum">@Model.SumTotal.ToString("#,0")</span> تومان </b></span></p>
+                    </div>
+                </div>
+            </div>
+            <form action="/ShopCart/Payment" method="post">
+                <div class="panel panel-info">
+                    <div class="panel-heading"> نحوه ارسال سفارش خود را انتخاب نمایید</div>
+                    <div class="panel-body">
+                        <div>
+                            <div class="col-md-6">@Html.RadioButton("ShippingType", "Peyk", new { @class = "checkSend"}) ارسال از طریق پیک </div>
+                            <div class="col-md-6">@Html.RadioButton("ShippingType", "Post", new { @class = "checkSend", @checked = "checked" }) ارسال از طریق پست</div>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="text-center"> <b>   لطفا بعد از پرداخت درگاه بانک به منظور تکمیل پرداخت  حتما روی دکمه <span style="color:red"><b>تکمیل فرایند خرید </b></span> کلیک نمایید.</b></div>
+                        <br />
+                        <button type="submit" class="border-radius submit-basket-button">  پرداخت </button>
+                    </div>
+                </div>
+            </form>
+
+            @*<input type="text"  onkeyup="this.value=separate(this.value);">*@
+        }
+    </section>
+</div>
+@section scripts{
+    <script type="text/javascript">
+        $(function () {
+
+            $(".checkSend").on('change', function (e) {
+                if (e.target.value == 'Peyk') {
+                    $(".hazinSend").text('0');
+                    $(".totalSum").text( @Model.SumTotal);
+                  
+                }
+                else
+                {
+                    //$(".hazinSend").text(e.target.value);
+                    var sum = @Model.SumTotal;
+                    var transferCost = @Model.TransferCost;
+                    var res = sum + transferCost;
+                    $(".hazinSend").text(@Model.TransferCost) ;
+                    $(".totalSum").text( res);
+                }
+                //alert(e.target.value);
+            })
+        });
+
+        
+        //function separate(Number) 
+        //{
+        //    Number+= '';
+        //    Number= Number.replace(',', '');
+        //    x = Number.split('.');
+        //    y = x[0];
+        //    z= x.length > 1 ? '.' + x[1] : '';
+        //    var rgx = /(\d+)(\d{3})/;
+        //    while (rgx.test(y))
+        //        y= y.replace(rgx, '$1' + ',' + '$2');
+        //    return y+ z;
+        //}
+    </script>
+}

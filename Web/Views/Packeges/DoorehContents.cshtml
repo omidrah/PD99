@@ -1,0 +1,17 @@
+﻿@model IEnumerable<Web.Models.Kelas>
+@{
+    ViewBag.Title = "کلاسهای دوره آموزشی";
+}
+
+<section class="last-products">
+    <header><h3>  کلاسهای دوره آموزشی <b> @ViewBag.DoorehTitle </b>  </h3></header>
+    <article>
+
+        @foreach (var item in Model)
+        {
+            @Html.Partial("_doorehContent", item)
+        }
+
+        <div class="clearfix"></div>
+    </article>
+</section>

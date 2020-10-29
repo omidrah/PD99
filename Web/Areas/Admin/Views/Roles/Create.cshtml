@@ -1,0 +1,48 @@
+﻿
+@using System.Collections.Generic
+@using System.Linq
+@using DomainClass.Models;
+@{
+    ViewBag.Title = "افزودن " + Html.DisplayNameFor(m => m);
+    ViewBag.Titer = "تعریف نقش و تعیین سطح دسترسی ";
+}
+<section id="Users" class="top-buffer">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-horizontal">
+            @Html.ValidationSummary(true)
+            <div class="form-group top-buffer">
+                <div class="col-sm-8 col-sm-offset-4">
+                    عنوان نقش
+                    @Html.TextBox("roleTitle", "", new { @class = "control-label" })
+                    @Html.ValidationMessage("roleTitle", "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-12 text-center">
+                    @Html.Label("تعیین سطوح دسترسی نقش مورد نظر", new { style = "margin-bottom:10px;margin-top:10px;font-weight: bold" })
+                </div>
+            </div>
+            <div class="form-group"> 
+                <ul class="list-group">
+                    @foreach (var tmp in (ViewBag.ParentRules as List<Rule>).Where(ll => ll.ParentId == null))
+                    {
+                        <li class="list-group-item col-sm-4">
+                            @tmp.RuleTitle
+                            <input type="checkbox" name="selectedRules" value="@tmp.RuleId" />
+                        </li>
+                    }
+                </ul>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="ثبت" class="btn btn-success" />
+                    @Html.ActionLink("فهرست", "Index", null, new { @class = "btn btn-primary" })
+                </div>
+            </div>
+        </div>
+    }
+
+</section>

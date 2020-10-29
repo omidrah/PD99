@@ -1,0 +1,18 @@
+﻿@model Web.Areas.Admin.Models.UserInfo
+
+<ul class="nav navbar-nav">
+    <li>
+        <img src="@Model.UserImg" alt="پرسنل پارسیان دانش" style="width:70px;height:70px;" />
+    </li>
+    <li>        
+        <a href="/Admin/Profile/index"> @Model.fullName </a>
+    </li>
+    <li><a href="@Url.Action(MVC.Home.ActionNames.Index,MVC.Home.Name,new { Area = ""})" title="رفتن به سایت">    آخرین بازدید : @Model.lastLoginDate</a></li>    
+    <li>
+        @using (Html.BeginForm(MVC.Account.ActionNames.LogOff, MVC.Account.Name,new {Area="" }, FormMethod.Post, new { id = "logoutForm" }))
+        {
+           @Html.AntiForgeryToken()
+          <a href="javascript:document.getElementById('logoutForm').submit()">خروج </a>
+        }
+    </li>
+</ul>

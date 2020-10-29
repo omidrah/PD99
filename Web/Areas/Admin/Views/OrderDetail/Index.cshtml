@@ -1,0 +1,310 @@
+﻿@model IEnumerable<ServiceLayer.Models.OrderDetailViewModel>
+@{
+    ViewBag.Title = "شرح سفارش ";
+    // Layout = "~/Views/Shared/_NLayout.cshtml";
+    int counter = 1;
+}
+<section id="Warehouses">
+
+    <div class="row text-center"><h3>جزئیات سفارش</h3> </div>
+
+    <div class="row">
+        <div class="row">
+            <div class="col-md-6">
+                @Html.Label("شماره فاکتور:")
+                @ViewBag.OrderID
+            </div>
+            <div class="col-md-6">
+                @Html.Label("نام مشتری:")
+                @ViewBag.CustomerName
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                @Html.Label("تاریخ ثبت:")
+                @ViewBag.OrderDate
+            </div>
+            <div class="col-md-6">
+                @Html.Label("درصد تخفیف:")
+                @ViewBag.Percent
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        @{using (Html.BeginForm())
+            {
+                @(Html.Kendo().Grid(Model)
+                                    .Name("OrderDetialGrid").HtmlAttributes(new { style = "height:600px;" })
+                                    .Columns(columns =>
+                                    {
+                                        columns.Template( @<text>      @counter   @{ counter++; }      </text>).Width(70).Title("ردیف");
+
+                                        columns.Template(@<text>
+                                            <input name="selectedProducts" type="checkbox" title="select item"  class="itemSelected"
+                                                   @((item.IsTransfered) ? "disabled" : "")
+                                                   value="@item.OrderDetailID"
+                                                   @*@{ if (Model.Any(p => p.OrderDetailID == item.OrderDetailID)) { @("checked=checked")  } } />*@
+                                                   @{ if (item.IsTransfered) { @("checked=checked")  } } /> </text>).Width(50);
+                                    @*.HeaderTemplate(@<text>
+                                        <input id="selectAllitem" type="checkbox" title="select all"
+                                               @{ if (Model.Any())
+                                                   { @("checked=checked")             }
+                                       }
+                                       />
+                                    </text>).Width(50);*@
+                                        columns.Bound(model => model.ItemName).Title("عنوان").Width(150);
+                                        columns.Bound(m => m.ItemType).HtmlAttributes(new
+                                        {
+                                            @class = "typeItem"
+                                        }).Hidden();
+                                        columns.Bound(model => model.OrderedCount).Title("تعداد").Width(100);
+                                        columns.Bound(model => model.Price).Title("قیمت").Width(100);
+                                    //   columns.Bound(model => model.IsTransfered).Title("ارسال شده").Width(100);
+                                    @*columns.Bound(item => @item.OrderDetailID).Title("دستورات").Filterable(false).Groupable(false).
+                                    Template(@<text>
+                                    @Html.ActionLink("ارسال", "Edit", new { id = @item.OrderDetailID }, new { @class = "btn btn-primary" })
+
+                                    @Html.ActionLink("چاپ آدرس", "OrderAdrdressPrint", "Orders", new { orderID = @item.OrderID }, new { @class = "btn btn-primary" })
+
+                                    </text>).Width(500);*@
+                                    })
+                                                                   .ToolBar(toolbar => toolbar.Custom().Action(ViewBag.ActionName, "Orders", new { orderId = @ViewBag.OrderID }).Text("بازگشت به صفحه سفارشات"))
+                                                                   .Pageable()
+                                                                   .Sortable()
+                                                                   .Scrollable()
+                                                                   .Filterable()
+                                                                   .DataSource(dataSource => dataSource
+                                                                       .Server()
+
+                                                                       .PageSize(20)
+                                                                       .Model(model => model.Id(p => p.OrderDetailID))
+                                                                             )
+                )
+              
+                    <p>
+                        <button class="btn btn-success" id="ShowSelectedItem">
+                            چاپ آدرس و ارسال
+                        </button>
+                    </p>
+               
+                 
+        }
+        }
+    </div>
+    <div id="Orderprint" style="display:none">
+        <div style="margin-top: 15px; margin-bottom: 2px; font-family: Nazanin; font-size: 14px; font-weight: bold;">
+            <label>نام مشتری</label>&nbsp;
+            <label id="Name"></label> &nbsp;&nbsp;&nbsp;&nbsp;
+            <label>تلفن ثابت</label>&nbsp;
+            <label id="Tel"></label>&nbsp;&nbsp;&nbsp;&nbsp;
+            <label>تلفن همراه</label> &nbsp;
+            <label id="Mobile"></label>&nbsp;&nbsp;&nbsp;&nbsp;
+            <label>کدپستی</label>&nbsp;
+            <label id="Postalcode"></label>&nbsp;&nbsp;&nbsp;&nbsp;
+        </div>
+        <div style="margin-top: 5px;margin-bottom:3px; font-family: Nazanin; font-size: 14px; font-weight: bold;">
+            <label>آدرس</label>&nbsp;
+            <label id="Address"></label>
+        </div>
+        <div style="margin-top: 1px; font-family: Nazanin; font-size: 14px; font-weight: bold;">
+            <p style="margin-right:340px;">
+                موسسه آموزشی پارسیان دانش
+            </p>
+        </div>
+        <hr />
+        <div style="margin-top: 15px; margin-bottom: 2px; font-family: Nazanin; font-size: 14px; font-weight: bold;">
+            <label>شماره سفارش</label>&nbsp;
+            <label id="P_orderId"></label> &nbsp;&nbsp;&nbsp;&nbsp;
+            <label>تاریخ سفارش</label>&nbsp;
+            <label id="P_orderDate"></label>           
+            <div id="p_orderDetail"></div>
+        </div>
+    </div>
+</section>
+@section scripts{
+
+    <script type="text/javascript">
+        $(function () {
+
+            $("a#btnEditrow").click(function (event) {
+                event.preventDefault();
+                var curRec = $(this).attr('href');
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("GetDetails", "sizes")', // we are calling json method
+                    dataType: 'json',
+                    data: { id: curRec },
+                    success: function (states) {
+                        if (states) {
+                            if (states.codeid == 1) {
+                                clear();
+                                $('#EditModal').modal('show');
+                                $("#txtsize").val(states.Size);
+                                $("#sizeid").val(states.SizeID);
+                                $("#chsize").attr('checked', states.SizeIsActive);
+                            }
+                            else if (states.codeid == 2) {
+                                showNotification(states.msg, "information","center");
+                                return;
+                            }
+                            else {
+                                showNotification(states.msg, "information","center");
+                                return;
+                            }
+                        }
+                        else {
+                            //res = "خطا در حذف";
+                        }
+                    },
+                    error: function (ex) {
+                        //alert('Failed to retrieve states.' + ex);
+                        showNotification(ex, "error", "center");
+                    }
+                });
+
+            });
+
+            $(".btnDelete").click(function () {
+                var curRec = this.id;
+                showConfirm("از حذف این ردیف مطمئن هستید؟").then(function (stat) {
+                    if (stat) {
+                        $.ajax({
+                            type: 'POST',
+                            url: '@Url.Action("Delete", "OrderDetails")',
+                            dataType: 'json',
+                            data: { id: curRec },
+                            success: function (states) {
+                                if (states) {
+                                    if (states.codeid == 1) {
+                                        var orderid = states.orderid;
+                                        $.ajax({
+                                            type: 'get',
+                                            url: '/OrderDetails/Index/' + orderid,
+                                            data: {},
+                                            success: function (result) {
+                                                window.location.href = '/OrderDetails/Index/' + orderid;
+                                                showNotification("عملیات حذف با موفقیت انجام گردید", "success","center");
+                                            }
+                                        });
+                                    }
+                                    else if (states.codeid == 2) {
+                                        showNotification("خطا در عملیات حذف رکورد", "error","center");
+                                        return;
+                                    }
+                                }
+                            },
+                            error: function (ex) {
+                                showNotification('Failed to retrieve states.' + ex,"error","center");
+                            }
+                        })
+                    }
+                });
+            });
+        });
+    </script>
+    <script type="text/javascript">
+       @*<script type="text/javascript" src="@Url.Content("~/Scripts/PrintResid.js")"></script>*@
+        $(document).ready(function () {
+            In_selected = [];
+            var In_dd = $("#OrderDetialGrid tbody input:checkbox");
+            for (var i = 0; i < In_dd.length; i++) {
+                if (In_dd[i].id != "IsTransfered" && In_dd[i].checked == true && !In_dd[i].hasAttribute("disabled")) {
+                    In_selected.push({
+                        id: In_dd[i].value, 'type': In_dd[i].parentElement.parentElement.childNodes[3].innerText
+                    });
+                }
+            }
+            if (In_selected.length <= 0) { //اگر آیتمی برای انتخاب وجود ندارد کلید چاپ نمایش دادهنشود
+                $("#ShowSelectedItem").hide();
+            }
+
+            $('.itemSelected').on('change', function () {
+                //$("#OrderDetialGrid tbody input:checkbox").attr("checked", this.checked);
+                $("#ShowSelectedItem").show();
+            });
+            $("#ShowSelectedItem").on("click", function (e) {
+                e.preventDefault();
+                selected= [];
+                var dd = $("#OrderDetialGrid tbody input:checkbox");                
+                for (var i = 0; i < dd.length; i++) {
+                    if (dd[i].id != "IsTransfered" && dd[i].checked == true && !dd[i].hasAttribute("disabled")) {
+                        selected.push({
+                            id: dd[i].value, 'type': dd[i].parentElement.parentElement.childNodes[3].innerText, 'name': dd[i].parentElement.parentElement.childNodes[2].innerText
+
+                        });
+                    }                    
+                }
+               
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("Print2", "OrderDetail")',
+                    dataType: 'json',
+                    data: { cols: selected },
+                    success: function (states) {
+                        //alert(states);
+                        clearPrintArea();
+                        PrintInvoice(states.name + ' ' + states.family,
+                                states.Tel, states.Mobile,
+                                states.Postalcode, states.Address,
+                                @Model.First().OrderID, '@ViewBag.OrderDate', selected);                        
+                    },
+                    error: function (ex) {
+                        showNotification('Failed to retrieve states.' + ex, "error", "center");
+                        return;
+                    }
+                });  
+            });
+            function PrintInvoice(name, tel, mobile, codeposti, address, orderId, orderDate,selectedItem)
+            {
+                $("#Name").text(name);
+                $("#Tel").text(tel);
+                $("#Mobile").text(mobile);
+                $("#Postalcode").text(codeposti);
+                $("#Address").text(address);
+
+                $("#P_orderId").text(orderId);
+                $("#P_orderDate").text(orderDate);
+                selectedItem.forEach((value, key) => {
+
+                    $("#p_orderDetail").append("<p> "+(key+1)+ "- " + value['name'] + "</p>");
+                    //alert(value);
+                });
+                var frame1 = $('<iframe />');
+                frame1[0].name = "frame1";
+                frame1.css({ "position": "absolute", "top": "-1000000px" });
+                $("body").append(frame1);
+                var frameDoc = frame1[0].contentWindow ? frame1[0].contentWindow : frame1[0].contentDocument.document ? frame1[0].contentDocument.document : frame1[0].contentDocument;
+                frameDoc.document.open();
+                //Create a new HTML document.
+                frameDoc.document.write('<html><head><title>چاپ آدرس</title>');
+                @* frameDoc.document.write('<link rel="stylesheet" href="@Url.Content(Links.Content.print_css)" type="text/css" />');*@
+                //Append the external CSS file.
+                frameDoc.document.write('</head><body dir="rtl">');
+                //Append the DIV contents.
+                frameDoc.document.write('<div style="border-style:dotted;border-radius:2px;border-color:black;border-width:1px;">');
+                frameDoc.document.write($("#Orderprint").html());
+                frameDoc.document.write('</div>');
+                frameDoc.document.write('</body></html>');
+                frameDoc.document.close();
+                setTimeout(function () {
+                    window.frames["frame1"].focus();
+                    window.frames["frame1"].print();
+                    frame1.remove();
+                }, 500);
+            }
+            function clearPrintArea() {
+                $("#Name").text("");
+                $("#Tel").text("");
+                $("#Mobile").text("");
+                $("#Postalcode").text("");
+                $("#Address").text("");
+                $("#P_orderId").text("");
+                $("#P_orderDate").text("");
+                $("#P_orderDetail").html("");
+                //$('.tbodyOderDetails').html("");
+            }
+        })
+    </script>
+
+}
+

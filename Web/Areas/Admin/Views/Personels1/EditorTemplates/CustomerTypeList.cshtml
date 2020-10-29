@@ -1,0 +1,8 @@
+﻿@using System.Collections
+@*@model ServiceLayer.Models.CustomerTypeVm*@
+
+@(Html.Kendo().DropDownList().OptionLabel("----------")
+        .DataValueField("Id")
+        .DataTextField("Title").Name("customerTypeId")
+        .BindTo((System.Collections.IEnumerable)ViewData["CustomerTypes"])
+)

@@ -1,0 +1,121 @@
+﻿@model Web.Areas.Admin.Models.UserProfile
+@{
+    ViewBag.Title = "Index";
+    //Layout = "~/Areas/Admin/Views/Shared/_NLayout.cshtml";
+}
+<style type="text/css">
+    .col-xs-1, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9, .col-xs-10, .col-xs-11 {
+        float: right;
+    }
+</style>
+
+
+<section id="UserInfo" class="top-buffer">
+    @using (Html.BeginForm("Profiles", "Manage", FormMethod.Post))
+    {
+        @Html.ValidationSummary(true)
+        @Html.HiddenFor(m => m.userId)
+        <h3 class="title" id="userInfo"><i class="fa fa-angle-left  fa-lg"></i>مشخصات کاربر</h3>
+        <hr />
+        <div class="row well">
+
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                @*<div class="row">
+                    <div class="form-group">
+                        <label class="control-label col-xs-3">IP</label>
+                        <div class="col-xs-9">
+                            <span class="text-success">@Request.UserHostAddress</span>
+                        </div>
+                    </div>
+                </div>*@
+                <div class="row">
+                    <div class="col-md-6 col-sm-6 col-xs-12 top-buffer">
+                        <div class="form-group">
+                            <label for="inputEmail" class="control-label col-xs-3 ">نام کاربری</label>
+                            <div class="col-xs-9">
+                                @Html.TextBoxFor(m => m.username, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.username, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>                    
+                </div>
+                <div class="row top-buffer">
+                    <hr />
+                </div>
+                <div class="row">
+                    <div class="col-md-6 col-sm-6 col-xs-12 top-buffer">
+                        <div class="form-group">
+                            <label for="name" class="control-label col-xs-3">نام</label>
+                            <div class="col-xs-9">
+                                @Html.TextBoxFor(m => m.name, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-12 top-buffer">
+                        <div class="form-group">
+                            <label for="name" class="control-label col-xs-3">نام خانوادگی </label>
+                            <div class="col-xs-9">
+                                @Html.TextBoxFor(m => m.family, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-sm-6 col-xs-12 top-buffer">
+                        <div class="form-group">
+                            <label for="name" class="control-label col-xs-3">کدملی</label>
+                            <div class="col-xs-9">
+                                @Html.TextBoxFor(m => m.codeMelli, new { @class = "form-control", maxlength = 10 })
+                                @Html.ValidationMessageFor(m => m.codeMelli, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-sm-6 col-xs-12 top-buffer">
+                        <div class="form-group">
+                            <label for="name" class="control-label col-xs-3">تلفن همراه </label>
+                            <div class="col-xs-9">
+                                @Html.TextBoxFor(m => m.Mobile, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.Mobile,"" ,new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-12 top-buffer">
+                        <div class="form-group">
+                            <label for="name" class="control-label col-xs-3">تلفن ثابت</label>
+                            <div class="col-xs-9">
+                                @Html.TextBoxFor(m => m.Tel, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(m=>m.Tel, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-12 top-buffer">
+                        <div class="form-group">
+                            <label for="name" class="control-label col-xs-3">کدپستی</label>
+                            <div class="col-xs-9">
+                                @Html.TextBoxFor(m => m.PostalCode, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(m=>m.PostalCode, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-12 top-buffer">
+                        <div class="form-group">
+                            <label for="name" class="control-label col-xs-3">آدرس</label>
+                            <div class="col-xs-9">
+                                @Html.TextAreaFor(m => m.Address, 10, 20, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <input type="submit" value="بروزرسانی" class="btn btn-success" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</section>
+@section scripts{
+    @Html.Raw(TempData["res"])
+}

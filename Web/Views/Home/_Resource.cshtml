@@ -1,0 +1,41 @@
+﻿@model IList<ServiceLayer.Models.ProductGroupVM>
+
+
+<div class="new_arrivals_agile_w3ls_info">
+    <div class="container">
+        <h3 class="wthree_text_info">منابع</h3>
+        <div id="horizontalTab">
+            <ul class="resp-tabs-list">
+                @{
+                    foreach (var item in Model)
+                    {
+                        @*<li onclick="getResourceByType(@(item.ProductGroupId))">@item.ProductGroupTitle</li>*@
+                        <li>@item.ProductGroupTitle</li>
+                      
+                    }
+                }
+            </ul>
+            @*@{
+                    Html.RenderPartial(MVC.Home.Views._ResourceByType);
+                }*@
+            <div class="resp-tabs-container">
+                <!--/tab_one resourceType = 1 ===> جزوه -->
+                <div class="tab1">
+                    @Html.Action(MVC.Home.ActionNames.FillResourceByType, MVC.Home.Name, new { resourceType = 7 })
+                </div>
+                <!--/tab_tow resourceType = 2 ===> کتاب-->
+                <div class="tab2">
+                    @Html.Action(MVC.Home.ActionNames.FillResourceByType, MVC.Home.Name, new { resourceType = 2 })
+                </div>
+                <!--/tab_three resourceType = 5 ===> سی دی-->
+                <div class="tab3">
+                    @Html.Action(MVC.Home.ActionNames.FillResourceByType, MVC.Home.Name, new { resourceType = 5 })
+                </div>
+                <!--/tab_four resourceType = 6 ===> آزمون-->
+                <div class="tab4">
+                    @Html.Action(MVC.Home.ActionNames.FillResourceByType, MVC.Home.Name, new { resourceType = 6 })
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

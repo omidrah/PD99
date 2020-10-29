@@ -1,0 +1,168 @@
+﻿@model ServiceLayer.Models.PersonelVM
+@{
+    ViewBag.Title = "افزودن " + Html.DisplayNameFor(m => m);
+    //  Layout = "~/Areas/AdminRoot/Views/Shared/_NLayout.cshtml";
+}
+<section id="UserCreate" class="top-buffer">
+<div class="row text-center"> <h3>ثبت مشخصات کارکنان</h3></div>
+    <hr />
+    @using (Html.BeginForm())
+            {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+
+        <div class="form-horizontal">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Name, new { @class = "control-label col-md-2" })
+                <div class="col-md-4">
+                    @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Name, null, new { @class = "text-danger" })
+                </div>
+                @Html.LabelFor(model => model.Family, new { @class = "control-label col-md-2" })
+                <div class="col-md-4">
+                    @Html.TextBoxFor(model => model.Family, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Family, null, new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.NationCode, new { @class = "control-label col-md-2" })
+                <div class="col-md-4">
+                    @Html.TextBoxFor(model => model.NationCode, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.NationCode, null, new { @class = "text-danger" })
+                </div>
+                @Html.LabelFor(model => model.BirthDate, new { @class = "control-label col-md-2" })
+                <div class="col-md-4">
+                    @Html.EditorFor(model => model.BirthDate, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.BirthDate, null, new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Tel, new { @class = "control-label col-md-2" })
+                <div class="col-md-4">
+                    @Html.TextBoxFor(model => model.Tel, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Tel, null, new { @class = "text-danger" })
+                </div>
+                @Html.LabelFor(model => model.Mobile, new { @class = "control-label col-md-2" })
+                <div class="col-md-4">
+                    @Html.TextBoxFor(model => model.Mobile, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Mobile, null, new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Address, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.TextBoxFor(model => model.Address, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Address, null, new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.PersonliNo, new { @class = "control-label col-md-2" })
+                <div class="col-md-4">
+                    @Html.TextBoxFor(model => model.PersonliNo, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.PersonliNo, null, new { @class = "text-danger" })
+                </div>
+                @Html.LabelFor(model => model.HasInsurance, new { @class = "control-label col-md-2" })
+                <div class="col-md-4">
+                    @Html.EditorFor(model => model.HasInsurance, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.HasInsurance, null, new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-2 control-label">
+                    نقش کاربر
+                </label>
+                <div class="col-md-10">
+                    @foreach (var item in (SelectList)ViewBag.RoleId)
+                    {
+                        <input type="checkbox" name="SelectedRoles" value="@item.Value" class="checkbox-inline" />
+                        @Html.Label(item.Text, new { @class = "control-label" })
+                    }
+                </div>
+            </div>
+            <div class="form-group">
+                @*@Html.LabelFor(model => model.RoleId, new { @class = "control-label col-md-2" })
+                <div class="col-md-4">
+                    @Html.DropDownList("RoleId", null,new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.RoleId, null, new { @class = "text-danger" })
+                </div>*@
+                @Html.LabelFor(model => model.SalaryDate, new { @class = "control-label col-md-2" })
+                <div class="col-md-4">
+                    @Html.EditorFor(model => model.SalaryDate, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.SalaryDate, null, new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Email, new { @class = "control-label col-md-2" })
+                <div class="col-md-4">
+                    @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Email, null, new { @class = "text-danger" })
+                </div>
+                @Html.LabelFor(model => model.IsRasmi, new { @class = "control-label col-md-2" })
+                <div class="col-md-4">
+                    @Html.EditorFor(model => model.IsRasmi)
+                    @Html.ValidationMessageFor(model => model.IsRasmi, null, new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+                <div class="col-md-4">
+                    @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                </div>
+                @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
+                <div class="col-md-4">
+                    @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+                </div>
+            </div>
+
+             <hr />
+
+            <div class="row top-buffer">
+                <div class="col-md-4">
+                    <div class="col-md-4">
+                        @Html.Label("تصویر کاربر")
+                    </div>
+                    <div class="col-md-8 col-md-push-1">
+                        @Html.Kendo().Upload().Name("picPath").Multiple(false);
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    @*<div class="col-md-3">
+                            @Html.Label("نقش کاربر")
+                        </div>
+                        <div class="col-md-8 col-md-push-1">
+
+                            @Html.EditorFor(e => e.RoleId, new { List = ViewBag.RoleId })
+                            @Html.ValidationMessageFor(model => model.RoleId, null, new { @class = "text-danger" })
+                        </div>*@
+                </div>
+                <div class="col-md-4">
+                    @*<div class="col-md-3">
+                            @Html.Label("وضعیت کاربر")
+                        </div>
+                        <div class="col-md-8 col-md-push-1">
+                            @Html.EditorFor(model => model.IsActive, null, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.IsActive, null, new { @class = "text-danger" })
+                        </div>*@
+                </div>
+            </div>
+
+
+            <div class="row top-buffer">
+                <div class="col-md-10 col-md-pull-8">
+                    <input type="submit" value="ثبت" class="btn btn-success" />
+                    @Html.ActionLink("فهرست", "Index", null, new { @class = "btn btn-primary" })
+                </div>
+            </div>
+        </div>
+    }
+</section>
+
+@section scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Html.Raw(TempData["res"])
+}
+
+

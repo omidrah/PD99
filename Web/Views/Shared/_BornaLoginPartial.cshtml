@@ -1,0 +1,66 @@
+﻿@using Microsoft.AspNet.Identity
+@using System.Security.Claims;
+@using ServiceLayer.Extensions
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm(MVC.Account.ActionNames.LogOff, MVC.Account.Name, FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <span style="color: white;">
+            کاربر  @User.FullName()
+        </span>
+        <span> &nbsp  &nbsp  &nbsp</span>
+        <span>|</span>
+        <span> &nbsp  &nbsp  &nbsp</span>
+
+        <span style="color: white;">
+            @{
+                var UserRoles = User.Roles();
+                if (UserRoles.Contains("Customer"))
+                {
+                    @Html.ActionLink("پروفایل من ", MVC.Manage.ActionNames.Index, MVC.Manage.Name, routeValues: new { Area = "" }, htmlAttributes: new { @style = "color:red", title = "پنل کاربری" })
+                }
+
+                else
+                {
+                    @Html.ActionLink("داشبورد ", MVC.Admin.Home.ActionNames.Index, MVC.Admin.Home.Name, routeValues: new { Area = MVC.Admin.Name }, htmlAttributes: new { @style = "color:white", title = "پنل مدیریت" })
+
+                }
+            }
+        </span>
+        <span> &nbsp  &nbsp  &nbsp</span>
+        <span>|</span>
+        <span> &nbsp  &nbsp  &nbsp</span>
+
+            <a href="javascript:document.getElementById('logoutForm').submit()" style="color:white">خروج </a>
+
+
+                    }
+
+
+                }
+                else
+                {
+                    <div class="header_topbar__client-area col-md-6 col-sm-6 col-xs-12 pull-right">
+                        <a class="button user-register color-main-bg" href="@Url.Action( MVC.Account.ActionNames.Register,MVC.Account.Name)">ثبت کاربر جدید <i class="fa fa-user"></i></a>
+                        <div class="user-login-box">
+                            <a class="button user-login" href="#">ورود کاربر <i class="fa fa-key"></i></a>
+                            @using (Html.BeginForm(MVC.Account.ActionNames.Login, MVC.Account.Name, FormMethod.Post, new { id = "LoginForm" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                <div class="login-form">
+
+                                    <input type="email" name="Email" id="Email" required placeholder="نام کاربری">
+                                    <span>@Html.ValidationMessage("نام کاربری(ایمیل) را وارد کنید", new { @class = "text-danger" })</span>
+                                    <input type="password" name="password" id="password" required placeholder="کلمه عبور">
+                                    <span>@Html.ValidationMessage("رمز عبور را وارد کنید", new { @class = "text-danger" })</span>
+                                    <div class="button-sec">
+                                        <button class="button btn--login" type="submit" name="button">ورود</button>
+                                        <button class="button" type="button" name="button"><i class="fa fa-home"></i></button>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                }

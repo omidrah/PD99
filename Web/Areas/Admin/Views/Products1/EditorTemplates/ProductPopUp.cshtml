@@ -1,0 +1,114 @@
+﻿@model ServiceLayer.Models.ProductVM
+<style>
+    .k-edit-form-container {
+        position: relative;
+        width: 100%;
+    }
+</style>
+<div class="banner-bootom-w3-agileits">
+    <ul class="errors"></ul>
+    <div class="container">
+        <div class="row text-center"> <h3>ویرایش منابع</h3></div>
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                @Html.ValidationSummary(true)
+                @Html.HiddenFor(model => model.ProductId)
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ProductName, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.ProductName, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.ProductName)
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ProductEnglishName, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.ProductEnglishName, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.ProductEnglishName)
+                    </div>
+                </div>
+
+                @*<div class="form-group">
+                        @Html.LabelFor(model => model.Summery, new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Summery, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Summery)
+                        </div>
+                    </div>*@
+
+                <div class="form-group">
+                    @*@Html.LabelFor(model => model.ProductGroupTitle, new { @class = "control-label col-md-2" })
+                        <div class="col-md-4">
+                            @Html.DropDownList("ProductGroupID", null, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.ProductGroupID)
+                        </div>*@
+
+
+                    @Html.LabelFor(model => model.Price, new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.TextBoxFor(model => model.Price, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Price)
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.NoghteSefaresh, new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.TextBoxFor(model => model.NoghteSefaresh, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.NoghteSefaresh)
+                    </div>
+
+                    @Html.LabelFor(model => model.ProductMojodi, new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.TextBoxFor(model => model.ProductMojodi, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.ProductMojodi)
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.IsActive, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.IsActive)
+                        @Html.ValidationMessageFor(model => model.IsActive)
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Description, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.Description, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Description)
+                    </div>
+                </div>
+
+                @*<div class="row top-buffer">
+                        <div class="col-md-12">
+                            <div class="col-md-2">
+                                @Html.Label(" انتخاب عکس")
+                            </div>
+                            <div class="col-md-10 col-md-push-1">
+                                @Html.Kendo().Upload().Name("PicPath").Multiple(true).HtmlAttributes(new { htmlAttributes = new { @class = "form-control" } }).Events(
+                                     events => events.Select("onSelect")
+                                )
+                                <a href="/Admin/Products/ShowPicture?ItemId=@Model.ProductId">رویت تصاویر فعلی</a>
+                            </div>
+                        </div>
+                    </div>*@
+
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="ثبت" class="btn btn-success" />
+                        @Html.ActionLink("فهرست", "Index", null, new { @class = "btn btn-primary" })
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+

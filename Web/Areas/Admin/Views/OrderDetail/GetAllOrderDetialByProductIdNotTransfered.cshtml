@@ -1,0 +1,81 @@
+﻿@model IEnumerable<ServiceLayer.Models.GetAllproductNotTransfer>
+@{
+    ViewBag.Title = "لیست سفارشاتی که کالا در آن ثبت شده ولی ارسال نشده است";
+    int counter = 1;
+}
+<section>
+    <div class="row text-center"><h3>لیست سفارشاتی که کالا در آن ثبت شده ولی ارسال نشده است</h3> </div>
+    <hr />
+    <div class="row">
+        <table class="table table-bordered">
+            <tr>
+                <th class="text-right" width="50px">
+                    ردیف
+                </th>
+                <th class="text-right">
+                    @Html.DisplayNameFor(model => model.ItemName)
+                </th>
+                <th class="text-right">
+                    @Html.DisplayNameFor(model => model.OrderID)
+                </th>
+                <th class="text-right">
+                    @Html.CheckBox("ارسال شده")
+                </th>
+                <th class="text-right">
+                    @Html.DisplayName("دستورات")
+                </th>               
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @counter   @{ counter++; }
+
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ItemName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.OrderID)
+                    </td>
+                    <td>                        
+                        @Html.CheckBoxFor(modelItem => item.IsTransfered)
+                    </td>
+                    <td width="380px">
+                        @Html.ActionLink("چاپ", "Print", new { id = item.OrderDetailID })
+                    </td>                   
+                </tr>
+            }
+
+        </table>
+        @*@(Html.Kendo().Grid(Model)
+                                     .Name("OrderDetialGrid").HtmlAttributes(new { style = "height:600px;" })
+                                     .Columns(columns =>
+                                     {
+                                         columns.Template( @<text>      @counter   @{ counter++; }      </text>).Width(70).Title("ردیف");
+                                            columns.Bound(model => model.ItemName).Title("نام مشتری").Width(150);
+                                            columns.Bound(model => model.OrderID).Title("شماره سفرش").Width(150);
+                                            columns.Bound(model => model.IsTransfered).Title("ارسال شده").Width(100);
+                                            columns.Bound(item => @item.OrderDetailID).Title("دستورات").Filterable(false).Groupable(false).
+                                                    Template(@<text>
+                                                        @Html.ActionLink("چاپ", "Print", new { id = @item.OrderDetailID }, new { @class = "btn btn-primary" })
+
+                                                    </text>).Width(500);
+                             })
+                              .Pageable()
+                              .Sortable()
+                              .Scrollable()
+                              .Filterable()
+                              .DataSource(dataSource => dataSource
+                                  .Server()
+
+                                  .PageSize(20)
+                                  .Model(model => model.Id(p => p.OrderDetailID))
+                                        )
+            )*@
+        </div>
+    @Html.ActionLink("بازگشت", "SearchProduct", null, new { @class = "btn btn-primary" })
+</section>
+
+

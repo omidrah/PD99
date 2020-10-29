@@ -1,0 +1,51 @@
+﻿@using Web.Models
+@model Web.Models.LoginViewModel
+@{
+    ViewBag.Title = "ورود  ";
+   // Layout = "~/Views/Shared/_BornaLayout.cshtml";
+}
+@*<section id="UserCreate" class="top-buffer">*@
+<section>
+    <div class="row text-center"> <h1>ورود</h1></div>
+    <hr />
+    <div class="row">
+        @using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+            <div class="form-horizontal">
+                <div class="form-group">
+                 
+                    @Html.LabelFor(model => model.Email, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Email, null, new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Password, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.Password, new { @class = "form-control", Type = "Password" })
+                        @Html.ValidationMessageFor(model => model.Password, null, new { @class = "text-danger" })
+                    </div>
+                </div>
+                <hr />
+                @*@Html.Hidden("returnUrl", (object)ViewBag.ReturnUrl)*@
+
+
+                <div class="row top-buffer" style="padding-bottom: 15px">
+                    <div class="col-md-10"></div>
+                    <div class="col-md-2">
+                        <input type="submit" value="ورود" class="btn btn-danger" />
+                        @Html.ActionLink("ثبت نام", "Register", null, new { @class = "btn btn-primary" })
+                    </div>
+                </div>
+                <div class="row"></div>
+            </div>
+        }
+    </div>
+</section>
+
+@*<div class="row text-center"> .</div>*@

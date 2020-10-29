@@ -1,0 +1,167 @@
+﻿@model ServiceLayer.Models.DoorehVM
+
+@{
+    ViewBag.Title = "افزودن " + Html.DisplayNameFor(m => m);
+}
+<section>
+    <div class="row text-center"> <h3>ثبت دوره</h3></div>
+    @using (Html.BeginForm("Edit", "Dooreh", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+
+        @Html.HiddenFor(model=>model.Id)
+        @Html.HiddenFor(model => model.ImageName)
+        <div class="form-horizontal">
+            @Html.ValidationSummary(true)
+
+            <div class="col-md-8">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.DoorehTitle, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.DoorehTitle, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.DoorehTitle)
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Content, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.Content, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Content)
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Goal, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.Goal, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Goal)
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Appendix, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.Appendix, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Appendix)
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Pishniaz, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.Pishniaz, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Pishniaz)
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.BargozariDay, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.BargozariDay, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.BargozariDay)
+                    </div>
+
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Cost, new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.TextBoxFor(model => model.Cost, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Cost)
+                    </div>
+                    @Html.LabelFor(model => model.OffPercent, new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        @Html.TextBoxFor(model => model.OffPercent, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.OffPercent)
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.BargozariTime, new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.BargozariTime, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.BargozariTime)
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.Label("نوع دوره", new { @class = "control-label col-md-2" })
+                    <div class="col-md-4">
+                        آنلاین   @Html.RadioButton("DoorehType", "Online")
+                        حضوری @Html.RadioButton("DoorehType", "Hozori")
+                    </div>
+                    @Html.LabelFor(model => model.IsActive, new { @class = "control-label col-md-2" })
+                    <div class="col-md-2">
+                        @Html.EditorFor(model => model.IsActive, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.IsActive)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <span class="control-label col-md-2"><b>کلمات کلیدی</b></span>
+                    <div class="col-md-10">
+                        <input type="text" name="tags" value="@ViewBag.Tags" class="form-control" placeholder="کلمات کلیدی را با - جدا کنید" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">تصویر دوره</div>
+                    <div class="panel-body">
+                        <img id="imgPreviewDooreh" style="margin: 8px auto" width="200" class="thumbnail" src="~/Uploads/ImgProducts/Thumb/@Model.ImageName" />
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ImageName, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                <input type="file" id="ImgDooreh" name="ImgDooreh" onselect="onSelect(e)" />
+                                @Html.ValidationMessageFor(model => model.ImageName, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="ثبت" class="btn btn-success" />
+                    @Html.ActionLink("لیست دوره ها", "Index", null, new { @class = "btn btn-primary" })
+                </div>
+            </div>
+        </div>
+    }
+</section>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        function onSelect(e) {
+            var result = true;
+            var ext = ['.jpeg', '.jpg', '.gif', '.png', '.bmp'];
+            if (ext.indexOf(e.files[0].extension) == -1)
+                result = false;
+            if (!result) {
+                showNotification("فرمت فایل انتخاب شده نادرست است", "error", "Center");
+                return;
+            }
+            return result;
+        }
+
+        function readURL(input) {
+
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#imgPreviewDooreh').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        $("#ImgDooreh").change(function () {
+            readURL(this);
+        });
+    </script>
+    @*// <script src="/ckeditor/ckeditor.js"></script>
+        <script src="/ckeditor/adapters/jquery.js"></script>
+        <script>
+            $(function () {
+                $('#Text').ckeditor();
+            });
+        </script>*@
+}
+
+
+@Html.Raw(TempData["res"])
+}

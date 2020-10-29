@@ -1,0 +1,55 @@
+﻿@model IEnumerable<ServiceLayer.Models.FeaturesVm>
+
+@{
+   // ViewBag.Title = "Index";
+    int counter = 1;
+}
+<section id="productGroups" class="bg-primary top-buffer ">
+    @(Html.Kendo().Grid(Model)
+              .Name("featuresGrid").HtmlAttributes(new { style = "height:600px;" })
+              .Columns(columns =>
+              {
+              //columns.Template( @<text>      @counter   @{ counter++; }      </text>).Width(80).Title("ردیف");
+                  columns.Bound(model => model.featuresDispaly);
+                  columns.Bound(model => model.FeaturesName);
+                  columns.Bound(model => model.IsActive).
+                  ClientTemplate("<input type='checkbox'   #= IsActive ? checked='checked':'' # class='chkbx' disabled = 'disabled' />"); ;
+                  columns.Command(command => { command.Edit().Text("ویرایش").CancelText("انصراف").UpdateText("ثبت"); command.Destroy().Text("حذف");}).Title("دستورات");
+              })
+         .ToolBar(toolbar => toolbar.Create().Text("افزودن"))
+    .Editable(editable => editable.Mode(GridEditMode.PopUp))
+    .Pageable()
+    .Sortable()
+    .Scrollable()
+    .HtmlAttributes(new { style = "height:430px;" })
+    .DataSource(dataSource => dataSource
+        .Ajax()
+        .Batch(false)
+        .ServerOperation(false)
+        .PageSize(20)
+        .Events(events => events.Error("error_handler"))
+        .Model(model => model.Id(p => p.FeatureId))
+        .Create(update => update.Action("Create", "Features"))
+        .Read(read => read.Action("Index", "Features"))
+        .Update(update => update.Action("Edit", "Features"))
+        .Destroy(update => update.Action("Delete", "Features"))
+    )
+    )
+</section>
+@section scripts{
+    <script type="text/javascript">
+        function error_handler(e) {
+            if (e.errors) {
+                var message = "Errors:\n";
+                $.each(e.errors, function (key, value) {
+                    if ('errors' in value) {
+                        $.each(value.errors, function () {
+                            message += this + "\n";
+                        });
+                    }
+                });
+                alert(message);
+            }
+        }
+    </script>
+}

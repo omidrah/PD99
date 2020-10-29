@@ -1,0 +1,154 @@
+﻿@model IEnumerable<ServiceLayer.Models.CustomerVm>
+@{
+    int counter = 1;
+}
+<section id="productGroups" class="bg-primary top-buffer">
+
+    @(Html.Kendo().Grid(Model)
+        .Name("customersGrd").HtmlAttributes(new { style = "height:800px;" })
+        .Columns(columns =>
+        {
+            @*columns.Template( @<text>      @counter   @{ counter++; }   </text>).Width(70).Title("ردیف");*@
+            columns.Bound(p => p.Email).Title("نام کاربری");
+            columns.Bound(p => p.FullName);
+            //  columns.Bound(p => p.Family);
+            columns.Bound(p => p.customerTypeId).EditorTemplateName("CustomerTypeList").
+                        Title("نوع مشتری").ClientTemplate("#: customerTypeTitle#").Width(100);
+            //columns.Bound(p => p.CreateDate).HtmlAttributes(new { @class = "Pdate" });
+            //  columns.Bound(p => p.IsActive).
+                //                          ClientTemplate("<input type='checkbox'  id=#=UserId#  #= IsActive ? checked='checked':'' # class='chkbx' disabled = 'disabled' />");
+            columns.Command(command =>
+            {
+                            command.Edit().Text("ویرایش").CancelText("انصراف").UpdateText("ثبت");
+                            command.Destroy().Text("حذف");//.Click("deleteRow");
+                                                            //command.Custom().Action("Hierarchy", "Packages").Text("مشاهده ساسله مراتبی");
+
+            }).Title("دستورات");
+        })
+        .ToolBar(toolbar =>
+        {
+            toolbar.Custom().Action("ConfirmDocument", "Customers").Text("تایید مدرک");
+                //toolbar.Custom().Action("Hierarchy", "Packages").Text("مشاهده ساسله مراتبی");
+        })
+                                .ToolBar(toolbar => toolbar.Create().Text("افزودن"))
+                                .Editable(editable => editable.Mode(GridEditMode.PopUp).TemplateName("CustomerPopup")
+                                                    .Window(x => x/*.Width(800)*/.Height(500))/*.DisplayDeleteConfirmation("آیا ازحذف این رکورد مطمئن هستید؟")*/)
+                                .Pageable()
+                                .Filterable()
+                                .Sortable()
+                                .Scrollable()
+                                .Events(e => e.Edit("onEdit"))
+                                .DataSource(dataSource => dataSource
+                                                .Ajax()
+                                                .Batch(false)
+                                                .ServerOperation(false)
+                                                .PageSize(5)
+                                                .Events(events =>
+                                                {
+                                                    events.Error("error_handler")/*.RequestEnd("RequestDo")*/;
+                                                    events.Change("Grid_Change");
+                                                })
+                                                .Model(model =>{ model.Id(p => p.UserId); })
+                                                .Create(update => update.Action("Create", "Customers"))
+                                                .Read(read => read.Action("Index", "Customers"))
+                                                .Update(update => update.Action("Edit", "Customers"))
+                                                .Destroy(update => update.Action("Destroy", "Customers"))
+                                             ))
+</section>
+@section scripts{
+
+    <script type="text/x-kendo-template" id="ErrorMessageFromServerTemplate">
+        <div class="k-widget k-tooltip k-tooltip-validation k-invalid-msg field-validation-error"
+             style="margin: 0.5em; display: block; " data-for="#=field#" data-valmsg-for="#=field#" id="#=field#_validationMessage">
+            <span class="k-icon k-warning"> </span>#=message#<div class="k-callout k-callout-n"></div>
+        </div>
+    </script>
+    <script type="text/javascript">
+        var validationMessageTmpl = kendo.template($("#ErrorMessageFromServerTemplate").html());
+        function error_handler(args) {
+            if (args.errors) {
+                var grid = $("#customersGrd").data("kendoGrid");
+                grid.one("dataBinding", function (e) {
+                    e.preventDefault();   // cancel grid rebind if error occurs
+
+                    for (var error in args.errors) {
+                        showMessage(grid.editable.element, error, args.errors[error].errors);
+                    }
+                });
+            }
+        }
+        function showMessage(container, name, errors) {
+            //add the validation message to the form
+            container.find("[data-valmsg-for=" + name + "],[data-val-msg-for=" + name + "]")
+                .replaceWith(validationMessageTmpl({ field: name, message: errors[0] }))
+        }
+
+
+        //function error_handler(e) {
+        //    if (e.errors) {
+        //        //var message = "Errors:\n";
+        //        //$.each(e.errors, function (key, value) {
+        //        //    if ('errors' in value) {
+        //        //        $.each(value.errors, function () {
+        //        //            message += this + "\n";
+        //        //        });
+        //        //    }
+        //        //});
+        //        //alert(message);
+        //        var grid = $("#customersGrd").data("kendoGrid");
+        //        var validationTemplate = kendo.template($("#ErrorMessageFromServerTemplate").html());
+        //        grid.one("dataBinding", function (e) {
+        //            e.preventDefault();
+
+        //            $.each(e.errors, function (propertyName) {
+        //                var renderedTemplate = validationTemplate({ field: propertyName, messages: this.errors });
+        //                grid.editable.element.find(".errors").append(renderedTemplate);
+        //            });
+        //        });
+        //    }
+        //}
+
+        function onEdit(e) {
+            //if current model is not new then remove the Name editor
+            if (e.model.isNew()) {
+                //Find the required fields and remove them
+                //the e.container is the PopUp window
+                //e.container.find(".nameE").remove();
+                $('.k-window-title').text("مشتری جدید");
+                e.container.find("#customerTypeId").val(1);
+                e.container.find("#customerTypeId option[value='1']").attr('selected', 'selected');
+            }
+            else {
+                $('.k-window-title').text("ویرایش");
+                var baseUri = "http://" + $("#PPP").prop("host") + "/";
+                $("#PPP").prop("href", baseUri + e.model['PicDoc']);
+            }
+        }
+
+        function Grid_Change(e) {
+            var grid = $("#customersGrd").data('kendoGrid');
+            //var rowDetails = grid.editable.options.model;
+            //rowDetails.set("Name", rowDetails.Name + rowDetails.Family);
+
+        }
+        function onSelectResumeFile(e) {
+            $.each(e.files, function (index, value) {
+                var allowedExtensions = ".jpg|.jpeg|.png|.bmp|.gif";
+                if (allowedExtensions.indexOf(value.extension.toLowerCase()) < 0) {
+                    alert('فرمت فایل نادرست است');
+                    e.preventDefault();
+                }
+            });
+        }
+        function onUploadSuccessResumeFile(e) {
+            switch (e.response.Type.toString().toLowerCase()) {
+                case "upload": paint
+                    alert('عکس موردنظر آپلود گردید');
+                    break;
+                case "remove":
+                    alert('عکس آپلود شده با موفقیت حذف گردید');
+                    break;
+            }
+        }
+    </script>
+}

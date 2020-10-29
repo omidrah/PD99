@@ -1,0 +1,277 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B494F86C-5730-4DA7-BE3B-D8F09ACE7FD1}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DataLayer</RootNamespace>
+    <AssemblyName>DataLayer</AssemblyName>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Context\ApplicatinDbContext.cs" />
+    <Compile Include="Context\Configuration.cs" />
+    <Compile Include="Context\IunitOfWrok.cs" />
+    <Compile Include="Migrations\201802051950390_Init.cs" />
+    <Compile Include="Migrations\201802051950390_Init.Designer.cs">
+      <DependentUpon>201802051950390_Init.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201802052016114_mob.cs" />
+    <Compile Include="Migrations\201802052016114_mob.Designer.cs">
+      <DependentUpon>201802052016114_mob.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804150940240_IsMadrakTaeed customer.cs" />
+    <Compile Include="Migrations\201804150940240_IsMadrakTaeed customer.Designer.cs">
+      <DependentUpon>201804150940240_IsMadrakTaeed customer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804210824210_AddPrice.cs" />
+    <Compile Include="Migrations\201804210824210_AddPrice.Designer.cs">
+      <DependentUpon>201804210824210_AddPrice.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201806030753104_AddNews.cs" />
+    <Compile Include="Migrations\201806030753104_AddNews.Designer.cs">
+      <DependentUpon>201806030753104_AddNews.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903022016401_CommentTable.cs" />
+    <Compile Include="Migrations\201903022016401_CommentTable.Designer.cs">
+      <DependentUpon>201903022016401_CommentTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903022029230_UpdateNews.cs" />
+    <Compile Include="Migrations\201903022029230_UpdateNews.Designer.cs">
+      <DependentUpon>201903022029230_UpdateNews.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004062028256_addTags.cs" />
+    <Compile Include="Migrations\202004062028256_addTags.Designer.cs">
+      <DependentUpon>202004062028256_addTags.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004111028524_editTag.cs" />
+    <Compile Include="Migrations\202004111028524_editTag.Designer.cs">
+      <DependentUpon>202004111028524_editTag.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004111654402_AddFeatures.cs" />
+    <Compile Include="Migrations\202004111654402_AddFeatures.Designer.cs">
+      <DependentUpon>202004111654402_AddFeatures.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004191558506_FeaturesCorection.cs" />
+    <Compile Include="Migrations\202004191558506_FeaturesCorection.Designer.cs">
+      <DependentUpon>202004191558506_FeaturesCorection.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004211823547_OrderStatuses.cs" />
+    <Compile Include="Migrations\202004211823547_OrderStatuses.Designer.cs">
+      <DependentUpon>202004211823547_OrderStatuses.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004260126325_EditImage.cs" />
+    <Compile Include="Migrations\202004260126325_EditImage.Designer.cs">
+      <DependentUpon>202004260126325_EditImage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005010926351_AddImageTitle.cs" />
+    <Compile Include="Migrations\202005010926351_AddImageTitle.Designer.cs">
+      <DependentUpon>202005010926351_AddImageTitle.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005041451555_AddKlass.cs" />
+    <Compile Include="Migrations\202005041451555_AddKlass.Designer.cs">
+      <DependentUpon>202005041451555_AddKlass.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005151354108_DoorehOnline.cs" />
+    <Compile Include="Migrations\202005151354108_DoorehOnline.Designer.cs">
+      <DependentUpon>202005151354108_DoorehOnline.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005171618406_addPackageImageName.cs" />
+    <Compile Include="Migrations\202005171618406_addPackageImageName.Designer.cs">
+      <DependentUpon>202005171618406_addPackageImageName.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005171947596_orderDetailShowCusumer.cs" />
+    <Compile Include="Migrations\202005171947596_orderDetailShowCusumer.Designer.cs">
+      <DependentUpon>202005171947596_orderDetailShowCusumer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202007270356163_user add confirmCode.cs" />
+    <Compile Include="Migrations\202007270356163_user add confirmCode.Designer.cs">
+      <DependentUpon>202007270356163_user add confirmCode.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202007290254507_orderSum.cs" />
+    <Compile Include="Migrations\202007290254507_orderSum.Designer.cs">
+      <DependentUpon>202007290254507_orderSum.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202008070933506_Ad_OFFPercent.cs" />
+    <Compile Include="Migrations\202008070933506_Ad_OFFPercent.Designer.cs">
+      <DependentUpon>202008070933506_Ad_OFFPercent.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202009011812019_PostalCode.cs" />
+    <Compile Include="Migrations\202009011812019_PostalCode.Designer.cs">
+      <DependentUpon>202009011812019_PostalCode.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202009031840536_AddImgDocPath.cs" />
+    <Compile Include="Migrations\202009031840536_AddImgDocPath.Designer.cs">
+      <DependentUpon>202009031840536_AddImgDocPath.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202009060310264_AddSettingTable.cs" />
+    <Compile Include="Migrations\202009060310264_AddSettingTable.Designer.cs">
+      <DependentUpon>202009060310264_AddSettingTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202009060340447_SettingAddCreatebye.cs" />
+    <Compile Include="Migrations\202009060340447_SettingAddCreatebye.Designer.cs">
+      <DependentUpon>202009060340447_SettingAddCreatebye.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202009070324491_IsMadrakCheckedTo Customers.cs" />
+    <Compile Include="Migrations\202009070324491_IsMadrakCheckedTo Customers.Designer.cs">
+      <DependentUpon>202009070324491_IsMadrakCheckedTo Customers.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202009151657375_AddWeighToPackages.cs" />
+    <Compile Include="Migrations\202009151657375_AddWeighToPackages.Designer.cs">
+      <DependentUpon>202009151657375_AddWeighToPackages.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DomainClass\DomainClass.csproj">
+      <Project>{e13a8b82-6093-4d9c-97c2-d0cd1555071e}</Project>
+      <Name>DomainClass</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201802051950390_Init.resx">
+      <DependentUpon>201802051950390_Init.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802052016114_mob.resx">
+      <DependentUpon>201802052016114_mob.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804150940240_IsMadrakTaeed customer.resx">
+      <DependentUpon>201804150940240_IsMadrakTaeed customer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804210824210_AddPrice.resx">
+      <DependentUpon>201804210824210_AddPrice.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201806030753104_AddNews.resx">
+      <DependentUpon>201806030753104_AddNews.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903022016401_CommentTable.resx">
+      <DependentUpon>201903022016401_CommentTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903022029230_UpdateNews.resx">
+      <DependentUpon>201903022029230_UpdateNews.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004062028256_addTags.resx">
+      <DependentUpon>202004062028256_addTags.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004111028524_editTag.resx">
+      <DependentUpon>202004111028524_editTag.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004111654402_AddFeatures.resx">
+      <DependentUpon>202004111654402_AddFeatures.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004191558506_FeaturesCorection.resx">
+      <DependentUpon>202004191558506_FeaturesCorection.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004211823547_OrderStatuses.resx">
+      <DependentUpon>202004211823547_OrderStatuses.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004260126325_EditImage.resx">
+      <DependentUpon>202004260126325_EditImage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005010926351_AddImageTitle.resx">
+      <DependentUpon>202005010926351_AddImageTitle.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005041451555_AddKlass.resx">
+      <DependentUpon>202005041451555_AddKlass.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005151354108_DoorehOnline.resx">
+      <DependentUpon>202005151354108_DoorehOnline.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005171618406_addPackageImageName.resx">
+      <DependentUpon>202005171618406_addPackageImageName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005171947596_orderDetailShowCusumer.resx">
+      <DependentUpon>202005171947596_orderDetailShowCusumer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007270356163_user add confirmCode.resx">
+      <DependentUpon>202007270356163_user add confirmCode.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202007290254507_orderSum.resx">
+      <DependentUpon>202007290254507_orderSum.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008070933506_Ad_OFFPercent.resx">
+      <DependentUpon>202008070933506_Ad_OFFPercent.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009011812019_PostalCode.resx">
+      <DependentUpon>202009011812019_PostalCode.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009031840536_AddImgDocPath.resx">
+      <DependentUpon>202009031840536_AddImgDocPath.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009060310264_AddSettingTable.resx">
+      <DependentUpon>202009060310264_AddSettingTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009060340447_SettingAddCreatebye.resx">
+      <DependentUpon>202009060340447_SettingAddCreatebye.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009070324491_IsMadrakCheckedTo Customers.resx">
+      <DependentUpon>202009070324491_IsMadrakCheckedTo Customers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009151657375_AddWeighToPackages.resx">
+      <DependentUpon>202009151657375_AddWeighToPackages.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

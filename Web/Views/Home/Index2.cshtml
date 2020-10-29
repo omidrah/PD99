@@ -1,0 +1,126 @@
+﻿@{
+    ViewBag.Title = "صفحه اصلی";
+}
+@ViewBag.Message
+<!-- banner -->
+@Html.Action(MVC.Home.ActionNames.FillSlider,MVC.Home.Name)
+<!-- //banner -->
+<div class="banner_bottom_agile_info">
+    <div class="container">
+        <div class="banner_bottom_agile_info_inner_w3ls">
+            <div class="col-md-6 wthree_banner_bottom_grid_three_left1 grid">
+                <figure class="effect-roxy">
+                    <img src="@Url.Content("~/images/bottom1.jpg")" alt=" " class="img-responsive" />
+                    <figcaption>
+                        
+                        <p>دوره های حضوری</p>
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="col-md-6 wthree_banner_bottom_grid_three_left1 grid">
+                <figure class="effect-roxy">
+                    <img  src="@Url.Content("~/images/bottom2.jpg")" alt=" " class="img-responsive" />
+                    <figcaption>
+                        
+                        <p>دوره های مکاتبه ای</p>
+                    </figcaption>
+                </figure>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+<!-- schedule-bottom -->
+<div class="schedule-bottom">
+    <div class="col-md-6 agileinfo_schedule_bottom_left">
+        <img src="@Url.Content("~/images/mid.jpg")" alt="" class="img-responsive" />
+    </div>
+    <div class="col-md-6 agileits_schedule_bottom_right">
+        <div class="w3ls_schedule_bottom_right_grid">
+            <h3>بیش از <span>50%</span>قبولی</h3>
+            <p>پارسیان دانش از نگاه آمار</p>
+            <div class="col-md-4 w3l_schedule_bottom_right_grid1">
+                <i class="fa fa-user-o" aria-hidden="true"></i>
+                <h4>قبول شدگان</h4>
+                <h5 class="counter">653</h5>
+            </div>
+            <div class="col-md-4 w3l_schedule_bottom_right_grid1">
+                <i class="fa fa-calendar-o" aria-hidden="true"></i>
+                <h4>ثبت نام شدگان</h4>
+                <h5 class="counter">823</h5>
+            </div>
+            <div class="col-md-4 w3l_schedule_bottom_right_grid1">
+                <i class="fa fa-shield" aria-hidden="true"></i>
+                <h4>جوایز و افتخارات</h4>
+                <h5 class="counter">45</h5>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+    </div>
+    <div class="clearfix"> </div>
+</div>
+<!-- //schedule-bottom -->
+<!-- banner-bootom-w3-agileits -->
+<div class="banner-bootom-w3-agileits">
+    <div class="container">
+        <h3 class="wthree_text_info"><span>دوره حضوری</span></h3>
+        <div class="col-md-5 bb-grids bb-left-agileits-w3layouts">
+            <a href="womens.html">
+                <div class="bb-left-agileits-w3layouts-inner grid">
+                    <figure class="effect-roxy">
+                        <img  src="@Url.Content("~/images/bb1.jpg")" alt=" " class="img-responsive" />
+                        <figcaption>
+                            <h3><span>دوره</span>قلب</h3>
+                            <p>دکتر رسول پناه</p>
+                        </figcaption>
+                    </figure>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-7 bb-grids bb-middle-agileits-w3layouts">
+            <a href="mens.html">
+                <div class="bb-middle-agileits-w3layouts grid">
+                    <figure class="effect-roxy">
+                        <img src="@Url.Content("~/images/bottom3.jpg")"  alt=" " class="img-responsive" />
+                        <figcaption>
+                            <h3><span>دوره</span>پرستاری</h3>
+                            <p>دکتر سعید همتی</p>
+                        </figcaption>
+                    </figure>
+                </div>
+            </a>
+            <a href="mens.html">
+                <div class="bb-middle-agileits-w3layouts forth grid">
+                    <figure class="effect-roxy">
+                        <img  src="@Url.Content("~/images/bottom4.jpg")" alt=" " class="img-responsive">
+                        <figcaption>
+                            <h3><span>دوره</span>ارتوپدی</h3>
+                            <p>دکتر جلیلیان</p>
+                        </figcaption>
+                    </figure>
+                </div>
+            </a>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+<!--/grids-->
+<div class="agile_last_double_sectionw3ls">
+    <div class="col-md-6 multi-gd-img multi-gd-text ">
+        <a href="womens.html"><img  src="@Url.Content("~/images/bot_1.jpg")" alt=" "><h4>پکیج کل تصویری</h4></a>
+
+    </div>
+    <div class="col-md-6 multi-gd-img multi-gd-text ">
+        <a href="womens.html"><img  src="@Url.Content("~/images/bot_2.jpg")"  alt=" "><h4 style="color:black;">جزوات و آزمون های آنلاین</h4></a>
+    </div>
+    <div class="clearfix"></div>
+</div>
+<!--/grids-->
+<!-- /new_arrivals -->
+@*@{
+    Html.RenderPartial(MVC.Home.Views._Resource);
+}*@
+@Html.Action(MVC.Home.ActionNames.FillResource, MVC.Home.Name)
+
+<!-- //new_arrivals -->
+@Html.Action(MVC.Home.ActionNames.FillAsatid,MVC.Home.Name)

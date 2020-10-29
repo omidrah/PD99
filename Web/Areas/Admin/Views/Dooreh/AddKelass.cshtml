@@ -1,0 +1,60 @@
+﻿@model ServiceLayer.Models.DoorehVM
+
+@{
+    // ViewBag.Title = "افزودن " + Html.DisplayNameFor(m => m);
+    //int counter = 1;
+}
+<section>
+    <div class="row bg-olive-active text-center">
+        <h3> لیست کلاس های دوره <b>@ViewBag.DoorehTitle</b> </h3> <h3>( @ViewBag.DoorehType)</h3>
+        <div class="row">
+            <div class="col-md-6">
+                @*@Html.Label("عنوان دوره:")
+                @ViewBag.DoorehTitle*@
+                @Html.Hidden("DoorehId", (object)ViewBag.DoorehId)
+            </div>
+            <div class="col-md-6">
+
+            </div>
+        </div>
+        @*<div class="row">
+            <div class="col-md-6">
+                @Html.Label("تاریخ شروع دوره:")
+                @ViewBag.DoorehStartDate
+            </div>
+            <div class="col-md-6">
+                @Html.Label("تاریخ پایان دوره:")
+                @ViewBag.DoorehEndDate
+            </div>
+        </div>*@
+    </div>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-horizontal">
+            @Html.ValidationSummary(true)
+            @Html.Hidden("DoorehId", (object)ViewBag.DoorehId)
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.KelassId,"عنوان کلاس", new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("KelassId",null, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.KelassId)
+                </div>
+            </div>
+     
+            
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="ثبت" class="btn btn-success" />
+                    @Html.ActionLink("لیست کلاسها", "/ShowKelass/" + (object)ViewBag.DoorehId, null, new { @class = "btn btn-primary" })
+                </div>
+            </div>
+        </div>
+    }
+
+</section>
+@section scripts{
+    @Html.Raw(TempData["res"])
+}

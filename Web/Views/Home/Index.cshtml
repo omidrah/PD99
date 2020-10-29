@@ -1,0 +1,18 @@
+﻿@*@model IEnumerable<ServiceLayer.Models.ProductVM>*@
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_EshopLayout.cshtml";
+}
+@section Slider{
+    @Html.Action("FillSlider")
+}
+
+
+
+@Html.Action("LastProducts", "Products")
+
+@Html.Action("LastPackages", "Packeges")
+
+@Html.Action("LastHozoriDooreh", "Dooreh")
+
+@Html.Action("LastOnlineDooreh", "Dooreh")

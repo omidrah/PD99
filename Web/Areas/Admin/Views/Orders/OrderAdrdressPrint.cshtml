@@ -1,0 +1,79 @@
+﻿@model Web.Areas.Admin.Controllers.printVm
+@{
+    ViewBag.Title = "چاپ";
+}
+<section> 
+    <div id="Orderprint">
+        <div style="margin-top: 15px; margin-bottom: 2px; font-family: Nazanin; font-size: 14px; font-weight: bold;">
+            <label>نام مشتری</label>&nbsp;
+            <label id="Name"></label> &nbsp;&nbsp;&nbsp;&nbsp;
+            <label>تلفن ثابت</label>&nbsp;
+            <label id="Tel"></label>&nbsp;&nbsp;&nbsp;&nbsp;
+            <label>تلفن همراه</label> &nbsp;
+            <label id="Mobile"></label>&nbsp;&nbsp;&nbsp;&nbsp;
+            <label>کدپستی</label>&nbsp;
+            <label id="Postalcode"></label>&nbsp;&nbsp;&nbsp;&nbsp;
+        </div>
+        <div style="margin-top: 5px;margin-bottom:3px; font-family: Nazanin; font-size: 14px; font-weight: bold;">
+            <label>آدرس</label>&nbsp;
+            <label id="Address"></label>
+        </div>
+        <div style="margin-top: 1px; font-family: Nazanin; font-size: 14px; font-weight: bold;">
+            <p style="margin-right:340px;">
+                موسسه آموزشی پارسیان دانش
+            </p>
+        </div>
+    </div>
+</section>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @*<script type="text/javascript" src="@Url.Content("~/Scripts/PrintResid.js")"></script>*@
+    <script type="text/javascript">
+        $(document).ready(function () {
+          //  $(".print").click(function () {
+            clearPrintArea();
+                PrintInvoice('@Model.name'+ ' ' + '@Model.family','@Model.Tel','@Model.Mobile','@Model.Postalcode','@Model.Address');
+          //  });
+        });
+        function PrintInvoice(name,tel,mobile,codeposti,address) {
+            $("#Name").text(name);
+            $("#Tel").text(tel);
+            $("#Mobile").text(mobile);
+            $("#Postalcode").text(codeposti);
+            $("#Address").text(address);
+
+            var frame1 = $('<iframe />');
+            frame1[0].name = "frame1";
+            frame1.css({ "position": "absolute", "top": "-1000000px" });
+            $("body").append(frame1);
+            var frameDoc = frame1[0].contentWindow ? frame1[0].contentWindow : frame1[0].contentDocument.document ? frame1[0].contentDocument.document : frame1[0].contentDocument;
+            frameDoc.document.open();
+            //Create a new HTML document.
+            frameDoc.document.write('<html><head><title>چاپ آدرس</title>');
+            @*frameDoc.document.write('<link rel="stylesheet" href="@Url.Content(Links.Content.print_css)" type="text/css" />');*@
+            //Append the external CSS file.
+            frameDoc.document.write('</head><body dir="rtl">');
+            //Append the DIV contents.
+            frameDoc.document.write('<div style="border-style:dotted;border-radius:2px;border-color:black;border-width:1px;">');
+            frameDoc.document.write($("#Orderprint").html());
+            frameDoc.document.write('</div>');
+            frameDoc.document.write('</body></html>');
+            frameDoc.document.close();
+            setTimeout(function () {
+                window.frames["frame1"].focus();
+                window.frames["frame1"].print();
+                frame1.remove();
+            }, 500);
+        }
+
+        function clearPrintArea() {
+            $("#Name").text("");
+            $("#Tel").text("");
+            $("#Mobile").text("");
+            $("#Postalcode").text("");
+            $("#Address").text("");
+            //$('.tbodyOderDetails').html("");
+        }
+
+    </script>
+}

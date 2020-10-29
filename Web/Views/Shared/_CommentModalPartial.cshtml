@@ -1,0 +1,24 @@
+﻿@model ServiceLayer.Models.NewsViewModel
+<div class="single_content__article clearfix" id="commentModal" style="display:none">
+    <div class="article--title">
+        <h4>ارسال نظر</h4>
+    </div>
+    <form action="">
+        <div class="row">
+            <input type="hidden" name="NewsID" id="NewsID" value="@Model.NewsId" />
+            <div class="col-md-6">
+                <input id="txtNameModal" name="txtNameModal" type="text" placeholder="نام و نام خانوادگی" class="col-md-12" required>
+            </div>
+            <div class="col-md-6">
+                <input id="txtEmailModal" name="txtEmailModal" type="text" placeholder="پست الکترونیکی" class="col-md-12" required>
+            </div>
+            <div class="col-md-12" style="margin-top:20px">
+                <textarea id="txtTextModal" name="txtTextModal" rows="4" cols="10" placeholder="متن ارسالی" class="col-md-12" required></textarea>
+            </div>
+            <div class="col-md-12" style="margin-top:20px">
+                @* <button type="submit">ارسال</button>*@
+                <a href="#" class="btn btn-default" id="btnSendComment">ارسال</a>
+            </div>
+        </div>
+    </form>
+</div>

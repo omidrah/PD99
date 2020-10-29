@@ -1,0 +1,86 @@
+﻿@model IEnumerable<DomainClass.Models.Packages>
+
+<section class="border-radius category-side">
+    <header><h3>دوره های آموزشی </h3></header>
+    <article>
+        <ul class="category-menu" id="myUL">
+            <li>
+                @*<h3> <a href="/ArchivePackage?pageId=1">دوره های مکاتبه ای </a></h3>*@
+                <h3><a class="menu__link" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExamples">دوره های مکاتبه ای </a></h3>
+                <ul class="category-menu collapse" id="collapseExample">
+                    @foreach (var package in Model.Where(m => m.ParentId == null))
+                    {
+                        <li>
+                            <h2><a href="/PackageContents?packageId=@package.Id">@package.PackageTitle</a></h2>
+                            @if (Model.Any(m => m.ParentId == package.Id))
+                            {
+                                <ul class="child-category-menu">
+                                    @foreach (var subPackage in Model.Where(p => p.ParentId == package.Id))
+                                    {
+                                        <li><h2><a href="/PackageContents?packageId=@subPackage.Id">@subPackage.PackageTitle </a> <span>(10)</span></h2></li>
+                                    }
+                                </ul>
+                            }
+                        </li>
+                    }
+
+                </ul>
+            </li>
+            <li>
+                @*<h3> <a href="/ArchiveHozori?pageId=1">دوره های حضوری </a></h3>*@
+                <h3><a class="menu__link" data-toggle="collapse" href="#collapseExample2" role="button" aria-expanded="false" aria-controls="collapseExample2"> دوره های حضوری </a></h3>
+                <ul class="category-menu collapse" id="collapseExample2">
+                    @{
+
+                        List<DomainClass.Models.Dooreha> Dooreh = ViewBag.Dooreh;
+                    }
+                    @foreach (var dooreh in Dooreh.Where(d => d.IsHozori == true))
+                    {
+                        <li>
+                            <h2><a href="/DoorehContents?doorehId=@dooreh.Id">@dooreh.Title</a></h2>
+                            @*@if (Model.Any(m => m.ParentId == package.Id))
+                        {
+                            <ul class="child-category-menu">
+                                @foreach (var subPackage in Model.Where(p => p.ParentId == package.Id))
+                                {
+                                    <li><h2><a href="">@subPackage.PackageTitle </a> <span>(10)</span></h2></li>
+                                }
+                            </ul>
+                        }*@
+                        </li>
+                    }
+
+
+                </ul>
+            </li>
+        
+         
+            <li>
+                @*<h3><a href="/ArchiveOnline?pageId=1"> دوره های آنلاین </a></h3>*@
+                <h3><a class="menu__link" data-toggle="collapse" href="#collapseExample3" role="button" aria-expanded="false" aria-controls="collapseExample3"> دوره های آنلاین </a></h3>
+                <ul class="category-menu collapse" id="collapseExample3">
+
+                    @foreach (var dooreh in Dooreh.Where(d=>d.IsOnline ==true))
+                    {
+                    <li>
+                        <h2><a href="/DoorehContents?doorehId=@dooreh.Id">@dooreh.Title</a></h2>
+                        @*@if (Model.Any(m => m.ParentId == package.Id))
+                            {
+                                <ul class="child-category-menu">
+                                    @foreach (var subPackage in Model.Where(p => p.ParentId == package.Id))
+                                    {
+                                        <li><h2><a href="">@subPackage.PackageTitle </a> <span>(10)</span></h2></li>
+                                    }
+                                </ul>
+                            }*@
+                    </li>
+                    }
+
+
+                </ul>
+            </li>
+
+
+        </ul>
+    </article>
+</section>

@@ -1,0 +1,45 @@
+﻿@using Microsoft.AspNet.Identity
+@using System.Security.Claims;
+@using ServiceLayer.Extensions
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm(MVC.Account.ActionNames.LogOff, MVC.Account.Name, FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+        @Html.AntiForgeryToken()
+<ul>
+    <li><a href=""><i class="fa fa-user"></i> <label>  کاربر  @User.FullName() </label> </a></li>
+    <li>
+
+        @{
+            var UserRoles = User.Roles();
+            if (UserRoles.Contains("Customer"))
+            {
+                @Html.ActionLink("داشبورد ", MVC.Manage.ActionNames.Index, MVC.Manage.Name, routeValues: new { Area = "" }, htmlAttributes: new { title = "پنل کاربری" })
+            }
+            else
+            {
+                @Html.ActionLink("داشبورد ", MVC.Admin.Home.ActionNames.Index, MVC.Admin.Home.Name, routeValues: new { Area = MVC.Admin.Name }, htmlAttributes: new { title = "پنل مدیریت" })
+
+            }
+        }
+
+
+    </li>
+    <li><a href="javascript:document.getElementById('logoutForm').submit()"><i class="fa fa-sign-out"></i>خروج </a></li>
+    <li><a href="/ShopCart"><i class="fa fa-shopping-bag"></i> سبد خرید <span id="countShopCart"></span></a></li>
+</ul>
+
+                        }
+                    }
+                    else
+                    {
+                        <li><a href="@Url.Content("/Account/Register")"><i class="fa fa-user-plus"></i> <label>عضویت</label> </a></li>
+                        <li><a href="@Url.Content("/Account/Login")"><i class="fa fa-user"></i> <label>ورود به سایت</label> </a></li>
+                        <li><a href="/ShopCart"><i class="fa fa-shopping-bag"></i> سبد خرید <span id="countShopCart"></span></a></li>
+            }
+<span style="float:left;margin-top:0px;margin-left:0px;color:white;font-family: 'Web_Yekan';">
+    امروز :
+    @DateTime.Now.ToPersianDate().Day /
+    @DateTime.Now.ToPersianDate().Month/
+    @DateTime.Now.ToPersianDate().Year
+</span>

@@ -1,0 +1,16 @@
+﻿@{
+    ViewBag.Title = "حساب کاربری شما تایید شد";
+}
+<div class="banner-bootom-w3-agileits">
+    <div class="col-md-8 single-right-left simpleCart_shelfItem">
+        <h3>لطفا کد تایید را وارد کنید</h3>
+    </div>
+    <div class="container">
+        <p>
+            با تشکر از شما، حساب کاربری شما تایید شد.
+        </p>
+        <p>
+            @Ajax.ActionLink("ورود / ثبت نام", MVC.Account.ActionNames.Login, MVC.Account.Name, new { area = "" }, new AjaxOptions { HttpMethod = "GET", InsertionMode = InsertionMode.Replace, UpdateTargetId = "logOnModal", LoadingElementDuration = 300, LoadingElementId = "loadingMessage", OnSuccess = "LogOnForm.onSuccess" }, new { role = "button", data_toggle = "modal", data_i_logon_link = "true", rel = "nofollow" })
+        </p>
+    </div>
+</div>

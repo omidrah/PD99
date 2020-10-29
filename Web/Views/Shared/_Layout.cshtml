@@ -1,0 +1,187 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - اندیشه دانش</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="موسسه اندیشه دانش ، موسسه ، فرهنگی،آموزشی ، فرهنگی آموزشی، " />
+    <script type="application/x-javascript">
+            addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
+               function hideURLbar(){ window.scrollTo(0,1); } 
+    </script>
+    <!--//tags -->
+     
+    <link href="@Url.Content(Links.Content.bootstrap_rtl_min_css)" rel="stylesheet" type="text/css" media="all"/>
+    <link href="@Url.Content(Links.Content.font_awesome_css)" rel="stylesheet" media="all">
+    <link href="@Url.Content(Links.Content.team_css)" rel="stylesheet" type="text/css" media="all" />
+    <link href="@Url.Content(Links.Content.style_css)" rel="stylesheet" type="text/css" media="all" />
+    <link href="@Url.Content(Links.Content.easy_responsive_tabs_css)" rel='stylesheet' type='text/css' />
+    <!-- //for bootstrap working -->
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800" rel="stylesheet">
+    <link href='//fonts.googleapis.com/css?family=Lato:400,100,100italic,300,300italic,400italic,700,900,900italic,700italic' rel='stylesheet' type='text/css'>
+</head>
+<body>
+    <!-- header -->
+    <div class="header" id="home">
+        <div class="container">
+            @Html.Partial(MVC.Shared.Views._LoginPartial)
+        </div>
+    </div>
+    <!-- //header -->
+    <!-- header-bot -->   
+        @Html.Partial(MVC.Shared.Views._HeaderPartial)
+    <!-- //header-bot -->
+    <!-- banner -->
+       @Html.Partial(MVC.Shared.Views._bannerPartial)
+    <!-- //banner-top -->
+    <!-- Modal1 -->
+      @Html.Partial(MVC.Shared.Views._ModalLoginPartial)
+    <!-- //Modal1 -->
+    @RenderBody()
+    <!-- footer -->
+     @Html.Partial(MVC.Shared.Views._FooterPartial)
+    <!-- //footer -->
+    <!-- login -->
+    <div class="modal fade" id="myModal4" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content modal-info">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body modal-spa">
+                    <div class="login-grids">
+                        <div class="login">
+                            <div class="login-bottom">
+                                <h3>ثبت نام</h3>
+                                <form>
+                                    <div class="sign-up">
+                                        <h4>نام کاربری یا ایمیل :</h4>
+                                        <input type="text" value="Type here" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Type here';}" required="">
+                                    </div>
+                                    <div class="sign-up">
+                                        <h4>رمز عبور :</h4>
+                                        <input type="password" value="Password" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Password';}" required="">
+
+                                    </div>
+                                    <div class="sign-up">
+                                        <h4>تکرار رمز عبور :</h4>
+                                        <input type="password" value="Password" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Password';}" required="">
+
+                                    </div>
+                                    <div class="sign-up">
+                                        <input type="submit" value="ثبت">
+                                    </div>
+
+                                </form>
+                            </div>
+                            <div class="login-right">
+                                <h3>وزود</h3>
+                                <form>
+                                    <div class="sign-in">
+                                        <h4>نام کاربری یا ایمیل :</h4>
+                                        <input type="text" value="Type here" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Type here';}" required="">
+                                    </div>
+                                    <div class="sign-in">
+                                        <h4>رمز عبور :</h4>
+                                        <input type="password" value="Password" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Password';}" required="">
+                                        <a href="#">فراموشی رمز عبور?</a>
+                                    </div>
+                                    <div class="single-bottom">
+                                        <input type="checkbox" id="brand" value="">
+                                        <label for="brand"><span></span>مرا بخاطر بسپار</label>
+                                    </div>
+                                    <div class="sign-in">
+                                        <input type="submit" value="SIGNIN">
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <p>ثبت نام بمنزله پذیرفتن قوانین پارسیان دانش می باشد</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- //login -->
+    <a href="#home" class="scroll" id="toTop" style="display: block;"> <span id="toTopHover" style="opacity: 1;"> </span></a>
+    <!-- js -->
+    <script type="text/javascript" src="@Url.Content(Links.Scripts.jquery_2_1_4_min_js)"></script>    
+    <script src="@Url.Content(Links.Scripts.modernizr_custom_js)" type="text/javascript"></script>
+    <!-- Custom-JavaScript-File-Links -->
+    <!-- cart-js -->
+    <script src="@Url.Content(Links.Scripts.minicart_min_js)" type="text/javascript"></script>
+    <script type="text/javascript">
+        // Mini Cart
+        paypal.minicart.render({
+            action: '#'
+        });
+        if (~window.location.search.indexOf('reset=true')) {
+            paypal.minicart.reset();
+        }
+    </script>
+    <!-- //cart-js -->
+    <!-- script for responsive tabs -->
+    <script src="@Url.Content(Links.Scripts.easy_responsive_tabs_js)" type="text/javascript" ></script>
+    <script>
+        $(document).ready(function () {
+            $('#horizontalTab').easyResponsiveTabs({
+                type: 'default', //Types: default, vertical, accordion
+                width: 'auto', //auto or any width like 600px
+                fit: true,   // 100% fit in a container
+                closed: 'accordion', // Start closed if in accordion view
+                activate: function (event) { // Callback function if tab is switched
+                    var $tab = $(this);
+                    var $info = $('#tabInfo');
+                    var $name = $('span', $info);
+                    $name.text($tab.text());
+                    $info.show();
+                }
+            });
+            $('#verticalTab').easyResponsiveTabs({
+                type: 'vertical',
+                width: 'auto',
+                fit: true
+            });
+        });
+    </script>
+    <!-- //script for responsive tabs -->
+    <!-- stats -->
+    <script src="@Url.Content(Links.Scripts.jquery_waypoints_min_js)"></script>
+    <script src="@Url.Content(Links.Scripts.jquery_countup_js)"></script>
+    <script>
+        $('.counter').countUp();
+    </script>
+    <!-- //stats -->
+    <!-- start-smoth-scrolling -->
+    <script type="text/javascript" src="@Url.Content(Links.Scripts.move_top_js)"></script>
+    <script type="text/javascript" src="@Url.Content(Links.Scripts.jquery_easing_min_js)"></script>
+    <script type="text/javascript">
+        jQuery(document).ready(function ($) {
+            $(".scroll").click(function (event) {
+                event.preventDefault();
+                $('html,body').animate({ scrollTop: $(this.hash).offset().top }, 1000);
+            });
+        });
+    </script>
+    <!-- here stars scrolling icon -->
+    <script type="text/javascript">
+        $(document).ready(function () {
+            /*
+				var defaults = {
+				containerID: 'toTop', // fading element id
+				containerHoverID: 'toTopHover', // fading element hover id
+				scrollSpeed: 1200,
+				easingType: 'linear'
+				};
+			*/
+            $().UItoTop({ easingType: 'easeOutQuart' });
+        });
+    </script>
+    <!-- //here ends scrolling icon -->
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

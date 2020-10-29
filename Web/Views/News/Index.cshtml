@@ -1,0 +1,77 @@
+﻿@model IEnumerable<ServiceLayer.Models.NewsViewModel>
+@{
+    ViewBag.Title = "Index";
+    // Layout = "~/Views/Shared/_BornaLayout.cshtml";
+}
+
+<section class="blog_content">
+
+    <div class="container">
+        <div class="row">
+            <article class="blog_list col-md-9 col-sm-12 col-xs-12">
+                <div class="row">
+                    @foreach (var item in Model)
+                    {
+
+                        <div class="blog_item col-md-12 col-sm-12 col-xs-12">
+                            <div class="item_content clearfix" style="padding-top:20px">
+                                <div class="photo col-md-3 col-sm-4 col-xs-12 pull-right">
+                                    <a href="#"><img class="img-responsive" src="@((item.MasterPicPathThumb !=null)? @Url.Content(item.MasterPicPathThumb):" ")" alt=""></a>
+                                </div>
+                                <a href="@Url.Content("~/news/newsdetail/"+item.NewsId)">
+                                    <div class="text col-md-9 col-sm-8 col-md-12 pull-left">
+                                        <div class="header">
+                                            @*<a href="@Url.Content("~/news/newsdetail/"+item.NewsId)">*@
+                                            <h3>@item.NewsTitle</h3>
+                                            @*</a>*@
+                                            <br />
+                                            <div class="meta">
+                                                @*<span>آقای حسنی</span>
+                                                    <span>@item.Visit <i class="fa fa-eye"></i></span>*@
+                                                <span>تاریخ خبر:</span>
+                                                <span>@item.PublishDate <i class="fa fa-calendar"></i></span>
+                                            </div>
+                                            <hr />
+                                        </div>
+                                        <p>
+                                            @item.HeadTitle
+                                        </p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    <!-- blog_item-->
+                    }
+
+
+
+                </div>
+
+                @*<div class="pagination-base">
+                        <ul class="pagination">
+                            <li>
+                                <a href="#">1</a>
+                            </li>
+                            <li>
+                                <a href="#">2</a>
+                            </li>
+                            <li>
+                                <a href="#">3</a>
+                            </li>
+                            <li>
+                                <a href="#">4</a>
+                            </li>
+                            <li>
+                                <a href="#">5</a>
+                            </li>
+                            <li>
+                                <a href="#">6</a>
+                            </li>
+                        </ul>
+                    </div>*@
+
+            </article>
+        </div>
+    </div>
+
+</section>

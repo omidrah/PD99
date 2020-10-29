@@ -1,0 +1,217 @@
+﻿@model ServiceLayer.Models.ProductVM
+
+@{
+    ViewBag.Title = "افزودن " + Html.DisplayNameFor(m => m);
+
+}
+<section>
+    <div class="row text-center"> <h3>ثبت محصول</h3></div>
+    <div class="row">
+
+        @using (Html.BeginForm("Edit", "Products", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <div class="col-md-8">
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(model => model.ProductId)
+                @Html.HiddenFor(m => m.PicPath)
+
+                <div class="form-horizontal">
+                    @Html.ValidationSummary(true)
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ProductName, new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(model => model.ProductName, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.ProductName)
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ProductEnglishName, new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(model => model.ProductEnglishName, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.ProductEnglishName)
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Summery, new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Summery, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Summery)
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ProductGroupTitle, new { @class = "control-label col-md-2" })
+                        <div class="col-md-4">
+                            @Html.DropDownList("ProductGroupID", null, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.ProductGroupID)
+                        </div>
+                        @Html.LabelFor(model => model.Weight, new { @class = "control-label col-md-2" })
+                        <div class="col-md-4">
+                            @Html.TextBoxFor(model => model.Weight, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Weight)
+                        </div>
+
+
+                    </div>
+
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.NoghteSefaresh, new { @class = "control-label col-md-2" })
+                        <div class="col-md-4">
+                            @Html.TextBoxFor(model => model.NoghteSefaresh, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.NoghteSefaresh)
+                        </div>
+
+                        @Html.LabelFor(model => model.ProductMojodi, new { @class = "control-label col-md-2" })
+                        <div class="col-md-4">
+                            @Html.TextBoxFor(model => model.ProductMojodi, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.ProductMojodi)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Price, new { @class = "control-label col-md-2" })
+                        <div class="col-md-4">
+                            @Html.TextBoxFor(model => model.Price, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Price)
+                        </div>
+                        @Html.LabelFor(model => model.OffPercent, new { @class = "control-label col-md-2" })
+                        <div class="col-md-4">
+                            @Html.TextBoxFor(model => model.OffPercent, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.OffPercent)
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Description, new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(model => model.Description, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Description)
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <span class="control-label col-md-2">کلمات کلیدی</span>
+                        <div class="col-md-10">
+                            <input type="text" name="tags" value="@ViewBag.Tags" class="form-control" placeholder="کلمات کلیدی را با - جدا کنید" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.IsActive, new { @class = "control-label col-md-2" })
+                        <div class="col-md-4">
+                            @Html.EditorFor(model => model.IsActive)
+                            @Html.ValidationMessageFor(model => model.IsActive)
+                        </div>
+                    </div>
+                    @*<div class="row top-buffer">
+            <div class="col-md-12">
+                <div class="col-md-2">
+                    @Html.Label(" انتخاب عکس")
+                </div>
+                <div class="col-md-10">
+                    @Html.Kendo().Upload().Name("PicPath").Multiple(true).HtmlAttributes(new { htmlAttributes = new { @class = "form-control" } }).Events(
+                     events => events.Select("onSelect")
+                )
+                </div>
+            </div>
+        </div>*@
+
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="ثبت" class="btn btn-success" />
+                            @Html.ActionLink("بازگشت به لیست محصولات", "Index", null, new { @class = "btn btn-primary" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 form-horizontal">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">تصویرمحصول</div>
+                    <div class="panel-body">
+                        <img id="imgPreviewProduct" style="margin: 8px auto" width="200" class="thumbnail" src="~/Uploads/ImgProducts/Thumb/@Model.PicPath" />
+                        <div class="form-group">
+                            @*@Html.LabelFor(model => model.PicPath, htmlAttributes: new { @class = "control-label col-md-2" })*@
+                            <div class="control-label col-md-2">تصویر</div>
+                            <div class="col-md-10">
+                                <input type="file" id="imageProduct" name="imageProduct" onselect="onSelect(e)" />
+                                @Html.ValidationMessageFor(model => model.PicPath, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel panel-primary">
+                    <div class="panel-heading">انتخاب گروه</div>
+                    <div class="panel-body">
+                        @{
+                            List<DomainClass.Models.Packages> packages = ViewBag.Packages;
+                            List<int> selectedlist = Model.SelectedPackages;
+
+                            <ul>
+                                @foreach (var package in packages.Where(p => p.ParentId == null))
+                                {
+                                    <li>
+                                        <input type="checkbox" @((selectedlist.Contains(package.Id)) ? "checked" : "") name="SelectedPackages" value="@package.Id" /> <span>@package.PackageTitle</span>
+                                        @if (packages.Any(p => p.ParentId == package.Id))
+                                        {
+                                            <ul>
+                                                @foreach (var subPackage in packages.Where(g => g.ParentId == package.Id))
+                                                {
+                                                    <li>
+                                                        <input type="checkbox" @((selectedlist.Contains(subPackage.Id)) ? "checked" : "") name="SelectedPackages" value="@subPackage.Id" /> <span>@subPackage.PackageTitle</span>
+                                                    </li>
+                                                }
+                                            </ul>
+                                        }
+                                    </li>
+                                }
+                            </ul>
+                        }
+                    </div>
+                </div>
+
+            </div>
+                            }
+    </div>
+</section>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        function onSelect(e) {
+            var result = true;
+            var ext = ['.jpeg', '.jpg', '.gif', '.png', '.bmp'];
+            if (ext.indexOf(e.files[0].extension) == -1)
+                result = false;
+            if (!result) {
+                showNotification("فرمت فایل انتخاب شده نادرست است", "error", "Center");
+                return;
+            }
+            return result;
+        }
+
+        function readURL(input) {
+
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#imgPreviewProduct').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        $("#imageProduct").change(function () {
+            readURL(this);
+        });
+    </script>
+    </script>
+
+
+    @Html.Raw(TempData["res"])
+}

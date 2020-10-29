@@ -1,0 +1,17 @@
+﻿@model IEnumerable<DomainClass.Models.Product>
+@{
+    ViewBag.Title = "محصولات بسته";
+}
+
+<section class="last-products">
+    <header><h3>  محصولات بسته<b> @ViewBag.PackageName </b>  </h3></header>
+    <article>
+
+        @foreach (var item in Model)
+        {
+            @Html.Partial("_packageContent", item)
+        }
+
+        <div class="clearfix"></div>
+    </article>
+</section>

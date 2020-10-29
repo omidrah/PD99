@@ -1,0 +1,58 @@
+﻿@*@model IEnumerable<DomainClass.Models.Product>*@
+@*@model Web.Models.ComponentViewModel*@
+<section class="last-products">
+    @{
+        List<DomainClass.Models.Product> Products = ViewBag.Products;
+    }
+    @if (Products.Count() > 0)
+    {
+        <header><h3> تعداد @Products.Count() محصول با کلمه ' @ViewBag.search ' یافت شد . </h3></header>
+        <article>
+
+            @foreach (var item in Products)
+            {
+                @Html.Partial("_product", item)
+            }
+
+            <div class="clearfix"></div>
+        </article>
+    }
+    </section>
+
+    <section class="last-products">
+        @{
+            List<DomainClass.Models.Packages> Packages = ViewBag.Packages;
+        }
+        @if (Packages.Count() > 0)
+    {
+    <header><h3> تعداد @Packages.Count() بسته با کلمه ' @ViewBag.search ' یافت شد . </h3></header>
+    <article>
+
+        @foreach (var item in Packages)
+            {
+            @Html.Partial("_package", item)
+            }
+
+        <div class="clearfix"></div>
+    </article>
+    }
+    </section>
+
+    <section class="last-products">
+        @{
+            List<DomainClass.Models.Dooreha> Dooreh = ViewBag.Dooreh;
+        }
+        @if (Dooreh.Count() > 0)
+        {
+            <header><h3> تعداد @Dooreh.Count() دوره با کلمه ' @ViewBag.search ' یافت شد . </h3></header>
+            <article>
+
+                @foreach (var item in Dooreh)
+                {
+                    @Html.Partial("_dooreh", item)
+                }
+
+                <div class="clearfix"></div>
+            </article>
+        }
+    </section>

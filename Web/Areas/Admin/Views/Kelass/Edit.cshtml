@@ -1,0 +1,95 @@
+﻿@model ServiceLayer.Models.KelassVM
+
+@{
+    ViewBag.Title = "ویرایش " + Html.DisplayNameFor(m => m);
+}
+<section>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <h3>ویرایش یک کلاس</h3>
+        <div class="form-horizontal">
+            @Html.ValidationSummary(true)
+            @Html.HiddenFor(model => model.KelassId)
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.DourseId, new { @class = "control-label col-md-2" })
+                <div class="col-md-5">
+                    @Html.DropDownList("DourseId", null, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.DourseId)
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.MasterId, new { @class = "control-label col-md-2" })
+                <div class="col-md-5">
+                    @Html.DropDownList("MasterId", null, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.MasterId)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.MahaleBargozariId, new { @class = "control-label col-md-2" })
+                <div class="col-md-5">
+                    @Html.DropDownList("MahaleBargozariId", null, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.MahaleBargozariId)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.Label("قیمت کلاس", new { @class = "control-label col-md-2" })
+                <div class="col-md-5">
+                    @Html.TextBoxFor(model => model.Cost, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Cost)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.StartDate, new { @class = "control-label col-md-2" })
+                <div class="col-md-5">
+                    @Html.EditorFor(model => model.StartDate, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.StartDate)
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.EndDate, new { @class = "control-label col-md-2" })
+                <div class="col-md-5">
+                    @Html.EditorFor(model => model.EndDate, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.EndDate)
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("نوع کلاس", new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    آنلاین   @Html.RadioButton("KelassType", "Online")
+                    حضوری @Html.RadioButton("KelassType", "Hozori")
+                </div>
+            </div>
+            @*<div class="form-group">
+            @Html.LabelFor(model => model.IsHozori, new { @class = "control-label col-md-2" })
+            <div class="col-md-5">
+                @Html.EditorFor(model => model.IsHozori, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.IsHozori)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.IsOnline, new { @class = "control-label col-md-2" })
+            <div class="col-md-5">
+                @Html.EditorFor(model => model.IsOnline, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.IsOnline)
+            </div>
+        </div>*@
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="ثبت" class="btn btn-success" />
+                    @Html.ActionLink("لیست کلاسها", "Index", null, new { @class = "btn btn-primary" })
+                </div>
+            </div>
+        </div>
+    }
+
+</section>
+@section scripts{
+    @Html.Raw(TempData["res"])
+}

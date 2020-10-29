@@ -1,0 +1,19 @@
+@model bool?
+@{
+    if (Model.HasValue)
+    {
+        if (Model.Value.Equals(true))
+        {
+            <img src="~/Content/img/check-icon.png" />
+        }
+        else
+        {
+
+            <img src="~/Content/img/close-icon.png" />
+        }
+    }
+    else
+    {
+        <text> ----- </text>
+    }
+}

@@ -1,0 +1,51 @@
+﻿@model ServiceLayer.Models.ProductGroupVM
+
+@{
+    ViewBag.Title = "اعمال تخفیف " + Html.DisplayNameFor(m => m);
+}
+<section>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <h3>اعمال تخفیف برای یک گروه </h3>
+        <div class="form-horizontal">
+            @Html.ValidationSummary(true)
+            @if (@ViewBag.ProductCount > 0)
+            {
+                <p class="btn-danger"> تعداد <b>@ViewBag.ProductCount</b>  محصول از گروه <b>@Model.ProductGroupTitle</b> تخفیف اعمال شد.</p>
+            }
+            
+            <div class="form-group">
+                @Html.LabelFor(model => model.ProductGroupId, new { @class = "control-label col-md-2" })
+                <div class="col-md-5">
+                    @Html.DropDownList("ProductGroupId", null, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.ProductGroupId)
+                </div>
+            </div>
+
+
+           
+            <div class="form-group">
+                @Html.LabelFor(model => model.OffPercent, new { @class = "control-label col-md-2" })
+                <div class="col-md-5">
+                    @Html.TextBoxFor(model => model.OffPercent, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.OffPercent)
+                </div>
+            </div>
+            
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="ثبت" class="btn btn-success" />
+                    @Html.ActionLink("لیست گروههای محصولات", "Index", null, new { @class = "btn btn-primary" })
+                </div>
+            </div>
+        </div>
+    }
+
+</section>
+@section scripts{
+
+   
+    @Html.Raw(TempData["res"])
+}

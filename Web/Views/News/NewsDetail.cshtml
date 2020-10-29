@@ -1,0 +1,253 @@
+﻿@model ServiceLayer.Models.NewsDetailViewModel
+@{
+    ViewBag.Title = "NewsDetail";
+   // Layout = "~/Views/Shared/_BornaLayout.cshtml";
+}
+<style>
+    .single_content__article {
+        background-color: #f0f0f0;
+        border: 1px #d6d4d4 solid;
+        border-radius: 10px;
+        padding: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .post--content {
+        margin-top: 10px;
+    }
+
+    .ClassA {
+        margin: 10px;
+        padding: 5px;
+        /*font-family: Tahoma;
+            font-size: 12px;*/
+        border: 1px solid white;
+        /*// border-radius: 5px;
+           // float: right;
+           // width: 540px;*/
+    }
+
+    .ClassB {
+        margin: 5px;
+        margin-right: 20px;
+        border: 1px dotted #4cff00;
+        //border-radius: 5px;
+        padding: 5px;
+        float: right;
+        width: 510px;
+    }
+</style>
+
+<section class="single_page" style="padding-top:20px">
+    <div class="container">
+        <div class="row">
+            <article class="single_content col-md-9 col-sm-12 col-xs-12">
+                <div class="single_content__article clearfix">
+                    <div class="post clearfix">
+                        <div class="post--header clearfix">
+                            <div class="photo col-md-3 col-sm-12 col-xs-12 pull-right">
+                                <img class="img-responsive"  src="@((Model.NewsViewModel.MasterPicPathThumb !=null)? @Url.Content(Model.NewsViewModel.MasterPicPathThumb):" ")"  alt="">
+                            </div>
+                            <div class="text col-md-9 col-sm-12 col-xs-12">
+                                <div class="text_content">
+                                    <h2>@Model.NewsViewModel.NewsTitle</h2>
+                                    <br />
+                                    <div class="meta">
+                                        <span>
+                                            @Model.NewsViewModel.CommentsCounts
+                                            <i class="fa fa-comment fa-lg"></i>
+                                        </span>
+                                        <span id="Like">
+                                            @Model.NewsViewModel.Like
+                                        </span>
+                                        <i id="LikeIcon" class="fa fa-heart fa-lg"></i>
+
+                                        <span>@Model.NewsViewModel.PublishDate <i class="fa fa-calendar fa-lg"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- post--header -->
+                        <div class="post--content">
+                            @Html.Raw(Model.NewsViewModel.NewsBody)
+                        </div>
+                        <!-- post--content -->
+                    </div>
+                    <br />
+                    <div class="pull-right">
+                        @*<a href="#" class="btn btn-default" id="btnComment" data-toggle="modal" data-target="#myModal" >ثبت نظر</a>*@
+                    </div>
+                    <div class="pull-left">
+                        <a href="#" class="btn btn-default" id="btnLike" onclick="likeClick()"><span class="glyphicon glyphicon-thumbs-up"></span> پسندیدم</a>
+                        <a href="#" class="btn btn-default" id="btnDisLike" onclick="NewsDisLike()"><span class="glyphicon glyphicon-thumbs-down"></span>نپسندیدم</a>
+                    </div>
+                </div>
+                <!-- single_content__article -->
+                @*@Html.Action("FillComments",Model.CommentViewModel)*@
+                <!-- single_content__article -->
+            </article>
+        </div>
+    </div>
+    
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close pull-left" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">فرم ثبت نظر</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="single_content__article clearfix" id="commentModal">
+                        <div class="article--title">
+                            <h4>ارسال نظر</h4>
+                        </div>
+                        <form action="">
+                            <div class="row">
+                                <input type="hidden" name="NewsID" id="NewsID" value="@Model.NewsViewModel.NewsId" />
+                                @*<input type="hidden" name="ParentID" id="ParentID" value="0" />*@
+                                <div class="col-md-6">
+                                    <input id="txtNameModal" name="txtNameModal" type="text" placeholder="نام و نام خانوادگی" class="col-md-12" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <input id="txtEmailModal" name="txtEmailModal" type="text" placeholder="پست الکترونیکی" class="col-md-12" required>
+                                </div>
+                                <div class="col-md-12" style="margin-top:20px">
+                                    <textarea id="txtTextModal" name="txtTextModal" rows="4" cols="10" placeholder="متن ارسالی" class="col-md-12" required></textarea>
+                                </div>
+                                <div class="col-md-12" style="margin-top:20px">
+                                    @* <button type="submit">ارسال</button>*@
+                                    <a href="#" class="btn btn-default" id="btnSendComment">ارسال</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">بستن</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    
+</section>
+@section Scripts{
+  
+@*<script src="~/Scripts/bootstrap.js"></script>*@
+<script src="~/Scripts/jquery-2.1.4.min.js"></script>
+<script src="~/Scripts/jquery.noty.packaged.min.js"></script>
+<script src="~/Scripts/deleteNoty.js"></script>
+@*<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>*@
+
+      <script>
+        var parent = 0;
+        $("#btnSendComment").click(function () {
+            showNotification('عملیات ثبت نظر با موفقیت انجام گردید', 'success', 'center');
+            var newComment = {
+                "NewsID": $(":hidden#NewsID").val(),
+                "ParentID": parent,
+                "Email": $("#txtEmailModal").val(),
+                "Name": $("#txtNameModal").val(),
+                "Text": $("#txtTextModal").val(),
+            };
+            // alert(newComment.Email);
+            $.ajax({
+                type: 'POST',
+                //   contentType: "application/json;charset=utf-8",
+                url: '@Url.Action("InsertComment", "News")',
+                data: newComment,
+                success: function (res) {
+                    if (res.ret) {
+                        if (res.codeid == 1) {
+                            var msg = res.message;
+                            $("#txtEmail").val("");
+                            $("#txtName").val("");
+                            $("#txtText").val("");
+                            $("#myModal").modal("hide");
+                            alert(msg);
+                            //add new user
+                            //   showNotification(res.message, "success");
+                        }
+                        if (res.codeid == 0) {
+                            alert("errror");
+                            //update current user
+                            // showNotification(res.message, "error");
+                        }
+                    }
+                },
+                error: function (ex) {
+                    alert('Failed to retrieve states.' + ex);
+                }
+            });
+        });
+
+        $(".btnAnswer").click(function () {
+            var pID = $(this).attr("value");
+            //alert();
+            //$("#ParentID").val(pID);
+            parent = pID;
+            $("#txtEmail").val("");
+            $("#txtName").val("");
+            $("#txtText").val("");
+            $('#myModal').modal('show');
+           
+        });
+
+        function likeClick () 
+        {
+            var NewsID = $(":hidden#NewsID").val();
+            $.ajax({
+                type: 'POST',
+                //   contentType: "application/json;charset=utf-8",
+                url: '@Url.Action("NewsLike", "News")',
+                data: {id:NewsID},
+                success: function (res) {
+                    if (res.ret) {
+                        var msg = res.message;
+                        var likes = res.like
+                        $("#Like").text(likes);
+                          alert(msg);
+                    }
+                    else {
+                        var msg = res.message;
+                        alert(msg);
+                    }
+                },
+                error: function (ex) {
+                    alert('Failed to retrieve states.' + ex);
+                }
+            });
+        };
+
+
+        function NewsDisLike() {
+            var NewsID = $(":hidden#NewsID").val();
+            $.ajax({
+                type: 'POST',
+                //   contentType: "application/json;charset=utf-8",
+                url: '@Url.Action("NewsDisLike", "News")',
+                data: { id: NewsID },
+                success: function (res) {
+                    if (res.ret) {
+                        var msg = res.message;
+                        var likes = res.like
+                        $("#Like").text(likes);
+                        alert(msg);
+                    }
+                    else {
+                        var msg = res.message;
+                        alert(msg);
+                    }
+                },
+                error: function (ex) {
+                    alert('Failed to retrieve states.' + ex);
+                }
+            });
+        };
+
+    </script>
+}

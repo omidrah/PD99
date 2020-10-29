@@ -1,0 +1,98 @@
+﻿@model Web.Models.RegisterViewModel
+@{
+    ViewBag.Title = "ثبت نام در ";
+    Layout = "~/Views/Shared/_BornaLayout.cshtml";
+}
+<section class="singup_content">
+    <div class="container">
+        <div class="row" style="direction:rtl">
+            <div class="singup-forms col-md-7 col-sm-7 col-xs-12" >
+                <div class="container">
+                    @using (Html.BeginForm(MVC.Account.ActionNames.Register, MVC.Account.Name, FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <hr />
+                        @Html.ValidationSummary("", new { @class = "text-danger" })
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Name, new { @class = "col-md-2 control-label" })
+                            <div class="col-md-4">
+                                @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+                            </div>
+                            @Html.LabelFor(m => m.Family, new { @class = "col-md-2 control-label" })
+                            <div class="col-md-4">
+                                @Html.TextBoxFor(m => m.Family, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.CustomerTypeId, new { @class = "control-label col-md-2" })
+                            <div class="col-md-4">
+                                @Html.DropDownList("CustomerTypeId", null, "انتخاب کنید", new { @class = "form-control", style = "height:45px" })
+                            </div>
+
+                            @Html.LabelFor(m => m.PicDoc, new { @class = "col-md-2 control-label" })
+                            <div class="col-md-4">
+                                <input type="file" name="PicDoc" id="PicDoc" class="form-control" />
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Mobile, new { @class = "col-md-2 control-label" })
+                            <div class="col-md-4">
+                                @Html.TextBoxFor(m => m.Mobile, new { @class = "form-control" })
+                            </div>
+                            @Html.LabelFor(m => m.Tel, new { @class = "col-md-2 control-label" })
+                            <div class="col-md-4">
+                                @Html.TextBoxFor(m => m.Tel, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+
+                            @Html.LabelFor(m => m.nationCode, new { @class = "col-md-2 control-label" })
+                            <div class="col-md-4">
+                                @Html.TextBoxFor(m => m.nationCode, new { @class = "form-control" })
+                            </div>
+
+                            @Html.LabelFor(m => m.PicPath, new { @class = "col-md-2 control-label" })
+                            <div class="col-md-4">
+                                <input type="file" name="PicPath" id="PicPath" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.Label("نام کاربری( ایمیل)", new { @class = "col-md-2 control-label" })
+                            <div class="col-md-4">
+                                @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+                            <div class="col-md-4">
+                                @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                            </div>
+                            @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
+                            <div class="col-md-4">
+                                @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Address, new { @class = "col-md-2 control-label" })
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(m => m.Address, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @*<div class="col-md-offset-9 col-md-5">*@
+                            <div >
+                                <input type="submit" class="btn btn-group" value="ثبت نام" />
+                            </div>
+                        </div>
+                       
+                    }
+                </div>
+                </div>
+        </div>
+        </div>
+    </section>
+        @*@section Scripts {
+                @Scripts.Render("~/bundles/jqueryval")
+            }*@

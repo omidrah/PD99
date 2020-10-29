@@ -1,0 +1,73 @@
+﻿@model ServiceLayer.Models.DoorehVM
+
+@{
+    ViewBag.Title = "افزودن " + Html.DisplayNameFor(m => m);
+}
+<section>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <h3>افزودن درس به دوره</h3>
+        <div class="form-horizontal">
+            @Html.ValidationSummary(true)
+            @Html.Hidden("DoorehId", (object)ViewBag.DoorehId)
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.DoorehDorusId, new { @class = "control-label col-md-2" })
+                <div class="col-md-5">
+                    @Html.DropDownList("DoorehDorusId",null, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.DoorehDorusId)
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.MasterId, new { @class = "control-label col-md-2" })
+                <div class="col-md-5">
+                    @Html.DropDownList("MasterId", null, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.MasterId)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.MahaleBargozariId, new { @class = "control-label col-md-2" })
+                <div class="col-md-5">
+                    @Html.DropDownList("MahaleBargozariId", null, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.MahaleBargozariId)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.Label("قیمت کلاس", new { @class = "control-label col-md-2" })
+                <div class="col-md-5">
+                   @Html.TextBoxFor(model => model.Cost, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Cost)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.StartDate, new { @class = "control-label col-md-2" })
+                <div class="col-md-5">
+                    @Html.EditorFor(model => model.StartDate, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.StartDate)
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.EndDate, new { @class = "control-label col-md-2" })
+                <div class="col-md-5">
+                    @Html.EditorFor(model => model.EndDate, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.EndDate)
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="ثبت" class="btn btn-success" />
+                    @Html.ActionLink("فهرست", "/ShowProp/" + (object)ViewBag.DoorehId, null, new { @class = "btn btn-primary" })
+                </div>
+            </div>
+        </div>
+    }
+
+</section>
+@section scripts{
+    @Html.Raw(TempData["res"])
+}

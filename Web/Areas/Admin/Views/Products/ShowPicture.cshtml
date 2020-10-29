@@ -1,0 +1,130 @@
+﻿@model IEnumerable<ServiceLayer.Models.ProductImageViewModel>
+@{
+    ViewBag.Title = "ShowPicture";
+    // Layout = "~/Areas/AdminRoot/Views/Shared/_NLayout.cshtml";
+}
+<script type="text/x-kendo-tmpl" id="template">
+    <div class="product-view k-widget">
+        <div class="edit-buttons">
+            <a class="k-button k-button-icontext k-delete-button" href="\\#"><span class="k-icon k-delete"></span></a>
+        </div>
+        <div class="product">
+            <img src="/Uploads/ImgProducts/Thumb/#:ImageThumbPath#" />
+            <p></p>  @*//for hover need,omid comment*@
+        </div>
+    </div>
+</script>
+<section id="PicturesProduct" class="bg-primary top-buffer">
+
+    <div class="row top-buffer">
+        @Html.ActionLink("بازگشت به لیست محصولات", "Index", "Products", new { Area = "Admin" }, new { @class = "btn btn-primary" })
+    </div>
+    @{
+        if (Model != null)
+        {
+            <div class="col-md-12 col-md-pull-5" style="margin-bottom:15px"><span class="text-danger">لیست عکس ها </span></div>
+            @(Html.Kendo().ListView(Model)
+                                    .Name("PictureGrid")
+                                    .TagName("div")
+                                    .ClientTemplateId("template")
+                                    .DataSource(dataSource =>
+                                    {
+                                        dataSource.Model(model => model.Id("ImageId"));
+                                        dataSource.Read(read => read.Action("ImagesProduct_Read", "Products", new { ItemId = ViewBag.ItemId }));
+                                        dataSource.Destroy(destroy => destroy.Action("DeletePicture", "Products"));
+                                        dataSource.PageSize(15);
+                                    })
+                                    .Pageable())
+        }
+        else
+        {
+            <div class="well"><span>عکسی برای نمایش وجود ندارد..برای افزودن عکس به قسمت جزییات منابع رفته و عکسهای موردنظر خود را آپلود نمایید</span></div>
+            <div class="col-md-6">
+                <img src="~/Content/img/NoImage.jpg" />
+            </div>
+        }
+    }
+
+</section>
+
+
+<style>
+    .product-view {
+        float: left;
+        position: relative;
+        width: 200px;
+        margin: -1px -1px 0 0;
+    }
+
+    .k-listview {
+        border: 0;
+        padding: 0;
+        min-width: 605px;
+        min-height: 298px;
+    }
+
+    .edit-buttons {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 26px;
+        height: 146px;
+        padding: 2px 2px 0 3px;
+        background-color: rgba(0,0,0,0.1);
+        z-index: 25656636;
+    }
+
+        .edit-buttons .k-button {
+            width: 26px;
+            margin-bottom: 1px;
+        }
+
+    .k-pager-wrap {
+        border-top: 0;
+    }
+
+    .product {
+        float: left;
+        position: relative;
+        width: 200px;
+        height: 200px;
+        margin: 0;
+        padding: 0;
+    }
+
+        .product img {
+            width: 200px;
+            height: 200px;
+        }
+
+        .product p {
+            visibility: hidden;
+        }
+
+        .product:hover p {
+            visibility: visible;
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            top: 0;
+            margin: 0;
+            padding: 0;
+            line-height: 110px;
+            vertical-align: middle;
+            text-align: center;
+            color: #fff;
+            background-color: rgba(0,0,0,0.75);
+            transition: background .2s linear, color .2s linear;
+            -moz-transition: background .2s linear, color .2s linear;
+            -webkit-transition: background .2s linear, color .2s linear;
+            -o-transition: background .2s linear, color .2s linear;
+        }
+
+        .k-listview:after, .product dl:after {
+            content: ".";
+            display: block;
+            height: 0;
+            clear: both;
+            visibility: hidden;
+        }
+</style>

@@ -1,0 +1,90 @@
+﻿@model IEnumerable<Web.Models.ShowOrderViewModel>
+
+<div class="row basket-style">
+    <section class="border-radius">
+        @{
+            if (Model.Count() > 0)
+            {
+                <div class="hidden-head">
+                    سبد خرید شما
+                </div>
+                <div class="tbl-head">
+                    <ul>
+                        <li> شرح محصول </li>
+                        <li> تعداد و وزن </li>
+                        <li> قیمت واحد </li>
+                       @* <li> درصد تخفیف </li>*@
+                        <li> قیمت کل   </li>
+                    </ul>
+                </div>
+
+                <div class="tbl-body">
+
+                    @foreach (var item in Model)
+                    {
+                        <!-- Each Row -->
+                        <ul>
+                            <li>
+                                <a href="" class="product-image"><img class="border-radius" src="~/Uploads/ImgProducts/Thumb/@item.ImageName"></a>
+                                <div class="product-info-left-side">
+                                    <a href="" class="product-title"> <h3> @item.Title </h3> </a>
+                                </div>
+                            </li>
+                            <li>
+                                <p>
+                                    <input name="points" min="1" max="30" step="1" value="@item.Count" onchange="commandOrder(@item.ItemId,'@item.ItemType', $(this).val())" type="number">
+                                </p>
+                            </li>
+                            <li>
+                                <label class="lbl-hidden"> قیمت واحد : </label> <span class="lbl-price"> @item.Price.ToString("#,0") تومان </span>
+                            </li>
+                            @*<li>
+                                <label class="lbl-hidden"> درصد تخفیف : </label> <span class="lbl-price"> @item.OffPercent </span>
+                            </li>*@
+                            <li>
+                                <label class="lbl-hidden"> قیمت کل : </label> <span class="lbl-price"> @item.Sum.ToString("#,0") تومان </span>
+                                <a onclick="commandOrder(@item.ItemId,'@item.ItemType',0)"><i class="delete-button">X</i></a>
+                            </li>
+                        </ul>
+                        <!-- End Each Row -->
+                    }
+
+                </div>
+                <div class="tbl-footer">
+                    @*<ul>
+                        <li> هزینه ارسال پستی : <span> @ViewBag.TransferCost.ToString("#,0") تومان </span></li>
+                    </ul>*@
+                    <ul>
+                        <li> قیمت کل : <span> @Model.Sum(p => p.Sum).ToString("#,0") تومان </span></li>
+                        @{
+                            int sum = Model.Sum(p => p.Sum);//+ ViewBag.TransferCost;
+                        }
+                        <li class="total-price"> مبلغ قابل پرداخت : <span> @sum.ToString("#,0") تومان </span></li>
+                    </ul>
+                </div>
+                <br />
+                <br />
+                <br />
+                <div> <b>   لطفا بعد از پرداخت درگاه بانک به منظور تکمیل پرداخت  حتما روی دکمه <span  style="color:red"><b>تکمیل فرایند خرید </b></span> کلیک نمایید.</b></div>
+                <br />
+
+                <div class="clearfix"></div>               
+                <hr />
+                if (Request.IsAuthenticated)
+                {
+                    <a href="/ShopCart/SelectShiping" type="button" class="border-radius submit-basket-button"> تایید  </a>
+                }
+                else
+                {
+                    <a href="/Account/login?returnUrl=/ShopCart/SelectShiping" type="button" class="border-radius submit-basket-button"> تایید  </a>
+                }
+            }
+            else
+            {
+                <div class="">
+                    سبد خرید شما خالی است
+                </div>
+            }
+        }
+    </section>
+</div>

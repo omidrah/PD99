@@ -1,0 +1,46 @@
+﻿
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body modal-body-sub_agile">
+                <div class="col-md-4 modal_body_right modal_body_right1">
+                    <img src="@Url.Content("~/images/log_pic.jpg")" alt="" />
+                </div>
+                <div class="col-md-8 modal_body_left modal_body_left1">
+                    <h3 class="agileinfo_sign">ورود</h3>
+                    @using (Html.BeginForm(MVC.Account.ActionNames.Login, MVC.Account.Name, FormMethod.Post, new { id = "LoginForm" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <div class="styled-input agile-styled-input-top">
+                            <input type="email" name="Email" required="">
+                            <label>نام کاربری</label>
+                            <span>@Html.ValidationMessage("نام کاربری(ایمیل) را وارد کنید", new { @class = "text-danger" })</span>
+                        </div>
+                        <div class="styled-input">
+                            <input type="password" name="Password" required="رمز عبور را وارد کنید">
+                            <label>رمز عبور</label>
+                            <span>@Html.ValidationMessage("رمز عبور را وارد کنید", new { @class = "text-danger" })</span>
+                        </div>
+                            <div class="styled-input">
+                                <input type="checkbox" name="RememberMe" id="RememberMe">
+                                <label>مرا بخاطر بسپار؟ </label>
+                                <span></span>
+                            </div>
+                            <input type="submit" value="ورود">
+                    }
+                </div>
+
+                
+                <div class="clearfix"></div>
+                <label>
+                    @Html.ActionLink("ثبت نام", "Register", "Account")
+                </label>
+            </div>
+        </div>
+        <!-- //Modal content-->
+    </div>
+</div>

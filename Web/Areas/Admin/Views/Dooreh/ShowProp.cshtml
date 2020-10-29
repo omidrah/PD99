@@ -1,0 +1,117 @@
+﻿@model IEnumerable<ServiceLayer.Models.DoorehVM>
+@{
+    ViewBag.Title = "جزئیات دوره";
+    //Layout = "~/Views/Shared/_NLayout.cshtml";
+    int counter = 1;
+}
+<section id="Warehouses" class="bg-primary">
+
+    <div class="row bg-olive-active">
+        <div class="row">
+            <div class="col-md-6">
+                @Html.Label("عنوان دوره:")
+                @ViewBag.DoorehTitle
+                @Html.Hidden("DoorehId", (object)ViewBag.DoorehId)
+            </div>
+            <div class="col-md-6">
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                @Html.Label("تاریخ شروع دوره:")
+                @ViewBag.DoorehStartDate
+            </div>
+            <div class="col-md-6">
+                @Html.Label("تاریخ پایان دوره:")
+                @ViewBag.DoorehEndDate
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        @(Html.Kendo().Grid(Model)
+         .Name("PackageDetailsGrid").HtmlAttributes(new { style = "height:600px;" })
+         .Columns(columns =>
+         {
+             columns.Template( @<text>      @counter   @{ counter++; }      </text>).Width(70).Title("ردیف");
+                     columns.Bound(model => model.MasterName);
+                     columns.Bound(model => model.dorusTitle);
+                     columns.Bound(model => model.StartDate);
+                     columns.Bound(model => model.EndDate);
+                     columns.Bound(model => model.MahaleBargozari);
+                     columns.Bound(model => model.Cost);
+
+
+                     columns.Bound(item => @item.Id).Title("دستورات").Filterable(false).Groupable(false).
+                                                             Template(@<text>
+
+                        <a href="#" id="@item.Id" class="btn btn-primary btnDelete">حذف</a>
+                                        </text>).Width(100);
+         })
+    .ToolBar(toolbar => toolbar.Custom().Action("AddDetiales", "Dooreh", new { doorehId = @ViewBag.DoorehId }).Text("افزودن"))
+    .Pageable()
+    .Sortable()
+    .Scrollable()
+    .DataSource(dataSource => dataSource
+        .Server()
+        //.Aggregates(aggregates =>
+        //{
+        //    aggregates.Add(p => p.Price * p.ProductCount).Sum();
+        //})
+        .PageSize(20)
+        .Model(model => model.Id(p => p.Id))
+              )
+        )
+    </div>
+</section>
+@section scripts{
+    <script type="text/javascript">
+        $(".btnDelete").click(function () {
+            var curRec = this.id;//get id of record;
+            showConfirm("از حذف این رکورد مطمئن هستید؟").then(function (stat) {
+                if (stat) {
+                    $.ajax({
+                        type: 'POST',
+                        url: '@Url.Action("DeleteDooreh", "Dooreh")', // we are calling json method
+                        dataType: 'json',
+                        data: { id: curRec },
+                        success: function (states) {
+                            if (states) {
+                                if (states.codeid == 1) {
+                                    var doorehId = states.doorehId;
+                                    $.ajax({
+                                        type: 'get',
+                                        url: '/Admin/Dooreh/ShowProp/' + doorehId,
+                                        data: {},
+                                        success: function (data) {//rebind grid
+                                            window.location.href = '/Admin/Dooreh/ShowProp/' + doorehId;
+                                            showNotification("عملیات حذف با موفقیت انجام گردید", "success", 'center');
+                                        }
+                                    });
+                                }
+                                else if (states.codeid == 2) {
+                                    showNotification("خطا در عملیات حذف رکورد", "information", 'center');
+                                    return;
+                                }
+                                else {
+                                    showNotification("رکورد مورد نظر سابقه داشته و قابل حذف نمی باشد", "information", 'center');
+                                    return;
+                                }
+
+                            }
+                            else {
+                                //res = "خطا در حذف";
+                            }
+                        },
+                        error: function (ex) {
+                            alert('Failed to retrieve states.' + ex);
+                        }
+                    })
+                }
+            });
+
+        });
+    </script>
+    @Html.Raw(TempData["res"])
+
+}

@@ -1,0 +1,46 @@
+﻿@model IEnumerable<DomainClass.Models.Comments>
+
+<div class="single_content__article" id="Comments">
+    <div class="article--title">
+        <h4>لیست نظرات</h4>
+    </div>
+    @foreach (var item in Model.Where(ll => ll.ParentID.Equals(0) && ll.Confirm == true))
+    {
+        <div class="comments">
+            <div class="cm-user ClassA">
+                <div class="user--photo">
+                    <img src="assets/images/user.jpg" alt="">
+                </div>
+                <div class="user--info">
+                    <div class="username">@item.Name</div>
+                    <div class="text">
+                        <p>@item.Text</p>
+                    </div>
+                </div>
+                <!-- cm-user -->
+                @foreach (var itemAns in Model.Where(ll => ll.ParentID.Equals(item.ID)))
+                {
+                    <div class="cm-user ClassA">
+                        <div class="user--photo">
+                            <img src="assets/images/user.jpg" alt="">
+                        </div>
+                        <div class="user--info">
+                            <div class="username">@itemAns.Name</div>
+                            <div class="text">
+                                <p>@itemAns.Text</p>
+                            </div>
+                        </div>
+                    </div>
+                                    @*<input type="hidden" name="ParentID" id="ParentID" value="@itemAns.ParentID" />*@
+                }
+                <div style="direction:ltr">
+                    @*<button type="submit">پاسخ</button>*@
+                    <button href="#" class="btn btn-default btnAnswer" id="btnAnswer" value="@item.ID" name="@item.ID">پاسخ</button>
+                </div>
+
+            </div>
+        </div>
+                    <!-- comments -->
+    }
+
+</div>

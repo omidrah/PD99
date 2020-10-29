@@ -1,0 +1,101 @@
+﻿@model IEnumerable<ServiceLayer.Models.DoorehVM>
+
+@{
+// ViewBag.Title =  "فهرست " + Server.HtmlDecode(Html.DisplyModelPluralName(model => model).ToString());
+}
+<section>
+    <div class="row text-center"> <h3> دوره ها </h3></div>
+    @(Html.Kendo().Grid(Model)
+    .Name("Grid").HtmlAttributes(new { style = "height:600px;" })
+    .Columns(columns =>
+    {
+    columns.Bound(model => model.DoorehTitle); 
+    columns.Bound(model => model.IsOnline);
+    columns.Bound(model => model.IsHozori);
+    columns.Bound(model => model.Cost);
+    columns.Bound(model => model.OffPercent);
+    //columns.Bound(model => model.BargozariTime);
+    //columns.Bound(model => model.IsActive);
+    //columns.Bound(model => model.IsActive);
+    columns.Bound(item => @item.Id).Title("دستورات").Filterable(false).Groupable(false).
+    Template(@<text>
+            @Html.ActionLink("ویرایش", "Edit", new { id = @item.Id }, new { @class = "btn btn-primary" })
+            @*@Html.ActionLink("حذف", "Delete", new { id = @item.Id }, new { @class = "btn btn-primary" })*@
+            @*@Html.ActionLink("جزئیات", "ShowProp", new { id = @item.Id }, new { @class = "btn btn-primary" })*@
+            @Html.ActionLink("کلاسها", "ShowKelass", new { id = @item.Id }, new { @class = "btn btn-primary" })
+            @Html.ActionLink("عکس ها", "Gallery", new { id = @item.Id }, new { @class = "btn btn-primary" })
+            <a href="#" id="@item.Id" class="btn btn-primary btnDelete">حذف</a>
+    </text>).Width(300);
+    })
+        .ToolBar(toolbar =>
+        {
+            toolbar.Custom().Action("Create", "Dooreh").Text("افزودن");
+        }
+        )
+        //.Groupable()
+        .Pageable()
+        .Sortable()
+        .Scrollable()
+        .Filterable()
+        .DataSource(dataSource => dataSource
+                                    .Server()
+                                    .Read(read => read.Action("Index", "Dooreh"))
+                                    .Model(model =>
+                                    {
+                                        model.Id(item => item.Id);
+                                        // model.Field(item => item.Pid);
+                                        //model.Field(item => item.DoorehTitle);
+                                    })
+                    )
+    )
+</section>
+@section scripts{
+    <script type="text/javascript">
+        $(".btnDelete").click(function () {
+            var curRec = this.id;//get id of record;
+            showConfirm("از حذف این رکورد مطمئن هستید؟").then(function (stat) {
+                if (stat) {
+                    $.ajax({
+                        type: 'POST',
+                        url: '@Url.Action("Delete", "Dooreh")', // we are calling json method
+                        dataType: 'json',
+                        data: { id: curRec },
+                        success: function (states) {
+                            if (states) {
+                                if (states.codeid == 1) {
+                                    $.ajax({
+                                        type: 'get',
+                                        url: '/Admin/Dooreh/Index',
+                                        data: {},
+                                        success: function (data) {//rebind grid
+                                            window.location.href = '/Admin/Dooreh/Index';
+                                            showNotification('عملیات حذف با موفقیت انجام گردید', 'success', 'center');
+                                        }
+                                    });
+                                }
+                                else if (states.codeid == 2) {
+                                    showNotification("خطا در عملیات حذف رکورد", "information", 'center');
+                                    return;
+                                }
+                                else {
+                                    showNotification("رکورد مورد نظر سابقه داشته و قابل حذف نمی باشد", "information", 'center');
+                                    return;
+                                }
+
+                            }
+                            else {
+                                //res = "خطا در حذف";
+                            }
+                        },
+                        error: function (ex) {
+                            alert('Failed to retrieve states.' + ex);
+                        }
+                    })
+                }
+            });
+
+        });
+    </script>
+    @Html.Raw(TempData["res"])
+
+}

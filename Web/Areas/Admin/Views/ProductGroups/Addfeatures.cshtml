@@ -1,0 +1,47 @@
+﻿@model ServiceLayer.Models.ProductGroupFeaturesVM
+
+@{
+    ViewBag.Title = "Addfeatures";
+    // Layout = "~/Views/Shared/_EshopLayout.cshtml";
+}
+<section>
+    <div class="row">
+        @using (Html.BeginForm())
+        {
+            @Html.HiddenFor(model => model.ProductGroupId)
+            <div class="col-md-12">
+                @Html.AntiForgeryToken()
+                <div class="form-horizontal">
+                    <h3>افزودن ویژگی به گروه <b>@ViewBag.ProductGroupTitle</b></h3>
+                    <hr />
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @{
+                        List<DomainClass.Models.Features> FeaturesList = ViewBag.FeaturesList;
+                        List<int> ProductGroupFeaturesList = ViewBag.productGroupFeaturesList;
+                    }
+                    @foreach (var item in FeaturesList)
+                    {
+                        <span class=" col-md-2">
+                            <input type="checkbox" name="SelectedFeatures" value="@item.FeatureId" @((ProductGroupFeaturesList.Contains(item.FeatureId)) ? "checked" : "") class="checkbox-inline" />
+                            <span>@item.featuresDispaly</span>
+                        </span>
+                    }
+                </div>
+            </div>
+            <br />
+            <div class="row" style="margin-top: 20px">
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10" style="margin-top: 30px;">
+                        <input type="submit" value="ثبت" class="btn btn-success" />
+                        @Html.ActionLink("فهرست", "Index", null, new { @class = "btn btn-primary" })
+                    </div>
+                </div>
+            </div>
+
+                        }
+    </div>
+
+
+
+</section>

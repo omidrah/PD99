@@ -1,0 +1,51 @@
+﻿@model IEnumerable<ServiceLayer.Models.OrderViewModel>
+
+@{
+    ViewBag.Title = "Orders";
+    int counter = 1;
+}
+
+<h4><b>لیست سفارشات</b> </h4>
+<br />
+
+<table class="table table-bordered">
+    <tr>
+        <th>#</th>
+        <th class="text-center">
+            شماره سفارش
+        </th>
+        <th class="text-center">
+            تاریخ ثبت سفارش
+        </th>
+        <th class="text-center">
+           وضعیت سفارش
+        </th>
+        <th class="text-center">
+            مبلغ کل سفارش
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+       <td>@(counter++)</td>
+        <td class="text-center">
+            @Html.DisplayFor(modelItem => item.OrderID)
+        </td>
+        <td class="text-center">
+            @Html.DisplayFor(modelItem => item.OrderDate)
+        </td>
+        <td class="text-center">
+            @Html.DisplayFor(modelItem => item.StatusDesc)
+        </td>
+       <td>
+           @Html.DisplayFor(modelItem => item.OrderSum)
+       </td>
+        <td class="text-center">
+           
+            @Html.ActionLink("جزئیات", "OrderDetails", new { id=item.OrderID  })
+         
+        </td>
+    </tr>
+}
+
+</table>

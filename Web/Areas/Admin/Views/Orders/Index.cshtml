@@ -1,0 +1,15 @@
+﻿@model IEnumerable<ServiceLayer.Models.OrderViewModel>
+
+@{
+    ViewBag.Title = "Index";
+    int counter = 1;
+}
+
+<section id="Warehouses">
+    <div class="row text-center"> <h3>مدیریت سفارشات</h3></div>
+    <hr />
+    <a href="/Admin/Orders/OpenOrders"><input type="button" class="btn btn-success btn-lg" value="سفارشات باز" /></a>
+    <a href="/Admin/Orders/FinalizedOrders"><input type="button" class="btn btn-success btn-lg" value="سفارشات تکمیل شده" /></a>
+    <a href="/Admin/Orders/NotFinalizedOrders"><input type="button" class="btn btn-success btn-lg" value="سفارشات پرداخت نشده" /></a>
+    <a href="/Admin/OrderDetail/SearchProduct"><input type="button" class="btn btn-success btn-lg" value="چاپ آدرس بر اساس محصول" /></a>
+   </section> 

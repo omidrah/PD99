@@ -1,0 +1,97 @@
+﻿@model IEnumerable<ServiceLayer.Models.MasterVm>
+
+@{
+    //ViewBag.Title = "فهرست " + Server.HtmlDecode(Html.DisplyModelPluralName(model => model).ToString());
+    //Layout = "~/Areas/AdminRoot/Views/Shared/_NLayout.cshtml";
+    int counter = 1;
+}
+<section id="Users" class="top-buffer">
+    <div class="row text-center"> <h3>مشخصات اساتید</h3></div>
+    <hr />
+    @(Html.Kendo().Grid(Model).HtmlAttributes(new { @class = "k-rtl", style = "height:600px" })
+                 .Name("UserGrid")
+                 .Columns(columns =>
+                 {
+                 columns.Template( @<text>      @counter   @{ counter++; }   </text>).Width(70).Title("ردیف");
+                     columns.Bound(model => model.Name);
+                     columns.Bound(model => model.Rotbe);
+                     columns.Bound(model => model.Bio);
+                     columns.Bound(model => model.Takhasos);
+                     columns.Bound(model => model.IsHeiatElmi);
+                     columns.Bound(item => @item.UserId).Title("دستورات").Filterable(false).Groupable(false).
+                Template(@<text>
+                            @Html.ActionLink("ویرایش", "Edit", new { id = @item.UserId }, new { @class = "btn btn-primary" })
+                            <a href="#" id="@item.UserId" class="btn btn-primary checkDelete">حذف</a>
+                </text>).Width(200);
+                 })
+        .ToolBar(toolbar =>
+        {
+            toolbar.Custom().Action("Create", "Masters").Text("افزودن");
+        }
+        )
+        //.Groupable()
+        .Pageable()
+        .Sortable()
+        .Scrollable()
+        .Filterable()
+        .DataSource(dataSource => dataSource
+                                    .Server()
+                                    .PageSize(10)
+                                    .Model(model => model.Id(item => item.UserId))
+                    )
+    )
+</section>
+
+@section scripts{
+    <script type="text/javascript">
+        $(function () {
+
+            $(".checkDelete").click(function () {
+                var curRec = this.id;//get id of record;
+                showConfirm("از حذف این رکورد مطمئن هستید؟").then(function (stat) {
+                    if (stat) {
+                        $.ajax({
+                            type: 'POST',
+                            url: '@Url.Action("Delete", "Masters")', // we are calling json method
+                            dataType: 'json',
+                            data: { id: curRec },
+                            success: function (states) {
+                                if (states) {
+                                    if (states.codeid == 1) {
+                                        $.ajax({
+                                            type: 'get',
+                                            url: '/Admin/Masters/Index',
+                                            data: {},
+                                            success: function (data) {//rebind grid
+                                                window.location.href = "/Admin/Masters/Index";
+                                                showNotification("عملیات حذف با موفقیت انجام گردید", "success", "center");
+                                            }
+                                        });
+                                    }
+                                    else if (states.codeid == 2) {
+                                        showNotification("خطا در عملیات حذف رکورد", "information");
+                                        return;
+                                    }
+                                    else {
+                                        showNotification("رکورد مورد نظر سابقه داشته و قابل حذف نمی باشد", "information" , "center");
+                                        return;
+                                    }
+
+                                }
+                                else {
+                                    //res = "خطا در حذف";
+                                }
+                            },
+                            error: function (ex) {
+                                alert('Failed to retrieve states.' + ex);
+                            }
+                        })
+                    }
+                });
+
+            });
+
+        });
+    </script>
+    @Html.Raw(TempData["res"])
+}

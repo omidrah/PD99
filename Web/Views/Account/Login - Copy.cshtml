@@ -1,0 +1,66 @@
+﻿@using Web.Models
+@model Web.Models.LoginViewModel
+@{
+    ViewBag.Title = "ورود  ";
+     Layout = "~/Views/Shared/_BornaLayout.cshtml";
+} 
+<div class="banner_bottom_agile_info">
+    <div class="container">
+        <div class="modal-content">
+            <div class="modal-body modal-body-sub_agile">
+                <div class="col-md-4 modal_body_right modal_body_right1">
+                    <img src="@Url.Content("~/images/log_pic.jpg")" alt="" height="300" />
+                </div>
+                <div class="col-md-4 modal_body_left modal_body_left1">
+                    <h3 class="agileinfo_sign">ورود</h3>
+                    @using (Html.BeginForm(MVC.Account.ActionNames.Login, MVC.Account.Name, FormMethod.Post))
+                    {
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.AntiForgeryToken()
+                        <div class="styled-input agile-styled-input-top">
+                            @Html.EditorFor(x=>x.Email)
+                            <label>نام کاربری</label>
+                            @Html.ValidationMessageFor(x=>x.Email,"", new {@class = "text-danger"})
+                        </div>
+                        <div class="styled-input">
+                            @*<input type="password" name="Password" required="*">*@
+                            @Html.PasswordFor(x=>x.Password)
+                            <label>رمز عبور</label>
+                            <span>@Html.ValidationMessageFor(x=>x.Password,"", new {@class = "text-danger"})</span>
+                        </div>
+                        <div class="styled-input">
+                            @Html.CheckBoxFor(x=>x.RememberMe)
+                            <label>مرا بخاطر بسپار؟ </label>
+                        </div>
+                        <input type="submit" value="ورود">
+                    }
+                </div>
+                @*<div class="col-md-4 modal_body_right modal_body_left1">
+                        <section id="socialLoginForm">
+                            @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+                        </section>
+                    </div>*@
+                <div class="col-md-4 modal_body_left modal_body_left1">
+                    <div class="styled-input agile-styled-input-top" style="margin-top: 50%; margin-right: 25%">
+                        @Html.ActionLink("ثبت نام کنید", MVC.Account.ActionNames.Register, MVC.Account.Name)
+                    </div>
+                    <div class="styled-input agile-styled-input-top" style="margin-right: 25%">
+                        @Html.ActionLink("فراموشی رمز عبور", MVC.Account.ActionNames.ForgotPassword, MVC.Account.Name)
+                    </div>
+
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script type="text/javascript">
+        $(function() {
+            if ('@ViewBag.HasErrors') {
+                // display the modal
+                alert('has error');
+            }
+        });
+    </script>
+}
