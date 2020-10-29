@@ -9,6 +9,8 @@ namespace Web.Models
         [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
         [Display(Name = "ایمیل")]
         public string Email { get; set; }
+
+
     }
     public class ConfirmEmailModel
     {
